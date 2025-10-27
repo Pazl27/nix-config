@@ -1,0 +1,87 @@
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+with lib;
+
+{
+  options.features.application.kitty = {
+    enable = mkEnableOption "Kitty terminal emulator";
+  };
+
+  config = mkIf config.features.application.kitty.enable {
+    programs.kitty = {
+      enable = true;
+      package = pkgs.kitty;
+
+      themeFile = "GruvboxMaterialDarkHard";
+
+      shellIntegration = {
+        enableZshIntegration = true;
+      };
+
+      font = {
+        name = "JetBrainsMonoNL";
+        size = 15;
+      };
+
+      extraConfig = ''
+        # +-------------------------+
+        # |   Kitty Configuration   |
+        # +-------------------------+
+
+        cursor #DF4633
+        cursor #DF4633
+
+        confirm_os_window_close 0
+        # ===== Window =======================================================
+        # hide_window_decorations yes
+        # Set window padding
+        window_padding_width 7
+        # Disable sound
+        enable_audio_bell no
+        # Background Opacity hyprland
+        # background_opacity 0.5
+
+        # ===== Tabs =========================================================
+        # Tab Styles
+        # tab_title_template "[{index}] {title[title.rfind('/')+1:]}"
+        # tab_bar_edge top
+        # tab_bar_margin_height 10 0
+        # tab_bar_min_tabs 1
+        # placement_strategy top-left
+        # tab_bar_style powerline
+        # tab_powerline_style angled
+
+        # Tab Navigation
+        map ctrl+1 goto_tab 1
+        map ctrl+2 goto_tab 2
+        map ctrl+3 goto_tab 3
+        map ctrl+4 goto_tab 4
+        map ctrl+5 goto_tab 5
+        map ctrl+6 goto_tab 6
+        map ctrl+7 goto_tab 7
+        map ctrl+8 goto_tab 8
+        map ctrl+9 goto_tab 9
+        # Tab Management
+        map ctrl+shift+t new_os_window_with_cwd
+        map ctrl+shift+o new_tab_with_cwd
+        map ctrl+shift+r set_tab_title
+        map ctrl+shift+[ move_tab_backward
+        map ctrl+shift+] move_tab_forward
+
+        # ===== Misc ========================================================
+        # Unmap keys
+        map ctrl+tab        no_op
+        map ctrl+shift+tab  no_op
+        map ctrl+shift+u    no_op
+
+        # ===== Deletion full Word ==========================================
+        map ctrl+backspace send_text all \x17       map ctrl+shift+u    no_op
+      '';
+    };
+  };
+}

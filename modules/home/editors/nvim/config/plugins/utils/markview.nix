@@ -1,0 +1,31 @@
+_: {
+  plugins = {
+    markview = {
+      enable = true;
+      luaConfig.post = ''
+        local preset = require("markview.presets");
+
+        require("markview").setup({
+          markdown = {
+            headings = preset.headings.slanted,
+            horizontal_rules = preset.horizontal_rules.dotted,
+            tables = preset.tables.rounded,
+          },
+          preview = {
+            icon_provider = "devicons",
+            enabled = true,
+            enable_hybrid_mode = true,
+            -- modes = { "n", "no", "c" },
+            hybrid_modes = { "n" },
+            linewise_hybrid_mode = true,
+            filetypes = { "markdown", "quarto", "rmd", "typst" }
+          },
+          experimental = {
+            check_rtp = true,          -- or false, depending on whether you want the check at all
+            check_rtp_message = false, -- disable the warning message
+          },
+        })
+      '';
+    };
+  };
+}

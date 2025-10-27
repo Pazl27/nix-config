@@ -1,0 +1,144 @@
+{ pkgs }:
+
+{
+  hide_mouse = "never";
+
+  # Aesthetics
+  toolbar = {
+    quick_actions = false;
+  };
+
+  outline_panel = {
+    button = false;
+  };
+
+  collaboration_panel = {
+    button = false;
+  };
+
+  notification_panel = {
+    button = false;
+  };
+
+  icon_theme = "Catppuccin Latte";
+  vertical_scroll_margin = 8;
+  buffer_font_family = "JetBrainsMono Nerd Font";
+  ui_font_size = 16;
+  buffer_font_size = 16;
+  base_keymap = null;
+  cursor_blink = false;
+  autosave = "on_focus_change";
+  format_on_save = "off";
+
+  tab_bar = {
+    show = false;
+    show_tab_bar_buttons = false;
+    show_nav_history_buttons = false;
+  };
+
+  indent_guides = {
+    enabled = true;
+  };
+
+  inlay_hints = {
+    enabled = false;
+  };
+
+  scrollbar = {
+    show = "never";
+  };
+
+  buffer_line_height = {
+    custom = 1.5;
+  };
+
+  theme = {
+    mode = "system";
+    light = "Gruvbox Dark";
+    dark = "Gruvbox Dark Hard";
+  };
+
+  terminal = {
+    dock = "bottom";
+    font_family = "JetBrainsMono Nerd Font";
+    font_size = 15;
+    line_height = {
+      custom = 1.5;
+    };
+  };
+
+  "experimental.theme_overrides" = {
+    players = [
+      {
+        cursor = "#FB4934";
+        background = "#8d3250ff";
+        selection = "#8d32503d";
+      }
+    ];
+  };
+
+  tabs = {
+    close_position = "right";
+    file_icons = true;
+    git_status = true;
+    activate_on_close = "left_neighbour";
+    show_close_button = "hover";
+  };
+
+  show_completions_on_input = true;
+  extend_comment_on_newline = false;
+
+  # Keymaps
+  vim_mode = true;
+  vim = {
+    toggle_relative_line_numbers = true;
+    use_system_clipboard = "never";
+  };
+
+  # Copilot
+  features = {
+    edit_prediction_provider = "copilot";
+  };
+
+  agent = {
+    default_profile = "write";
+    button = true;
+    dock = "right";
+    default_model = {
+      provider = "copilot_chat";
+      model = "claude-sonnet-4";
+    };
+  };
+
+  # Git
+  git = {
+    git_gutter = "tracked_files";
+    inline_blame = {
+      enabled = true;
+    };
+  };
+
+  # Rest
+  file_scan_exclusions = [
+    "*.git"
+    "*.DS_Store"
+  ];
+
+  diagnostics = {
+    include_warnings = true;
+    inline = {
+      enabled = true;
+      update_debounce_ms = 150;
+      padding = 4;
+      min_column = 0;
+      max_severity = null;
+    };
+  };
+
+  telemetry = {
+    # Send debug info like crash reports
+    diagnostics = false;
+    # Send anonymized usage data like what languages you're using Zed with
+    metrics = false;
+  };
+}
