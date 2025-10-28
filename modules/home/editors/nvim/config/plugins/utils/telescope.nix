@@ -59,22 +59,10 @@
           desc = "Find text";
         };
       };
-      "<leader>fR" = {
-        action = "resume";
-        options = {
-          desc = "Resume";
-        };
-      };
       "<leader>fb" = {
         action = "buffers";
         options = {
           desc = "Buffers";
-        };
-      };
-      "<C-p>" = {
-        action = "git_files";
-        options = {
-          desc = "Search git files";
         };
       };
       "<leader>fc" = {
@@ -89,18 +77,6 @@
           desc = "Status";
         };
       };
-      "<leader>sa" = {
-        action = "autocommands";
-        options = {
-          desc = "Auto Commands";
-        };
-      };
-      "<leader>sb" = {
-        action = "current_buffer_fuzzy_find";
-        options = {
-          desc = "Buffer";
-        };
-      };
       "<leader>sc" = {
         action = "command_history";
         options = {
@@ -113,22 +89,10 @@
           desc = "Commands";
         };
       };
-      "<leader>sD" = {
+      "<leader>xD" = {
         action = "diagnostics";
         options = {
-          desc = "Workspace diagnostics";
-        };
-      };
-      "<leader>sh" = {
-        action = "help_tags";
-        options = {
-          desc = "Help pages";
-        };
-      };
-      "<leader>sH" = {
-        action = "highlights";
-        options = {
-          desc = "Search Highlight Groups";
+          desc = "Telescope Workspace diagnostics";
         };
       };
       "<leader>sk" = {
@@ -143,22 +107,10 @@
           desc = "Man pages";
         };
       };
-      "<leader>sm" = {
-        action = "marks";
-        options = {
-          desc = "Jump to Mark";
-        };
-      };
       "<leader>so" = {
         action = "vim_options";
         options = {
           desc = "Options";
-        };
-      };
-      "<leader>sR" = {
-        action = "resume";
-        options = {
-          desc = "Resume";
         };
       };
       "<leader>uC" = {
@@ -172,10 +124,10 @@
   keymaps = [
     {
       mode = "n";
-      key = "<leader>sd";
+      key = "<leader>xd";
       action = "<cmd>Telescope diagnostics bufnr=0<cr>";
       options = {
-        desc = "Document diagnostics";
+        desc = "Telescope Document diagnostics";
       };
     }
     {

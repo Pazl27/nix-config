@@ -52,7 +52,7 @@
       };
     }
 
-    # Save keymaps (autosave disabled)
+    # Save keymaps (and reset highlights)
     {
       mode = "i";
       key = "<esc>";
@@ -84,14 +84,6 @@
     }
 
     # Quit keymaps
-    {
-      mode = "n";
-      key = "<leader>qa";
-      action = "<cmd>qa<cr>";
-      options = {
-        desc = "Quit";
-      };
-    }
     {
       mode = "n";
       key = "<leader>qa";

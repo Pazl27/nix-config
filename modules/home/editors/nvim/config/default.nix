@@ -49,7 +49,6 @@ _: {
     # Utils
     ./plugins/utils/telescope.nix
     ./plugins/utils/whichkey.nix
-    ./plugins/utils/extra_plugins.nix
     ./plugins/utils/mini.nix
     ./plugins/utils/trouble.nix
     ./plugins/utils/markdown-preview.nix

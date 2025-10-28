@@ -84,5 +84,31 @@
         desc = "Quickfix List (Trouble)";
       };
     }
+    # Override grr to use Trouble for references
+    {
+      mode = "n";
+      key = "grr";
+      action = "<cmd>Trouble lsp_references toggle<cr>";
+      options = {
+        desc = "LSP References (Trouble)";
+      };
+    }
+    # Navigate between trouble items
+    {
+      mode = "n";
+      key = "[t";
+      action = ''<cmd>lua require("trouble").prev({skip_groups = true, jump = true})<cr>'';
+      options = {
+        desc = "Previous Trouble Item";
+      };
+    }
+    {
+      mode = "n";
+      key = "]t";
+      action = ''<cmd>lua require("trouble").next({skip_groups = true, jump = true})<cr>'';
+      options = {
+        desc = "Next Trouble Item";
+      };
+    }
   ];
 }

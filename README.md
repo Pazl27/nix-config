@@ -18,7 +18,7 @@ nix run home-manager/master -- switch --flake ~/home-manager#<system-name>
 ```
 Note: Replace <system-name> with your system name (see Configuration section below).
 
-## 📁 Directory Structure
+## Directory Structure
 ```bash
 ~/home-manager/
 ├── flake.nix                    # Main configuration entry point

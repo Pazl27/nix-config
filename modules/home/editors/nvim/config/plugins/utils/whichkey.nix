@@ -15,6 +15,7 @@
             "n"
           ];
           group = "Debug";
+          icon = "";
         }
         {
           __unkeyed-1 = "<leader>b";
