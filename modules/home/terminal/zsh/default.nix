@@ -43,8 +43,10 @@ with lib;
         gl = "${pkgs.git}/bin/git log --graph --pretty=format:'%C(magenta)%h %C(white)%an  %ar%C(blue)  %D%n%s%n'";
 
         # Home Manager
-        hms = "home-manager switch --flake ~/home-manager#$(whoami)";
-        hme = "nvim ~/home-manager/hosts/$(hostname)/default.nix";
+        hms = "home-manager switch --flake ~/nix-config#$(whoami)";
+        hme = "nvim ~/nix-config/hosts/$(hostname)/default.nix";
+
+        nos = "sudo nixos-rebuild switch --flake ~/nix-config#$(hostname)";
 
         # Common shortcuts
         ".." = "cd ..";
