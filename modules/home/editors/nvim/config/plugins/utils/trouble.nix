@@ -54,7 +54,7 @@
     }
     {
       mode = "n";
-      key = "<leader>cs";
+      key = "<leader>xs";
       action = "<cmd>Trouble symbols toggle focus=false<cr>";
       options = {
         desc = "Symbols (Trouble)";
@@ -62,7 +62,7 @@
     }
     {
       mode = "n";
-      key = "<leader>cl";
+      key = "<leader>xl";
       action = "<cmd>Trouble lsp toggle focus=false win.position=right<cr>";
       options = {
         desc = "LSP Definitions / references / ... (Trouble)";

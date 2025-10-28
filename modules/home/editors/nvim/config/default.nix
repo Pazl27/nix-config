@@ -44,6 +44,7 @@ _: {
     # Git
     ./plugins/git/lazygit.nix
     ./plugins/git/gitsigns.nix
+    ./plugins/git/gitmesenger.nix
 
     # Utils
     ./plugins/utils/telescope.nix
@@ -55,5 +56,6 @@ _: {
     ./plugins/utils/markview.nix
     ./plugins/utils/toggleterm.nix
     ./plugins/utils/web-devicons.nix
+    ./plugins/utils/crates.nix
   ];
 }

@@ -29,6 +29,9 @@
         marksman = {
           enable = true;
         };
+        clangd = {
+          enable = true;
+        };
         pyright = {
           enable = true;
         };
