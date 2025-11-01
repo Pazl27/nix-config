@@ -49,6 +49,8 @@
     # === Applications ===
     application = {
       kitty.enable = true;
+      thunar.enable = true;
+      gtk.enable = true;
     };
   };
 }

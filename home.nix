@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -25,6 +30,8 @@
 
     # applications
     ./modules/home/applications/kitty.nix
+    ./modules/home/applications/thunar.nix
+    ./modules/home/applications/gtk.nix
 
     # wm
     ./modules/home/wm

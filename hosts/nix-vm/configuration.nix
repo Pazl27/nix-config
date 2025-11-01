@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 {
   imports = [
     ./hardware-configuration.nix
@@ -11,10 +10,8 @@
   networking.hostName = "nixvm";
   networking.networkmanager.enable = true;
 
-  # Time zone
   time.timeZone = "Europe/Berlin";
 
-  # Locale
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "de_DE.UTF-8";
@@ -28,7 +25,6 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  # X11
   services.xserver = {
     enable = true;
     xkb = {
@@ -37,18 +33,13 @@
     };
   };
 
-  # Desktop environments
   services.desktopManager.gnome.enable = true;
   programs.hyprland.enable = true;
   programs.niri.enable = true;
 
-  # Console keymap
   console.keyMap = "de";
-
-  # Printing
   services.printing.enable = true;
 
-  # Audio
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -58,8 +49,8 @@
     pulse.enable = true;
   };
 
-  # User
   programs.zsh.enable = true;
+
   users.users.nixvm = {
     isNormalUser = true;
     description = "nix-vm";
@@ -68,13 +59,15 @@
       "networkmanager"
       "wheel"
     ];
+
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK2tcTVu+NRaLxji8wk1rngZ0+VvpLj+yfVofpM02nqJ nix-wsl@DESKTOP-QB6O3EE"
+    ];
   };
 
-  # Programs
   programs.firefox.enable = true;
   nixpkgs.config.allowUnfree = true;
 
-  # System packages
   environment.systemPackages = with pkgs; [
     vim
     wget
