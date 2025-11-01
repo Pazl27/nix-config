@@ -65,24 +65,10 @@
     ];
   };
 
-  programs.firefox.enable = true;
-  nixpkgs.config.allowUnfree = true;
-
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-  ];
-
   system.stateVersion = "25.05";
 
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
-
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
 }
