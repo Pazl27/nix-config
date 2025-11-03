@@ -44,6 +44,7 @@
       fastfetch.enable = true;
       bat.enable = true;
       ssh.enable = true;
+      yazi.enable = true;
     };
   };
 }

@@ -27,6 +27,7 @@
     ./modules/home/tools/fastfetch.nix
     ./modules/home/tools/bat.nix
     ./modules/home/tools/ssh.nix
+    ./modules/home/tools/yazi.nix
 
     # applications
     ./modules/home/applications/kitty.nix
