@@ -32,6 +32,11 @@
     ./modules/home/applications/kitty.nix
     ./modules/home/applications/thunar.nix
     ./modules/home/applications/gtk.nix
+    ./modules/home/applications/ghostty.nix
+    ./modules/home/applications/rofi.nix
+    ./modules/home/applications/swaync.nix
+    ./modules/home/applications/waybar.nix
+    ./modules/home/applications/wlogout.nix
 
     # wm
     ./modules/home/wm
