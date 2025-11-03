@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -93,10 +98,13 @@ with lib;
       enable = true;
       settings = {
         git = {
-          paging = {
-            colorArg = "always";
-            pager = "delta --dark --paging=never";
-          };
+          pagers = [
+            # ← Eckige Klammern für Array!
+            {
+              colorArg = "always";
+              pager = "delta --dark --paging=never";
+            }
+          ];
         };
       };
     };
