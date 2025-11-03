@@ -42,7 +42,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
 
       hosts = {
-        nix-wsl = {
+        wsl = {
           username = "nix-wsl";
           homeDirectory = "/home/nix-wsl";
           hostConfig = ./hosts/wsl;
@@ -69,7 +69,7 @@
           inherit pkgs;
           modules = [
             ./home.nix
-            hostConfig
+            (hostConfig + "/home.nix")
             nixvim.homeModules.nixvim
             dankMaterialShell.homeModules.dankMaterialShell.default
             {
@@ -90,7 +90,7 @@
         nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
-            (hostConfig + "/configuration.nix")
+            hostConfig
 
             # Import NixOS modules
             ./modules/drivers
@@ -104,7 +104,7 @@
               home-manager.users.${username} = {
                 imports = [
                   ./home.nix
-                  (hostConfig + "/default.nix")
+                  (hostConfig + "/home.nix")
                   nixvim.homeModules.nixvim
                   dankMaterialShell.homeModules.dankMaterialShell.default
                 ];
