@@ -1,9 +1,5 @@
 { config, pkgs, ... }:
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
-
   # VM & Hardware
   vm.guest-services.enable = true;
   drivers.intel.enable = true;

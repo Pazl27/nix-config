@@ -42,7 +42,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
 
       hosts = {
-        wsl = {
+        nix-wsl = {
           username = "nix-wsl";
           homeDirectory = "/home/nix-wsl";
           hostConfig = ./hosts/wsl;
