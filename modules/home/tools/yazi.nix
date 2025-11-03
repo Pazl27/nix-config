@@ -650,7 +650,7 @@ with lib;
 
       ffmpegthumbnailer # Video thumbnails
       unar # Archive preview
-      poppler_utils # PDF preview
+      poppler-utils
 
       imagemagick # Image operations
       mpv # Video/Audio player
