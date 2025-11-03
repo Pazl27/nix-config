@@ -9,5 +9,6 @@
     ./security.nix
     ./packages.nix
     ./system.nix
+    ./fonts.nix
   ];
 }
