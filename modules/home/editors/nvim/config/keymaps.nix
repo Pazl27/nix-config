@@ -178,7 +178,7 @@
     {
       mode = "i";
       key = "<C-v>";
-      action = "\"+p";
+      action = "<C-r>+";
       options = {
         desc = "Paste from system clipboard";
         silent = true;
