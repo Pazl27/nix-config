@@ -1,7 +1,6 @@
 {
   plugins.neo-tree = {
     enable = true;
-
     settings = {
       sources = [
         "filesystem"
@@ -11,36 +10,37 @@
       ];
       add_blank_line_at_top = false;
 
+      # Floating window configuration
+      window = {
+        position = "float";
+        popup = {
+          size = {
+            height = "80%";
+            width = "80%";
+          };
+          position = "50%";
+        };
+      };
+
       filesystem = {
         bind_to_cwd = false;
         follow_current_file = {
           enabled = true;
         };
         filtered_items = {
-          visible = true; # This makes hidden files visible by default
+          visible = true;
           hide_dotfiles = false;
           hide_gitignored = false;
-          hide_hidden = false; # only works on Windows for hidden files/directories
-          hide_by_name = [
-            # ".DS_Store"
-            # "thumbs.db"
-          ];
-          hide_by_pattern = [
-            # "*.meta"
-            # "*/src/*/tsconfig.json"
-          ];
-          always_show = [ # remains visible even if other settings would normally hide it
+          hide_hidden = false;
+          hide_by_name = [ ];
+          hide_by_pattern = [ ];
+          always_show = [
             ".gitignored"
             ".env"
             ".envrc"
           ];
-          never_show = [ # remains hidden even if visible is toggled or other settings would show it
-            # ".DS_Store"
-            # "thumbs.db"
-          ];
-          never_show_by_pattern = [ # uses glob style patterns
-            # ".null-ls_*"
-          ];
+          never_show = [ ];
+          never_show_by_pattern = [ ];
         };
       };
 
@@ -51,7 +51,6 @@
           expander_expanded = "󰅀";
           expander_highlight = "NeoTreeExpander";
         };
-
         git_status = {
           symbols = {
             added = " ";
@@ -73,9 +72,17 @@
     {
       mode = [ "n" ];
       key = "<leader>e";
-      action = "<cmd>Neotree toggle<cr>";
+      action = "<cmd>Neotree toggle float<cr>";
       options = {
-        desc = "Open/Close Neotree";
+        desc = "Toggle Neotree (Floating)";
+      };
+    }
+    {
+      mode = [ "n" ];
+      key = "<leader>E";
+      action = "<cmd>Neotree toggle left<cr>";
+      options = {
+        desc = "Toggle Neotree (Sidebar)";
       };
     }
     {
