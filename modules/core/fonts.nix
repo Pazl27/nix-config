@@ -12,11 +12,11 @@
     nerd-fonts.fira-code
     nerd-fonts.hack
     nerd-fonts.meslo-lg
-    nerd-fonts.ubuntu-mono
     nerd-fonts.iosevka
+    nerd-fonts.code-new-roman
 
     # System & UI Fonts
-    ubuntu_font_family
+    ubuntu-classic
     liberation_ttf
     dejavu_fonts
 
@@ -31,7 +31,7 @@
     open-sans
 
     # Emoji
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     font-awesome
   ];
 
