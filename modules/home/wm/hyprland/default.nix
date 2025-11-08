@@ -10,6 +10,7 @@ in
 {
   imports = [
     ./hyprland-conf.nix
+    ./hyprlock.nix
   ];
 
   options.features.wm.hyprland.enable = mkEnableOption "Enable Hyprland window manager";
@@ -33,6 +34,12 @@ in
       '';
     };
 
+    features.application = {
+      rofi.enable = true;
+      waybar.enable = true;
+      wlogout.enable = true;
+    };
+
     # Import Hyprland configuration
 
     # Essential Hyprland packages
@@ -43,17 +50,10 @@ in
       wayland-utils
 
       # Hyprland ecosystem
-      hyprpaper
-      hyprpicker
-      hyprlock
-      hypridle
       nwg-displays
 
       # Wallpaper
       swww
-
-      # Logout menu
-      wlogout
 
       # Screenshot
       grim
@@ -73,18 +73,12 @@ in
       # Auto-mounting
       udiskie
 
-      # Idle management
-      swayidle
-
       # Image viewer
       nsxiv
 
       # Clipboard manager (optional)
       wl-clipboard
       cliphist
-
-      # Color picker
-      hyprpicker
     ];
 
     # Services

@@ -19,7 +19,10 @@
     };
     wm = {
       niri.enable = false;
-      hyprland.enable = true;
+      hyprland = {
+        enable = true;
+        hyprlock.enable = true;
+      };
     };
     # === Editors ===
     editors = {
@@ -56,10 +59,10 @@
         defaultBrowser = true;
       };
 
-      rofi.enable = true;
-      waybar.enable = true;
-      swaync.enable = true;
-      wlogout.enable = true;
+      # rofi.enable = true;
+      # waybar.enable = true;
+      # swaync.enable = true;
+      # wlogout.enable = true;
 
     };
   };

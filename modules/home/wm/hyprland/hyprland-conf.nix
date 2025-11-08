@@ -276,7 +276,7 @@
       "swww-daemon"
       "waybar"
       "udiskie"
-      "swayidle -w timeout 300 'hyprlock'"
+      "hypridle"
       "battery-notify"
       "hyprpm reload -n"
       "hyprctl dispatch workspace 1"
