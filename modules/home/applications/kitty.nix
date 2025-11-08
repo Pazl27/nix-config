@@ -44,7 +44,7 @@ with lib;
         # Disable sound
         enable_audio_bell no
         # Background Opacity hyprland
-        # background_opacity 0.5
+        background_opacity 0.5
 
         # ===== Tabs =========================================================
         # Tab Styles
@@ -80,7 +80,7 @@ with lib;
         map ctrl+shift+u    no_op
 
         # ===== Deletion full Word ==========================================
-        map ctrl+backspace send_text all \x17       map ctrl+shift+u    no_op
+        map ctrl+backspace send_text all \x17
       '';
     };
   };

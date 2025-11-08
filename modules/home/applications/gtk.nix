@@ -28,7 +28,7 @@ with lib;
       font = {
         name = "Ubuntu";
         size = 11;
-        package = pkgs.ubuntu_font_family;
+        package = pkgs.ubuntu-classic;
       };
 
       gtk3.extraConfig = {
