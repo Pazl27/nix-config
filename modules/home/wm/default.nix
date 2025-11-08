@@ -8,5 +8,6 @@
 {
   imports = [
     ./niri
+    ./hyprland
   ];
 }
