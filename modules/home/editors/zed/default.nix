@@ -4,9 +4,7 @@
   pkgs,
   ...
 }:
-
 with lib;
-
 let
   # Import settings and keybindings
   zedSettings = import ./zed-settings.nix { inherit pkgs; };
@@ -17,7 +15,7 @@ in
   options.features.editors.zed = {
     enable = mkEnableOption "Zed editor";
   };
-
+  
   config = mkIf config.features.editors.zed.enable {
     # Install Zed and dependencies
     home.packages = with pkgs; [
@@ -25,32 +23,63 @@ in
       vulkan-loader
       vulkan-validation-layers
       vulkan-tools
-
-      # For VMs - software rendering fallback
-      mesa
-      libglvnd
+      vulkan-extension-layer
+      
+      # LSP servers
+      rust-analyzer
+      nil
+      nixd
     ];
-
+    
     # Configure Zed
     programs.zed-editor = {
       enable = true;
-
-      # Apply settings from zed-settings.nix
-      userSettings = zedSettings;
-
-      # Apply keybindings from zed-keybindings.nix
+      
+      # Apply settings with LSP configs
+      userSettings = zedSettings // {
+        lsp = {
+          rust-analyzer = {
+            binary = {
+              path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+            };
+            initialization_options = {
+              checkOnSave = {
+                command = "clippy";
+              };
+            };
+          };
+          
+          nil = {
+            binary = {
+              path = "${pkgs.nil}/bin/nil";
+            };
+          };
+          
+          nixd = {
+            binary = {
+              path = "${pkgs.nixd}/bin/nixd";
+            };
+          };
+        };
+      };
+      
       userKeymaps = zedKeybindings;
-
       userTasks = zedTasks;
+      
+      extensions = [
+        "nix"
+      ];
     };
-
-    # Set environment variables for Vulkan
+    
     home.sessionVariables = {
-      # Vulkan ICD (Installable Client Driver) path
-      VK_ICD_FILENAMES = "${pkgs.mesa}/share/vulkan/icd.d/lvp_icd.x86_64.json";
-
-      # Uncomment for VMs with GPU issues
-      # WGPU_BACKEND = "gl";
+      # Point to NVIDIA Vulkan driver
+      VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
+      VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
+      
+      # Force NVIDIA
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      GBM_BACKEND = "nvidia-drm";
+      LIBVA_DRIVER_NAME = "nvidia";
     };
   };
 }

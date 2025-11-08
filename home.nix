@@ -38,6 +38,9 @@
     ./modules/home/applications/swaync.nix
     ./modules/home/applications/waybar.nix
     ./modules/home/applications/wlogout.nix
+    ./modules/home/applications/discord.nix
+    ./modules/home/applications/spotify.nix
+    ./modules/home/applications/brave.nix
 
     # wm
     ./modules/home/wm
