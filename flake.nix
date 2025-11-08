@@ -3,14 +3,23 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Spicetify
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     dgop = {
       url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,13 +43,16 @@
       nixpkgs,
       home-manager,
       nixvim,
+      spicetify-nix,
       dankMaterialShell,
       ...
-    }:
+    }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      myScripts = pkgs.callPackage ./pkgs/scripts.nix { };
 
+      # Define your hosts
       hosts = {
         nix-wsl = {
           username = "nix-wsl";
@@ -48,15 +60,21 @@
           hostConfig = ./hosts/wsl;
           isNixOS = false;
         };
-
         nixvm = {
           username = "nixvm";
           homeDirectory = "/home/nixvm";
           hostConfig = ./hosts/nix-vm;
           isNixOS = true;
         };
+        desktop = {
+          username = "desktop";
+          homeDirectory = "/home/desktop";
+          hostConfig = ./hosts/desktop;
+          isNixOS = true;
+        };
       };
 
+      # Home Manager only (non-NixOS)
       mkHome =
         name:
         {
@@ -67,10 +85,12 @@
         }:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
+          extraSpecialArgs = { inherit inputs; };
           modules = [
             ./home.nix
             (hostConfig + "/home.nix")
             nixvim.homeModules.nixvim
+            spicetify-nix.homeManagerModules.default
             dankMaterialShell.homeModules.dankMaterialShell.default
             {
               home.username = username;
@@ -79,6 +99,7 @@
           ];
         };
 
+      # NixOS systems (with integrated Home Manager)
       mkNixOS =
         name:
         {
@@ -89,24 +110,28 @@
         }:
         nixpkgs.lib.nixosSystem {
           inherit system;
+          specialArgs = { inherit inputs; };
           modules = [
             hostConfig
-
             # Import NixOS modules
             ./modules/drivers
             ./modules/core
-
             # Integrate Home Manager
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.${username} = {
                 imports = [
                   ./home.nix
                   (hostConfig + "/home.nix")
                   nixvim.homeModules.nixvim
+                  spicetify-nix.homeManagerModules.default
                   dankMaterialShell.homeModules.dankMaterialShell.default
+                  {
+                    home.file.".config/scripts".source = "${myScripts}/share/scripts";
+                  }
                 ];
                 home.username = username;
                 home.homeDirectory = homeDirectory;
@@ -115,12 +140,18 @@
           ];
         };
 
+      # Split hosts
       standaloneHosts = nixpkgs.lib.filterAttrs (name: host: !host.isNixOS) hosts;
-      nixosHosts = nixpkgs.lib.filterAttrs (name: host: host.isNixOS) hosts; # Fixed: was using nixosHosts instead of hosts
-
+      nixosHosts = nixpkgs.lib.filterAttrs (name: host: host.isNixOS) hosts;
     in
     {
+      # Build Home Manager configurations (for non-NixOS)
       homeConfigurations = builtins.mapAttrs mkHome standaloneHosts;
+
+      # Build NixOS configurations
       nixosConfigurations = builtins.mapAttrs mkNixOS nixosHosts;
+
+      # Optionally expose the scripts package
+      packages.${system}.my-scripts = myScripts;
     };
 }
