@@ -18,6 +18,7 @@ with lib;
       brightnessctl # Für Backlight widget (optional)
       localsend # Für buttons-grid (optional)
       scrcpy # Für buttons-grid (optional)
+      libnotify
     ];
 
     # SwayNC configuration
@@ -502,4 +503,3 @@ with lib;
     };
   };
 }
-

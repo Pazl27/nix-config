@@ -16,6 +16,7 @@ in
   config = mkIf config.features.application.spotify.enable {
     programs.spicetify = {
       enable = true;
+      wayland = true;
 
       # Option 1: Sleek with warm/dark colors (closest to Gruvbox)
       theme = spicePkgs.themes.dribbblish;
