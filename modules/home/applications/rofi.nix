@@ -316,6 +316,10 @@ with lib;
       }
     '';
 
+    home.file.".config/rofi" = {
+      source = ../../../assets/rofi;
+      recursive = true;
+    };
+
   };
 }
-
