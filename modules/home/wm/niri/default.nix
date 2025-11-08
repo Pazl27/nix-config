@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  niriConfig = import ./niri-config.nix { };
+  niriConfig = import ./niri-configuration.nix { };
   dmsConfig = import ./dms-config.nix {
     homeDirectory = config.home.homeDirectory;
   };
