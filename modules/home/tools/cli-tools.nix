@@ -23,6 +23,7 @@ with lib;
       jq         # JSON processor
       yq-go      # YAML processor
       yazi
+      gum
 
       # Compression
       unzip
