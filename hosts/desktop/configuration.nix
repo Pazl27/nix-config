@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 {
 
-  nixpkgs.config.allowUnfree = true;
   drivers.nvidia.enable = true;
+  core.steam.enable = true;
 
   # Network
   networking.hostName = "desktop";

@@ -10,5 +10,6 @@
     ./packages.nix
     ./system.nix
     ./fonts.nix
+    ./steam.nix
   ];
 }
