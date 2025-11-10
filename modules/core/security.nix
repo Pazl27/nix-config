@@ -11,9 +11,12 @@
   networking.firewall = {
     enable = true;
 
-    # Ports werden in der configuration.nix definiert
-    allowedTCPPorts = [ ]; # Hier nichts, wird pro System gesetzt
-    allowedUDPPorts = [ ];
+    #  localsend
+    allowedTCPPorts = [ 53317 ];
+    allowedUDPPorts = [
+      53317
+      5353
+    ];
 
     # Allow ping
     allowPing = true;
@@ -266,6 +269,15 @@
   };
 
   nix.optimise.automatic = true;
+
+  # ============================================
+  # NETWORK
+  # ============================================
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    openFirewall = true;
+  };
 
   # ============================================
   # ADDITIONAL HARDENING
