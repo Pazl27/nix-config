@@ -31,21 +31,5 @@ with lib;
       };
     };
 
-    # Optional: add desktop entry
-    xdg.desktopEntries.brave = mkIf config.features.application.brave.defaultBrowser {
-      name = "Brave Browser";
-      genericName = "Web Browser";
-      exec = "brave %U";
-      icon = "brave-browser";
-      categories = [
-        "Network"
-        "WebBrowser"
-      ];
-      mimeType = [
-        "text/html"
-        "x-scheme-handler/http"
-        "x-scheme-handler/https"
-      ];
-    };
   };
 }
