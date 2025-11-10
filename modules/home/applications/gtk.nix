@@ -20,10 +20,10 @@ with lib;
         package = pkgs.gruvbox-gtk-theme;
       };
 
-      iconTheme = {
-        name = "Gruvbox-Plus-Dark";
-        package = pkgs.gruvbox-plus-icons;
-      };
+      # iconTheme = {
+      #   name = "Gruvbox-Plus-Dark";
+      #   package = pkgs.gruvbox-plus-icons;
+      # };
 
       font = {
         name = "Ubuntu";
