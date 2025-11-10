@@ -13,7 +13,7 @@
       python.enable = false;
       rust.enable = false;
       go.enable = false;
-      java.enable = false;
+      java.enable = true;
       c.enable = false;
       cpp.enable = true;
     };
