@@ -15,7 +15,7 @@
       go.enable = false;
       java.enable = false;
       c.enable = false;
-      cpp.enable = false;
+      cpp.enable = true;
     };
     wm = {
       niri.enable = false;
@@ -58,12 +58,14 @@
         enable = true;
         defaultBrowser = true;
       };
-
-      # rofi.enable = true;
-      # waybar.enable = true;
-      # swaync.enable = true;
-      # wlogout.enable = true;
-
     };
   };
+
+  home.packages = with pkgs; [
+    keepass
+    # tableplus
+    claude-code
+    localsend
+
+  ];
 }

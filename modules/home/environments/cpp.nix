@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -20,10 +25,10 @@ with lib;
       valgrind
 
       # Additional tools
-      clang-tools     # Includes clangd LSP, clang-format
+      clang-tools # Includes clangd LSP, clang-format
       pkg-config
-      cppcheck        # Static analysis
-      boost           # Popular C++ library
+      cppcheck # Static analysis
+      boost # Popular C++ library
     ];
 
     home.sessionVariables = {
