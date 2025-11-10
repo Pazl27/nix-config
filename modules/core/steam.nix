@@ -13,14 +13,16 @@ in
     enable = mkEnableOption "Enable Steam";
   };
 
-  # more information can be found here https://nixos.wiki/wiki/Nvidia
   config = mkIf cfg.enable {
     programs = {
       steam = {
         enable = true;
         remotePlay.openFirewall = true;
         dedicatedServer.openFirewall = false;
-        extraCompatPackages = [ pkgs.proton-ge-bin ];
+        extraCompatPackages = [
+          pkgs.proton-ge-bin
+        ];
+        gamescopeSession.enable = true;
 
         # Enable Steam Input for controller support
         package = pkgs.steam.override {
@@ -31,7 +33,15 @@ in
               udev
               SDL2
 
-              # Additional libraries for better compatibility
+              # Graphics and Vulkan support
+              vulkan-loader
+              vulkan-validation-layers
+              vulkan-tools
+              vulkan-extension-layer
+              mesa
+              libdrm
+
+              # Additional libraries for Marvel Rivals and modern games
               xorg.libXcursor
               xorg.libXi
               xorg.libXinerama
@@ -47,6 +57,7 @@ in
             ];
         };
       };
+      gamemode.enable = true;
     };
 
     # System-level packages

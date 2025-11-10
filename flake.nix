@@ -14,6 +14,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Hyprland
+    hyprland.url = "github:hyprwm/Hyprland";
+
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     # Spicetify
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
@@ -43,6 +51,8 @@
       nixpkgs,
       home-manager,
       nixvim,
+      hyprland,
+      hyprland-plugins,
       spicetify-nix,
       dankMaterialShell,
       ...
@@ -116,6 +126,8 @@
             # Import NixOS modules
             ./modules/drivers
             ./modules/core
+            # Add Hyprland NixOS module
+            hyprland.nixosModules.default
             # Integrate Home Manager
             home-manager.nixosModules.home-manager
             {
@@ -129,6 +141,7 @@
                   nixvim.homeModules.nixvim
                   spicetify-nix.homeManagerModules.default
                   dankMaterialShell.homeModules.dankMaterialShell.default
+                  hyprland.homeManagerModules.default
                   {
                     home.file.".config/scripts".source = "${myScripts}/share/scripts";
                   }

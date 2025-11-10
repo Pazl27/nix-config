@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -22,9 +23,15 @@ in
       xwayland.enable = true;
       systemd.enable = true;
 
-      # Enable plugins
+      # Enable plugins from the hyprland-plugins flake
+      # Available plugins: hyprscrolling, hyprtrails, hyprwinwrap, hyprbars, hyprexpo, hyprgrass
       plugins = [
-        pkgs.hyprlandPlugins.hyprscrolling
+        inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
+        # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprtrails
+        # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprwinwrap
+        # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprbars
+        # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
+        # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprgrass
       ];
 
       extraConfig = ''
