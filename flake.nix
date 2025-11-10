@@ -44,6 +44,11 @@
       inputs.dgop.follows = "dgop";
       inputs.dms-cli.follows = "dms-cli";
     };
+
+    pokemon-icat = {
+      url = "github:Pazl27/pokemon-icat";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -55,6 +60,7 @@
       hyprland-plugins,
       spicetify-nix,
       dankMaterialShell,
+      pokemon-icat,
       ...
     }@inputs:
     let
@@ -142,6 +148,9 @@
                   spicetify-nix.homeManagerModules.default
                   dankMaterialShell.homeModules.dankMaterialShell.default
                   hyprland.homeManagerModules.default
+                  {
+                    home.packages = [ inputs.pokemon-icat.packages.${system}.default ];
+                  }
                   {
                     home.file.".config/scripts".source = "${myScripts}/share/scripts";
                   }
