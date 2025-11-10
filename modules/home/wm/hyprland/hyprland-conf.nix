@@ -142,19 +142,28 @@
       "$mainMod, Tab, cyclenext"
       "$mainMod, Tab, bringactivetotop"
 
-      # Hyprscrolling
-      "$mainMod SHIFT, H, layoutmsg, swapcol l"
-      "$mainMod SHIFT, L, layoutmsg, swapcol r"
-      "$mainMod SHIFT, J, movetoworkspace, +1"
-      "$mainMod SHIFT, K, movetoworkspace, -1"
-      "$mainMod, J, workspace, +1"
-      "$mainMod, K, workspace, -1"
-      "$mainMod, F, layoutmsg, colresize -conf"
-      "$mainMod SHIFT, F, fullscreen"
-
       # Focus movement
       "$mainMod, h, movefocus, l"
       "$mainMod, l, movefocus, r"
+
+      # Hyprscrolling
+      "$mainMod SHIFT, H, layoutmsg, swapcol l"
+      "$mainMod SHIFT, L, layoutmsg, swapcol r"
+      "$mainMod SHIFT, j, movetoworkspace, +1"
+      "$mainMod SHIFT, k, movetoworkspace, -1"
+      "$mainMod, j, workspace, +1"
+      "$mainMod, k, workspace, -1"
+      "$mainMod, f, layoutmsg, colresize -conf"
+      "$mainMod SHIFT, f, fullscreen"
+
+      # witout hyprscrolling
+      # "$mainMod SHIFT, h, movewindow, l"
+      # "$mainMod SHIFT, l, movewindow, r"
+      # "$mainMod SHIFT, j, movewindow, d"
+      # "$mainMod SHIFT, k, movewindow, u"
+      # "$mainMod, j, movefocus, d"
+      # "$mainMod, k, movefocus, u"
+      # "$mainMod, f, fullscreen"
 
       # Resize windows
       "$mainMod ALT, l, resizeactive, 10 0"
@@ -249,14 +258,9 @@
       "size 1000 600, class:^(KeePass2)$, title:^(Database.kdbx - KeePass)$"
       "size 550 300, class:^(KeePass2)$, title:^(Open Database - Database.kdbx)$"
 
-      # Vivaldi Settings
-      "size 900 800, class:^(Vivaldi-stable)$, title:^(Vivaldi Settings: Start Page - Vivaldi)$"
-      "center, class:^(Vivaldi-stable)$, title:^(Vivaldi Settings: Start Page - Vivaldi)$"
-      "size 900 800, class:^(Vivaldi-stable)$, title:^(Vivaldi Settings: General - Vivaldi)$"
-      "center, class:^(Vivaldi-stable)$, title:^(Vivaldi Settings: General - Vivaldi)$"
-
       # nsxiv
       "size 1000 800, class:^(Nsxiv)$, title:^(nsxiv)$"
+      "center, class:^(Nsxiv)$"
 
       # Docker Desktop
       "workspace 9, class:^(.*Docker Desktop.*)$"
