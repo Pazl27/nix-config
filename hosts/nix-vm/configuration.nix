@@ -28,6 +28,7 @@
     ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK2tcTVu+NRaLxji8wk1rngZ0+VvpLj+yfVofpM02nqJ nix-wsl@DESKTOP-QB6O3EE"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMkXamJpo/wZPSkCfZzX+LudFhUxBXE1JeUC3Goof9gu paul@endevour"
     ];
   };
 
