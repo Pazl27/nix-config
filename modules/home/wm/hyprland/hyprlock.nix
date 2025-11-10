@@ -149,18 +149,18 @@ in
           on-timeout = loginctl lock-session
       }
 
-      # Turn off screen after 5.5 minutes
+      # Turn off screen after 6 minutes
       listener {
-          timeout = 330
+          timeout = 360
           on-timeout = hyprctl dispatch dpms off
           on-resume = hyprctl dispatch dpms on
       }
 
       # Suspend after 30 minutes
-      listener {
-          timeout = 1800
-          on-timeout = systemctl suspend
-      }
+      # listener {
+      #     timeout = 1800
+      #     on-timeout = systemctl suspend
+      # }
     '';
   };
 }

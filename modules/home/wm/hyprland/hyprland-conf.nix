@@ -222,49 +222,106 @@
 
     # Window rules
     windowrulev2 = [
+      # Chromium blur fix
       "noblur, class:^()$, title:^()$"
+
+      # Suppress maximize events
       "suppressevent maximize, class:.*"
+
+      # Fix XWayland drag issues
       "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+
+      # File picker windows
       "float, center, title:^(Open File|Open|Save|Save As|Export|Import|Choose File|Rename), class:^(.*)$"
+
+      # Disable borders for swaync
       "noborder, class:(swaync)"
+
+      # JetBrains IDEs
       "float,class:^(jetbrains-clion)$,title:^(Welcome to CLion)$"
       "float,class:^(jetbrains-idea)$,title:^(Welcome to IntelliJ IDEA)$"
       "float,class:^(jetbrains-rustrover)$,title:^(Welcome to RustRover)$"
+
+      # KeePass2
       "float,class:^(KeePass2)$"
       "center, class:^(KeePass2)$"
       "size 1000 600, class:^(KeePass2)$, title:^(KeePass)$"
       "size 1000 600, class:^(KeePass2)$, title:^(Database.kdbx - KeePass)$"
       "size 550 300, class:^(KeePass2)$, title:^(Open Database - Database.kdbx)$"
+
+      # Vivaldi Settings
+      "size 900 800, class:^(Vivaldi-stable)$, title:^(Vivaldi Settings: Start Page - Vivaldi)$"
+      "center, class:^(Vivaldi-stable)$, title:^(Vivaldi Settings: Start Page - Vivaldi)$"
+      "size 900 800, class:^(Vivaldi-stable)$, title:^(Vivaldi Settings: General - Vivaldi)$"
+      "center, class:^(Vivaldi-stable)$, title:^(Vivaldi Settings: General - Vivaldi)$"
+
+      # nsxiv
       "size 1000 800, class:^(Nsxiv)$, title:^(nsxiv)$"
+
+      # Docker Desktop
       "workspace 9, class:^(.*Docker Desktop.*)$"
+
+      # Android Emulator
       "float,class:^(Emulator)$"
+
+      # AI assistant
       "float,class:^(askai)$"
       "size 90% 80%,class:^(askai)$"
       "center,class:^(askai)$"
+
+      # Drop terminal
       "float,class:^(dropterm)$"
       "workspace special:drop,class:^(dropterm)$"
       "size 90% 80%,class:^(dropterm)$"
       "center,class:^(dropterm)$"
+
+      # Installer window
       "float,class:^(installer)$"
       "size 90% 80%,class:^(installer)$"
       "center,class:^(installer)$"
+
+      # Floating waybar popup
       "float,class:^(floating_waybar)$"
       "size 90% 80%,class:^(floating_waybar)$"
       "center,class:^(floating_waybar)$"
+
+      # Inactive opacity for IDEs
+      "opacity 1.2, class:^(jetbrains-studio)$"
+      "opacity 1.2, class:^(jetbrains-idea)$"
+      "opacity 1.2, class:^(jetbrains-rustrover)$"
+
+      # steam
+      # Float Steam dialogs, friends list, and settings windows
+      "float, class:^(steam)$, title:^(Friends List)$"
+      "float, class:^(steam)$, title:^(Steam Settings)$"
+      "float, class:^(steam)$, title:^(Settings)$"
+      "float, class:^(steam)$, title:^(.* - Chat)$"
+      "float, class:^(steam)$, title:^(Screenshot Manager)$"
+      "float, class:^(steam)$, title:^(.* - event)$"
+      "float, class:^(steam)$, title:^(.* - News)$"
+      "float, class:^(steam)$, title:^(.* - Community)$"
+      "float, class:^(steam)$, title:^(.* - Properties)$"
     ];
 
     # Layer rules
     layerrule = [
+      # Waybar
       "blur, waybar"
       "ignorezero, waybar"
       "ignorealpha 0.5, waybar"
+
+      # SwayNC
       "blur, swaync-control-center"
       "blur, swaync-notification-window"
       "ignorezero, swaync-control-center"
       "ignorezero, swaync-notification-window"
       "ignorealpha 0.5, swaync-control-center"
       "ignorealpha 0.5, swaync-notification-window"
+
+      # Wlogout
       "blur, logout_dialog"
+
+      # Rofi
       "dimaround, rofi"
       "blur, rofi"
       "animation slide top, rofi"
