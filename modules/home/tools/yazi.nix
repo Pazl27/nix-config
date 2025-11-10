@@ -20,7 +20,7 @@ with lib;
       # SETTINGS
       # ============================================
       settings = {
-        manager = {
+        mgr = {
           layout = [
             1
             4
@@ -55,6 +55,12 @@ with lib;
               desc = "Open";
             }
           ];
+          image = [
+            {
+              run = ''nsxiv "$1"'';
+              desc = "Open";
+            }
+          ];
           reveal = [
             {
               run = ''${pkgs.xdg-utils}/bin/xdg-open "$(dirname "$0")"'';
@@ -84,7 +90,7 @@ with lib;
             }
             {
               mime = "image/*";
-              use = "open";
+              use = "image";
             }
             {
               mime = "video/*";
@@ -110,7 +116,7 @@ with lib;
       # KEYMAPS
       # ============================================
       keymap = {
-        manager.prepend_keymap = [
+        mgr.prepend_keymap = [
           # Navigation
           {
             on = [ "h" ];
@@ -394,7 +400,7 @@ with lib;
       # THEME (Gruvbox Dark Hard)
       # ============================================
       theme = {
-        manager = {
+        mgr = {
           cwd = {
             fg = "#fb4934";
           }; # Bright red
@@ -648,12 +654,13 @@ with lib;
     home.packages = with pkgs; [
       yazi
 
-      ffmpegthumbnailer # Video thumbnails
-      unar # Archive preview
+      ffmpegthumbnailer
+      unar
       poppler-utils
 
-      imagemagick # Image operations
-      mpv # Video/Audio player
+      imagemagick
+      nsxiv
+      mpv
     ];
 
     # Shell integration
