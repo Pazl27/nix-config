@@ -10,7 +10,7 @@
 
   # Display Server & Desktop
   services.xserver.enable = true;
-  services.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.enable = false;
   programs.hyprland.enable = true;
   programs.niri.enable = true;
 
