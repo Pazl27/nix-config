@@ -42,6 +42,7 @@
     ./modules/home/applications/discord.nix
     ./modules/home/applications/spotify.nix
     ./modules/home/applications/brave.nix
+    ./modules/home/applications/firefox.nix
 
     # wm
     ./modules/home/wm

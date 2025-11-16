@@ -54,16 +54,15 @@
       gtk.enable = true;
       discord.enable = true;
       spotify.enable = true;
-      brave = {
+      firefox = {
         enable = true;
-        defaultBrowser = true;
+        default = true;
       };
     };
   };
 
   home.packages = with pkgs; [
     keepass
-    # tableplus
     claude-code
     localsend
 

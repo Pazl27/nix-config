@@ -49,6 +49,11 @@
       url = "github:Pazl27/pokemon-icat";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    textfox = {
+      url = "github:adriankarlen/textfox";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -61,6 +66,7 @@
       spicetify-nix,
       dankMaterialShell,
       pokemon-icat,
+      textfox,
       ...
     }@inputs:
     let
@@ -108,6 +114,7 @@
             nixvim.homeModules.nixvim
             spicetify-nix.homeManagerModules.default
             dankMaterialShell.homeModules.dankMaterialShell.default
+            textfox.homeManagerModules.default
             {
               home.username = username;
               home.homeDirectory = homeDirectory;
@@ -148,6 +155,7 @@
                   spicetify-nix.homeManagerModules.default
                   dankMaterialShell.homeModules.dankMaterialShell.default
                   hyprland.homeManagerModules.default
+                  textfox.homeManagerModules.default
                   {
                     home.packages = [ inputs.pokemon-icat.packages.${system}.default ];
                   }
