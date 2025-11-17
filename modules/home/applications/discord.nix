@@ -32,6 +32,8 @@ with lib;
         ];
         plugins = {
           BadgeAPI.enabled = true;
+          ReadAllNotificationsButton.enabled = true;
+          FakeNitro.enabled = true;
           CommandsAPI.enabled = true;
           MemberCount.enabled = true;
           MessageLogger.enabled = true;
