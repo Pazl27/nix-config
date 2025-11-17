@@ -18,19 +18,11 @@
 
       # Styling
       indent_lines = true;
-      signs = {
-        error = "";
-        warning = "";
-        hint = "";
-        information = "";
-        other = "";
-      };
 
       # Add keymaps for trouble window
       keys = {
         "<esc>" = "close";
         q = "close";
-        "<cr>" = "jump_close";
       };
     };
   };

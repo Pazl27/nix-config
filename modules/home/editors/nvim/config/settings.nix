@@ -4,10 +4,10 @@
     extraConfigLuaPre =
       # lua
       ''
-        vim.fn.sign_define("diagnosticsignerror", { text = " ", texthl = "diagnosticerror", linehl = "", numhl = "" })
-        vim.fn.sign_define("diagnosticsignwarn", { text = " ", texthl = "diagnosticwarn", linehl = "", numhl = "" })
-        vim.fn.sign_define("diagnosticsignhint", { text = "󰌵", texthl = "diagnostichint", linehl = "", numhl = "" })
-        vim.fn.sign_define("diagnosticsigninfo", { text = " ", texthl = "diagnosticinfo", linehl = "", numhl = "" })
+        vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticError", linehl = "", numhl = "" })
+        vim.fn.sign_define("DiagnosticSignWarn",  { text = " ", texthl = "DiagnosticWarn",  linehl = "", numhl = "" })
+        vim.fn.sign_define("DiagnosticSignHint",  { text = "󰌵", texthl = "DiagnosticHint",  linehl = "", numhl = "" })
+        vim.fn.sign_define("DiagnosticSignInfo",  { text = " ", texthl = "DiagnosticInfo",  linehl = "", numhl = "" })
       '';
 
     clipboard = {
