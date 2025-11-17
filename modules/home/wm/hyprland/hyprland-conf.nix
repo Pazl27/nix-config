@@ -14,7 +14,7 @@
     "$terminal" = "kitty";
     "$fileManager" = "thunar";
     "$menu" = "rofi -show drun";
-    "$browser" = "brave";
+    "$browser" = "firefox";
     "$scriptDir" = "$HOME/.config/scripts";
     "$mainMod" = "SUPER";
 
