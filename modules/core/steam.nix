@@ -12,7 +12,6 @@ in
   options.core.steam = {
     enable = mkEnableOption "Enable Steam";
   };
-
   config = mkIf cfg.enable {
     programs = {
       steam = {
@@ -23,8 +22,6 @@ in
           pkgs.proton-ge-bin
         ];
         gamescopeSession.enable = true;
-
-        # Enable Steam Input for controller support
         package = pkgs.steam.override {
           extraPkgs =
             pkgs: with pkgs; [
@@ -65,5 +62,18 @@ in
       mangohud
     ];
 
+    # Shader cache optimization for NVIDIA
+    environment.sessionVariables = {
+      # NVIDIA shader disk cache
+      __GL_SHADER_DISK_CACHE = "1";
+      __GL_SHADER_DISK_CACHE_PATH = "$HOME/.cache/nvidia";
+      __GL_SHADER_DISK_CACHE_SKIP_CLEANUP = "1";
+
+      # DXVK optimizations
+      DXVK_STATE_CACHE_PATH = "$HOME/.cache/dxvk";
+
+      # Enable RADV optimizations (also helps with general Vulkan)
+      RADV_PERFTEST = "gpl";
+    };
   };
 }
