@@ -33,8 +33,6 @@ with lib;
         # Modern CLI tools
         ll = "${pkgs.eza}/bin/eza -la --icons";
         ls = "${pkgs.eza}/bin/eza --icons";
-        grep = "${pkgs.ripgrep}/bin/rg";
-        find = "${pkgs.fd}/bin/fd";
         tree = "${pkgs.eza}/bin/eza -1A --group-directories-first --color=always --git-ignore --tree";
         vi = "nvim";
         vim = "nvim";
