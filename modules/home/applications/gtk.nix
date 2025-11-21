@@ -14,9 +14,8 @@ with lib;
     gtk = {
       enable = true;
 
-      # Versuche verschiedene Gruvbox-Namen
       theme = {
-        name = "Gruvbox-Dark"; # Geändert von "Gruvbox-Dark-BL"
+        name = "Gruvbox-Dark";
         package = pkgs.gruvbox-gtk-theme;
       };
 
@@ -50,14 +49,14 @@ with lib;
     dconf.settings = {
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
-        gtk-theme = "Gruvbox-Dark"; # Auch hier geändert
+        gtk-theme = "Gruvbox-Dark";
         icon-theme = "Gruvbox-Plus-Dark";
         cursor-theme = "Bibata-Modern-Classic";
       };
     };
 
     home.sessionVariables = {
-      GTK_THEME = "Gruvbox-Dark"; # Und hier
+      GTK_THEME = "Gruvbox-Dark";
       XCURSOR_THEME = "Bibata-Modern-Classic";
       XCURSOR_SIZE = "24";
     };
