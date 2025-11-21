@@ -35,6 +35,7 @@ _: {
     ./plugins/ui/bufferline.nix
     ./plugins/ui/lualine.nix
     ./plugins/ui/alpha.nix
+    # ./plugins/ui/sidekick.nix
 
     # LSP and formatting
     ./plugins/lsp/lsp.nix
@@ -56,5 +57,6 @@ _: {
     ./plugins/utils/toggleterm.nix
     ./plugins/utils/web-devicons.nix
     ./plugins/utils/crates.nix
+    ./plugins/utils/colorizer.nix
   ];
 }

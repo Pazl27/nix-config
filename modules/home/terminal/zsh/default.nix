@@ -85,7 +85,7 @@ with lib;
         zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
         zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
 
-        pokemon-icat
+        # pokemon-icat
       '';
 
       localVariables = {
@@ -118,16 +118,14 @@ with lib;
     };
 
     # Install required packages for integrations
-    home.packages =
-      with pkgs;
-      [
-        fzf
-        zoxide
-        # oh-my-posh
-      ]
-      ++ lib.optionals (inputs ? pokemon-icat) [
-        inputs.pokemon-icat.packages.${pkgs.system}.default
-      ];
+    home.packages = with pkgs; [
+      fzf
+      zoxide
+      # oh-my-posh
+    ];
+    # ++ lib.optionals (inputs ? pokemon-icat) [
+    #   inputs.pokemon-icat.packages.${pkgs.system}.default
+    # ];
 
     # FZF integration
     programs.fzf = {

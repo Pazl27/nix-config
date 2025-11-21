@@ -66,7 +66,7 @@ in
           transition = "0.2s ease";
           radius = "8px";
         };
-        displayHorizontalTabs = false;
+        tabs.horizontal.enable = false;
         displayWindowControls = true;
         displayNavButtons = true;
         displayUrlbarIcons = true;
@@ -77,9 +77,7 @@ in
           size = "14px";
           accent = "#fe8019";
         };
-        sidebery = {
-          margin = "0.8rem";
-        };
+        tabs.vertical.margin = "0.8rem";
         newtabLogo = "   ____                 _                \A  / ___|_ __ _   ___   _| |__   _____  __\A | |  _| '__| | | \\ \\ / / '_ \\ / _ \\ \\/ /\A | |_| | |  | |_| |\\ V /| |_) | (_) >  < \A  \\____|_|   \\__,_| \\_/ |_.__/ \\___/_/\\_\\";
       };
     };

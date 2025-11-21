@@ -15,7 +15,6 @@ in
   options.features.editors.zed = {
     enable = mkEnableOption "Zed editor";
   };
-
   config = mkIf config.features.editors.zed.enable {
     # Install Zed and dependencies
     home.packages = with pkgs; [
@@ -24,17 +23,17 @@ in
       vulkan-validation-layers
       vulkan-tools
       vulkan-extension-layer
-
       # LSP servers
       rust-analyzer
       nil
       nixd
+      jdt-language-server
+      gopls
+      pyright
     ];
-
     # Configure Zed
     programs.zed-editor = {
       enable = true;
-
       # Apply settings with LSP configs
       userSettings = zedSettings // {
         lsp = {
@@ -48,40 +47,51 @@ in
               };
             };
           };
-
           nil = {
             binary = {
               path = "${pkgs.nil}/bin/nil";
             };
           };
-
           nixd = {
             binary = {
               path = "${pkgs.nixd}/bin/nixd";
             };
           };
+          jdtls = {
+            binary = {
+              path = "${pkgs.jdt-language-server}/bin/jdtls";
+            };
+          };
+          gopls = {
+            binary = {
+              path = "${pkgs.gopls}/bin/gopls";
+            };
+          };
+          pyright = {
+            binary = {
+              path = "${pkgs.pyright}/bin/pyright-langserver";
+            };
+          };
         };
       };
-
       userKeymaps = zedKeybindings;
       userTasks = zedTasks;
-
       extensions = [
         "nix"
+        "java"
+        "go"
+        "python"
       ];
     };
-
     home.sessionVariables = {
       # Point to NVIDIA Vulkan driver
       VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
       VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
-
       # Force NVIDIA
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       GBM_BACKEND = "nvidia-drm";
       LIBVA_DRIVER_NAME = "nvidia";
     };
-
     programs.zsh.shellAliases = mkIf config.features.editors.zed.enable {
       zed = "zeditor";
     };

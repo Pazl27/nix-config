@@ -156,9 +156,7 @@
                   dankMaterialShell.homeModules.dankMaterialShell.default
                   hyprland.homeManagerModules.default
                   textfox.homeManagerModules.default
-                  {
-                    home.packages = [ inputs.pokemon-icat.packages.${system}.default ];
-                  }
+                  pokemon-icat.homeManagerModules.default
                   {
                     home.file.".config/scripts".source = "${myScripts}/share/scripts";
                   }

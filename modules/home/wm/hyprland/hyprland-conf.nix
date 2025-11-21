@@ -128,7 +128,7 @@
       "$mainMod, B, exec, $browser"
       "$mainMod, V, togglefloating"
       "$mainMod, SPACE, exec, $menu"
-      "$mainMod, D, togglesplit"
+      # "$mainMod, D, togglesplit"
       "$mainMod, N, exec, swaync-client -t"
       "$mainMod, W, exec, $scriptDir/rofi/wifi.sh"
       "$mainMod, G, exec, $scriptDir/rofi/wallpaper_switcher.sh"
@@ -147,14 +147,17 @@
       "$mainMod, l, movefocus, r"
 
       # Hyprscrolling
-      "$mainMod SHIFT, H, layoutmsg, swapcol l"
-      "$mainMod SHIFT, L, layoutmsg, swapcol r"
+      "$mainMod SHIFT, comma, layoutmsg, swapcol l"
+      "$mainMod SHIFT, period, layoutmsg, swapcol r"
+      "$mainMod SHIFT, L, layoutmsg, movewindowto r"
+      "$mainMod SHIFT, H, layoutmsg, movewindowto l"
       "$mainMod SHIFT, j, movetoworkspace, +1"
       "$mainMod SHIFT, k, movetoworkspace, -1"
       "$mainMod, j, workspace, +1"
       "$mainMod, k, workspace, -1"
       "$mainMod, f, layoutmsg, colresize -conf"
       "$mainMod SHIFT, f, fullscreen"
+      "$mainMod, D, layoutmsg, orientationcycle left top"
 
       # witout hyprscrolling
       # "$mainMod SHIFT, h, movewindow, l"
@@ -305,6 +308,9 @@
       "float, class:^(steam)$, title:^(.* - News)$"
       "float, class:^(steam)$, title:^(.* - Community)$"
       "float, class:^(steam)$, title:^(.* - Properties)$"
+
+      # stream
+      "float,title:^(Select what to share)$"
     ];
 
     # Layer rules
@@ -327,8 +333,8 @@
 
       # Rofi
       "dimaround, rofi"
-      "blur, rofi"
       "animation slide top, rofi"
+      # "blur, rofi"
     ];
 
     # Autostart

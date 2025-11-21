@@ -2,7 +2,7 @@
   plugins.alpha = {
     enable = true;
 
-    layout = [
+    settings.layout = [
       {
         type = "text";
         val = [
@@ -136,7 +136,7 @@
       }
     ];
 
-    opts = {
+    settings.opts = {
       margin = 5;
       setup.__raw = ''
         function()

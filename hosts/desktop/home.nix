@@ -45,6 +45,7 @@
       bat.enable = true;
       ssh.enable = true;
       yazi.enable = true;
+      pokemon.enable = true;
     };
     # === Applications ===
     application = {
@@ -57,6 +58,9 @@
       firefox = {
         enable = true;
         default = true;
+      };
+      prismlauncher = {
+        enable = true;
       };
     };
   };
