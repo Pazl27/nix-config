@@ -27,189 +27,240 @@ My configuration has also integrated ai assistance, which can help you with quic
 # Applications
 
 <details>
-
   <summary>Waybar</summary>
-   <img src="./assets/screenshots/waybar.png" alt="Waybar Screenshot">
+  
+  <img src="./assets/screenshots/waybar.png" alt="Waybar Screenshot">
 
-   ### Overview
-   This is my Waybar setup for Hyprland, designed to be clean and efficient. It includes all the essential features I wanted in Waybar. For additional needs like volume control, I use swaync, which can be     triggered from Waybar. It is possible to take screenshot, use a color picker or mute the microphone.
+  ### Overview
+  Custom Waybar configuration for Hyprland with a clean, efficient design. Features essential system info and quick access to common actions through SwayNC integration.
 
   ### Workspaces
-  I've configured the workspaces so that if a workspace contains any open content, its indicator dot appears in a lighter shade of red. This makes it easier to keep track of active workspaces. Initially, only 7         workspaces are displayed, but more are added dynamically as needed when you go beyond 7.
+  Dynamic workspace indicators with visual feedback - active workspaces show a lighter red dot. Starts with 7 workspaces and expands automatically as needed.
 
-   <img src="./assets/screenshots/workspaces.png" alt="Workspace Screenshot">
+  <img src="./assets/screenshots/workspaces.png" alt="Workspace Screenshot">
 
   ### Expanding Widgets
-  On the right side of the Waybar, you'll find the notification module (which opens SwayNC), the battery level, the music display, and the expanding widget.
-  Inside the expanding widget, there are several useful tools and statistics. You can monitor key system stats such as temperature, disk space, and CPU usage.
-  In addition, there are icons for taking screenshots and using a color picker. You can also adjust the screen brightness directly from this widget.
+  Right side modules include notifications (SwayNC), battery, music player, and an expanding widget with system stats (temperature, disk, CPU), screenshot tools, color picker, and brightness controls.
 
   <img src="./assets/screenshots/expand.png" alt="Expanding Widget Screenshot">
 
-  ### Wifi and Bluetooth
-  On the left side of the Waybar, you'll find the following modules: power, clock, sound, Wi-Fi, and Bluetooth.
-  Both the Bluetooth and Wi-Fi modules launch a Rofi script when clicked. These scripts make it easy to connect to devices or select and log into Wi-Fi networks.
-  The sound module allows you to mute the microphone, and a right-click opens pulsemixer in a floating terminal window.
-  The power module opens wlogout.
+  ### WiFi and Bluetooth
+  Left side features power, clock, sound, WiFi, and Bluetooth modules. WiFi and Bluetooth launch Rofi scripts for easy device/network management. Sound module controls microphone muting, with right-click opening pulsemixer.
 
   <img src="./assets/screenshots/wifi-bluethooth.png" alt="Left Side Screenshot">
 
-   ### *How To Install*
-1. **Install `Waybar`:**
+  ### Configuration
+  Waybar is configured declaratively through NixOS. Enable in your `home.nix`:
+```nix
+  features.application.waybar.enable = true;
+```
 
-   ```
-    sudo pacman -S waybar
-   ```
-
-2. Copy the `Dotfiles/.config/waybar` folder into `~/.config`
-
-
-  ## Dependencies
-  ```plaintext
-  swaync
-  grimblast
-  hyprpicker
-  wl-copy
-  wlogout
-  rofi
-  pulsmixer
-  kitty
-  ```
+  Configuration location: `modules/home/applications/waybar.nix`
 
 </details>
 
 <details>
-
   <summary>Rofi</summary>
 
-   ### Overview
-   This is my roif setup. It is mainly used for launching apps and ssh connections.
-   <img src="./assets/screenshots/rofi.png" alt="Rofi Screenshot">
+  ### Overview
+  Application launcher and menu system, primarily used for launching apps, SSH connections, WiFi/Bluetooth management, and system controls.
 
-  ### *How To Install*
+  <img src="./assets/screenshots/rofi.png" alt="Rofi Screenshot">
 
-1. **Install `Rofi`:**
+  ### Configuration
+  Rofi is configured through NixOS with custom themes and scripts:
+```nix
+  features.application.rofi.enable = true;
+```
 
-   ```
-    sudo pacman -S rofi-wayland
-   ```
+  Custom scripts available in `~/.config/scripts/rofi/`:
+  - `wifi.sh` - WiFi manager
+  - `bluetooth.sh` - Bluetooth device manager
+  - `wallpaper_switcher.sh` - Wallpaper selector
+  - `resolution.sh` - Display resolution changer
 
-2. Copy the `Dotfiles/.config/rofi` folder into `~/.config`
-3. **Launching Rofi**
-    - I launch rofi like this:
-
-      ```config
-      rofi -show drun
-      ```
-
-</details>
-
-<details>
-
-  <summary>Swaync</summary>
-   <img src="./assets/screenshots/swaync.png" alt="Swaync Screenshot">
-
-   ### *How To Install*
-
-1. **Install `swaync`:**
-
-    ```bash
-    sudo pacman -S swaync
-    ```
-2. Copy the `Dotfiles/.config/swaync` folder into `~/.config`
-
-  ### Dependencies for `Swaync`
-  ```
-  swaync
-  rofi
-  libnotify
-  ```
+  Configuration location: `modules/home/applications/rofi.nix`
 
 </details>
 
 <details>
+  <summary>SwayNC</summary>
 
+  <img src="./assets/screenshots/swaync.png" alt="Swaync Screenshot">
+
+  ### Overview
+  Notification center for Wayland with custom Gruvbox theme. Provides notification history, do-not-disturb mode, and notification controls.
+
+  ### Configuration
+  Enable in your `home.nix`:
+```nix
+  features.application.swaync.enable = true;
+```
+
+  Configuration location: `modules/home/applications/swaync.nix`
+
+</details>
+
+<details>
   <summary>Neovim</summary>
-   <img src="./assets/screenshots/nvim.png" alt="Nvim Screenshot">
+  
+  ### Overview
+  Configured with [NixVim](https://github.com/nix-community/nixvim) - a Nix-based configuration framework that manages plugins, LSP, and keybindings declaratively. No Lua required, everything defined in Nix modules.
+
+  **Features:**
+  - LSP with rust-analyzer, nil, pyright, and more
+  - GitHub Copilot integration
+  - Treesitter syntax highlighting
+  - Telescope fuzzy finder
+  - Lazygit integration
+  - Custom Gruvbox theme
+
+  <img src="./assets/screenshots/nixvim-alpha.png" alt="Nvim Alpha Screenshot">
+  <img src="./assets/screenshots/nixvim.png" alt="Nvim Screenshot">
+
+  ### Configuration
+  Enable in your `home.nix`:
+```nix
+  features.editors.nvim.enable = true;
+```
+
+  Configuration location: `modules/home/editors/nvim/`
 
 </details>
 
 <details>
-
   <summary>Zed</summary>
-   <img src="./assets/screenshots/zed.png" alt="Zed Editor Screenshot">
 
-   ### Overview
-   Zed is my **main editor** and the tool I use for all my programming projects. I love Zed for its speed, clean interface, and excellent navigation features. While I still use Neovim for small edits and config files, Zed handles all my serious development work.
+  <img src="./assets/screenshots/zed.png" alt="Zed Editor Screenshot">
 
-   What makes Zed special for my workflow:
-   - **Lightning fast** performance and startup times
-   - **Intuitive navigation** that feels natural
-   - **Modern UI** that stays out of the way
-   - **Excellent language support** for Rust, Go, TypeScript, and more
-   - **Built-in collaboration** features (though I mainly use it solo)
+  ### Overview
+  My **main editor** for all programming projects. Zed offers lightning-fast performance, clean interface, and excellent navigation. While Neovim handles quick edits and config files, Zed is my go-to for serious development.
 
-   <img src="./assets/screenshots/zed-tmux.png" alt="Zed Terminal Integration Screenshot">
+  **Why Zed:**
+  - Lightning fast performance and startup times
+  - Intuitive navigation that feels natural
+  - Modern UI that stays out of the way
+  - Excellent language support for Rust, Go, TypeScript, and more
+  - Built-in collaboration features
 
-   ### Git Integration with Lazygit
-   I've set up custom tasks in Zed to integrate with **Lazygit** for all my Git management needs. This gives me a powerful TUI for staging, committing, branching, and handling merge conflicts without leaving my editor environment.
+  <img src="./assets/screenshots/zed-tmux.png" alt="Zed Terminal Integration Screenshot">
 
-   The Lazygit integration allows me to:
-   - Quick access to git status and staging
-   - Visual diff and merge conflict resolution
-   - Branch management and history viewing
-   - Seamless workflow between coding and version control
+  ### Git Integration with Lazygit
+  Custom tasks integrate with Lazygit for all Git management:
+  - Quick access to git status and staging
+  - Visual diff and merge conflict resolution
+  - Branch management and history viewing
+  - Seamless workflow between coding and version control
 
-   ### Terminal Integration with Tmux
-   One of my favorite Zed setups is the **terminal launcher** i created that automatically opens a terminal with tmux in the current project directory. This is handled by my `zed-tmux.sh` script, which:
+  ### Terminal Integration with Tmux
+  Custom terminal launcher (`zed-tmux.sh`) that:
+  - Launch command: `space + t + t`
+  - Launches kitty terminal with tmux session
+  - Names session after current project directory
+  - Maintains persistence - sessions survive terminal closure
+  - Always opens in the correct project directory
 
-   - Launch command: `space + t + t`
+  ### Configuration
+  Enable in your `home.nix`:
+```nix
+  features.editors.zed.enable = true;
+```
 
-   - **Launches kitty terminal** with tmux session
-   - **Names the session** after the current project directory
-   - **Maintains persistence** - even when I close the terminal, my tmux session keeps running
-   - **Quick access** to run tests, servers, and development commands
-   - **Project context** - always opens in the right directory
-
-   This means I can run my development server, tests, or any long-running processes, and they'll persist even if I accidentally close the terminal window.
-
-   ### *How To Install*
-1. **Install `Zed`:**
-
-    ```bash
-    sudo pacman -S zed
-    ```
-
-2. Copy `Dotfiles/.config/zed` into `~/.config/`
-
-3. **Set up the terminal launcher:**
-   - Copy the `zed-tmux.sh` script to `~/.config/scripts/`
-   - Make it executable: `chmod +x ~/.config/scripts/zed-tmux.sh`
-   - Configure Zed tasks to use the script for that checkout my `.config/zed/task.json`
-
-  ### Dependencies
-  ```plaintext
-  zed
-  lazygit
-  tmux
-  kitty
-  ```
+  Configuration files:
+  - Settings: `modules/home/editors/zed/zed-settings.nix`
+  - Keybindings: `modules/home/editors/zed/zed-keybindings.nix`
+  - Tasks: `modules/home/editors/zed/zed-tasks.nix`
+  - Script: `scripts/zed-tmux.sh`
 
 </details>
 
 <details>
-
   <summary>Wlogout</summary>
-   <img src="./assets/screenshots/wlogout.png" alt="Wlogout Screenshot">
 
-   ### *How To Install*
-1. **Install `wlogout`:**
+  <img src="./assets/screenshots/wlogout.png" alt="Wlogout Screenshot">
 
-    ```bash
-    yay -S wlogout
-    ```
-2. Copy `Dotfiles/.config/wlogout` into `~/.config/`
-3. If not already set make sure you set a key bind in hyprland.conf to launch wlogout.
+  ### Overview
+  Logout menu with options for shutdown, reboot, logout, and lock. Styled with custom Gruvbox theme to match the rest of the setup.
+
+  ### Configuration
+  Enable in your `home.nix`:
+```nix
+  features.application.wlogout.enable = true;
+```
+
+  Keybinding configured in Hyprland to launch wlogout.
+
+  Configuration location: `modules/home/applications/wlogout.nix`
+
+</details>
+
+<details>
+  <summary>Thunar</summary>
+
+  ### Overview
+  GTK-based file manager with custom Gruvbox theming, automatic mounting support, and archive plugin integration.
+
+  ### Configuration
+  Enable in your `home.nix`:
+```nix
+  features.application.thunar.enable = true;
+```
+
+  Features:
+  - Automatic device mounting with udiskie
+  - Archive support with file-roller
+  - Thumbnail generation
+  - Custom Gruvbox theme
+
+  Configuration location: `modules/home/applications/thunar.nix`
+
+</details>
+
+<details>
+  <summary>Ghostty</summary>
+
+  ### Overview
+  Modern GPU-accelerated terminal emulator with excellent performance and Wayland support. Configured with Gruvbox Dark theme and custom keybindings.
+
+  ### Configuration
+  Enable in your `home.nix`:
+```nix
+  features.application.ghostty.enable = true;
+```
+
+  Configuration location: `modules/home/applications/ghostty.nix`
+
+</details>
+
+<details>
+  <summary>Firefox</summary>
+
+  ### Overview
+  Web browser configured with [Textfox](https://github.com/adriankarlen/textfox) theme for a minimal, keyboard-focused browsing experience.
+
+  ### Configuration
+  Enable in your `home.nix`:
+```nix
+  features.application.firefox.enable = true;
+```
+
+  Configuration location: `modules/home/applications/firefox.nix`
+
+</details>
+
+<details>
+  <summary>Spotify</summary>
+
+  ### Overview
+  Music player with [Spicetify](https://spicetify.app/) customization for theming and enhanced features. Styled with custom Gruvbox theme.
+
+  ### Configuration
+  Enable in your `home.nix`:
+```nix
+  features.application.spotify.enable = true;
+```
+
+  Configuration location: `modules/home/applications/spotify.nix`
 
 </details>
 
@@ -232,7 +283,7 @@ The `SUPER` key refers to the **Left Alt** or **Option** key on most keyboards.
 | <kbd>Super</kbd> + <kbd>Space</kbd>        | Open app launcher (`rofi -show drun`)               |
 | <kbd>Super</kbd> + <kbd>F</kbd>            | Toggle fullscreen                                   |
 | <kbd>Super</kbd> + <kbd>D</kbd>            | Toggle split layout (dwindle only)                  |
-| <kbd>Super</kbd> + <kbd>N</kbd>            | Open terminal with notes (`open_notes.sh`)          |
+| <kbd>Super</kbd> + <kbd>N</kbd>            | Open SwayNc notification manager         |
 | <kbd>Super</kbd> + <kbd>W</kbd>            | Open WiFi selector (`rofi/wifi.sh`)                 |
 | <kbd>Super</kbd> + <kbd>G</kbd>            | Switch wallpaper (`rofi/wallpaper_switcher.sh`)     |
 | <kbd>Super</kbd> + <kbd>A</kbd>            | Launch AI assistant (`askai.sh`)                    |
@@ -441,6 +492,113 @@ This script makes wallpaper management incredibly convenient - I can quickly bro
 
 ---
 
+
+# NixOS Configuration
+
+## Overview
+
+This is a modular NixOS configuration supporting multiple deployment methods:
+
+- **NixOS + Home Manager**: Full system configuration (`desktop`, `nixvm`)
+- **Home Manager Only**: User-space configuration for non-NixOS systems (`nix-wsl`)
+
+All configurations share the same Home Manager modules, ensuring consistent application setups across all machines. The configuration uses **Nix Flakes** for reproducibility and a **feature-flag system** for enabling/disabling components.
+
+## Configuration Files
+
+### `variables.nix`
+Host-specific values like git credentials, boot settings, and hardware preferences:
+```nix
+{
+  # Boot
+  bootDevice = "nodev";
+  useUEFI = true;
+  
+  # Git
+  gitUsername = "YourName";
+  gitEmail = "your@email.com";
+  
+  # Hardware (optional)
+  nvidiaVibrance = 512;
+}
+```
+
+### `home.nix`
+Enable/disable applications and features:
+```nix
+{
+  features = {
+    wm.hyprland.enable = true;
+    
+    editors = {
+      nvim.enable = true;
+      zed.enable = true;
+    };
+    
+    application = {
+      firefox.enable = true;
+      spotify.enable = true;
+      discord.enable = true;
+    };
+    
+    tools = {
+      git.enable = true;
+      yazi.enable = true;
+    };
+  };
+}
+```
+
+## Adding a New Host
+
+1. **Create host directory:**
+```
+   hosts/laptop/
+   ├── configuration.nix  # System config
+   ├── default.nix        # Imports
+   ├── hardware-configuration.nix  # Auto-generated
+   ├── home.nix          # User config
+   └── variables.nix     # Host-specific values
+```
+
+2. **Add to `flake.nix`:**
+```nix
+   hosts = {
+     laptop = {
+       username = "yourname";
+       homeDirectory = "/home/yourname";
+       hostConfig = ./hosts/laptop;
+       isNixOS = true;  # or false for Home Manager only
+     };
+   };
+```
+
+3. **Build:**
+```bash
+   # NixOS
+   sudo nixos-rebuild switch --flake .#laptop
+   
+   # Home Manager only
+   home-manager switch --flake .#laptop
+```
+
+## Module Organization
+```
+modules/
+├── core/          # System: bootloader, fonts, security
+├── drivers/       # Hardware: nvidia, amd, intel
+└── home/
+    ├── applications/  # GUI apps
+    ├── editors/       # Neovim, Zed, VS Code
+    ├── environments/  # Dev languages
+    ├── tools/         # CLI utilities
+    └── wm/            # Window managers
+```
+
+Enable what you need in `home.nix`, everything is opt-in.
+
+---
+
 # Keyboard
 
 I use a **Corne (crkbd) v4** keyboard — a split, column-staggered 40% layout with 3 layers. Mine is the **wired version**, and I got it from [KeebArt](https://www.keebart.com/de/produkte/corne). It's compact, ergonomic, and a joy to type on once you get used to the layering system.
@@ -482,23 +640,3 @@ This layer adds:
 **Visual:**
 ![Layer 2 – Numbers & Symbols](assets/screenshots/keyboard/layer2.png)
 
----
-
-# Installation
-1. Clone the repository
-```bash
-cd ~
-git clone https://github.com/Pazl27/dotfiles.git
-```
-2. Make sure you have the application installed that you want to use.
-3. Copy the configuration files to the `.config` directory
-```bash
-cd dotfiles
-cp -r -f .config/[dir_you_want_to_copy] ~/.config/
-```
-If you have existing configuration files you want to keep, make a backup of them before copying the new ones.
-It is also possible to apply the configuration with the help of stow.
-```bash
-cd dotfiles
-stow .
-```
