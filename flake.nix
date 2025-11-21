@@ -107,7 +107,10 @@
         }:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = {
+            inherit inputs;
+            host = name;
+          };
           modules = [
             ./home.nix
             (hostConfig + "/home.nix")
@@ -119,6 +122,7 @@
               home.username = username;
               home.homeDirectory = homeDirectory;
             }
+            { config._module.args.host = name; }
           ];
         };
 
@@ -133,7 +137,10 @@
         }:
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs; };
+          specialArgs = {
+            inherit inputs;
+            host = name;
+          };
           modules = [
             hostConfig
             # Import NixOS modules
@@ -146,7 +153,10 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                host = name;
+              };
               home-manager.users.${username} = {
                 imports = [
                   ./home.nix
@@ -160,6 +170,7 @@
                   {
                     home.file.".config/scripts".source = "${myScripts}/share/scripts";
                   }
+                  { config._module.args.host = name; }
                 ];
                 home.username = username;
                 home.homeDirectory = homeDirectory;

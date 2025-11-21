@@ -2,12 +2,11 @@
   config,
   lib,
   pkgs,
+  host,
   ...
 }:
 let
-  vars = config.hostVars;
-  useUEFI = vars.useUEFI;
-  bootDevice = vars.bootDevice;
+  inherit (import ../../hosts/${host}/variables.nix) useUEFI bootDevice;
 in
 {
   boot.loader = {

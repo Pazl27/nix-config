@@ -2,11 +2,13 @@
   config,
   lib,
   pkgs,
+  host,
   ...
 }:
-
 with lib;
-
+let
+  inherit (import ../../../hosts/${host}/variables.nix) gitUsername gitEmail;
+in
 {
   options.features.tools.git = {
     enable = mkEnableOption "git version control";
@@ -21,8 +23,8 @@ with lib;
 
       settings = {
         user = {
-          name = "Pazl";
-          email = "130466427+Pazl27@users.noreply.github.com";
+          name = "${gitUsername}";
+          email = "${gitEmail}";
         };
 
         alias = {
