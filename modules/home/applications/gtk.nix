@@ -14,16 +14,26 @@ with lib;
     gtk = {
       enable = true;
 
-      # Versuche verschiedene Gruvbox-Namen
+      # theme = {
+      #   name = "Gruvbox-Dark";
+      #   package = pkgs.gruvbox-gtk-theme;
+      # };
+
       theme = {
-        name = "Gruvbox-Dark"; # Geändert von "Gruvbox-Dark-BL"
-        package = pkgs.gruvbox-gtk-theme;
+        name = "Colloid-Red-Dark-Gruvbox";
+        package = pkgs.colloid-gtk-theme;
       };
 
-      # iconTheme = {
-      #   name = "Gruvbox-Plus-Dark";
-      #   package = pkgs.gruvbox-plus-icons;
-      # };
+      iconTheme = {
+        name = "Colloid-Red-Gruvbox-Dark";
+        package = pkgs.colloid-icon-theme;
+      };
+
+      cursorTheme = {
+        name = "Gruvbox";
+        package = pkgs.capitaine-cursors-themed;
+        size = 24;
+      };
 
       font = {
         name = "Ubuntu";
@@ -42,24 +52,26 @@ with lib;
 
     home.packages = with pkgs; [
       gruvbox-gtk-theme
-      gruvbox-plus-icons
+      colloid-gtk-theme
+      colloid-icon-theme
       bibata-cursors
-      lxappearance
+      capitaine-cursors-themed
+
+      nwg-look
     ];
 
-    dconf.settings = {
-      "org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
-        gtk-theme = "Gruvbox-Dark"; # Auch hier geändert
-        icon-theme = "Gruvbox-Plus-Dark";
-        cursor-theme = "Bibata-Modern-Classic";
-      };
-    };
-
     home.sessionVariables = {
-      GTK_THEME = "Gruvbox-Dark"; # Und hier
+      # GTK_THEME = "Gruvbox-Dark";
       XCURSOR_THEME = "Bibata-Modern-Classic";
       XCURSOR_SIZE = "24";
+    };
+
+    home.pointerCursor = {
+      name = "Gruvbox";
+      package = pkgs.capitaine-cursors-themed;
+      size = 24;
+      gtk.enable = true;
+      x11.enable = true;
     };
   };
 }
