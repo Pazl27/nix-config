@@ -7,7 +7,11 @@
     env = [
       "WLR_NO_HARDWARE_CURSORS,1"
       "XCURSOR_SIZE,24"
-      "HYPRCURSOR_SIZE,24"
+
+      "XDG_CURRENT_DESKTOP,Hyprland"
+      "XDG_SESSION_TYPE,wayland"
+      "XDG_SESSION_DESKTOP,Hyprland"
+      "GTK_USE_PORTAL,1"
     ];
 
     # Programs
@@ -245,6 +249,10 @@
 
       # File picker windows
       "float, center, title:^(Open File|Open|Save|Save As|Export|Import|Choose File|Rename), class:^(.*)$"
+      "float,class:^(thunar)$"
+      "size 1000 800, class:^(thunar)$"
+      "center, class:^(thunar)$"
+      "opacity 0.8 0.8,class:(thunar)"
 
       # Disable borders for swaync
       "noborder, class:(swaync)"
@@ -321,12 +329,12 @@
       "ignorealpha 0.5, waybar"
 
       # SwayNC
-      "blur, swaync-control-center"
-      "blur, swaync-notification-window"
-      "ignorezero, swaync-control-center"
-      "ignorezero, swaync-notification-window"
-      "ignorealpha 0.5, swaync-control-center"
-      "ignorealpha 0.5, swaync-notification-window"
+      # "blur, swaync-control-center"
+      # "ignorezero, swaync-control-center"
+      # "ignorealpha 0.5, swaync-control-center"
+      # "blur, swaync-notification-window"
+      # "ignorezero, swaync-notification-window"
+      # "ignorealpha 0.5, swaync-notification-window"
 
       # Wlogout
       "blur, logout_dialog"
@@ -334,7 +342,6 @@
       # Rofi
       "dimaround, rofi"
       "animation slide top, rofi"
-      # "blur, rofi"
     ];
 
     # Autostart

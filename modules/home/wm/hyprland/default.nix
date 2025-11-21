@@ -41,14 +41,28 @@ in
       '';
     };
 
+    xdg.portal = {
+      enable = true;
+
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+      ];
+
+      config = {
+        common.default = "*";
+        hyprland.default = [
+          "hyprland"
+          "gtk"
+        ];
+      };
+    };
+
     features.application = {
       rofi.enable = true;
       waybar.enable = true;
       wlogout.enable = true;
       swaync.enable = true;
     };
-
-    # Import Hyprland configuration
 
     # Essential Hyprland packages
     home.packages = with pkgs; [
