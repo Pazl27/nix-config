@@ -1,12 +1,5 @@
 {
   # ╔════════════════════════════════════════╗
-  # ║  BOOT CONFIGURATION                    ║
-  # ╚════════════════════════════════════════╝
-  # Boot Configuration
-  bootDevice = "/dev/sda";
-  useUEFI = false;
-
-  # ╔════════════════════════════════════════╗
   # ║  GIT CONFIGURATION                     ║
   # ╚════════════════════════════════════════╝
   gitUsername = "Pazl";
