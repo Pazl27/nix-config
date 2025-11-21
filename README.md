@@ -19,8 +19,9 @@ My configuration has also integrated ai assistance, which can help you with quic
 
 # Preview
 ![Screenshot](./assets/screenshots/main.png)
-![Screenshot](./assets/screenshots/secound.png)
-![Screenshot](./assets/screenshots/nvim.png)
+![Screenshot](./assets/screenshots/gaming-anime.png)
+![Screenshot](./assets/screenshots/spotify.png)
+![Screenshot](./assets/screenshots/textfox.png)
 ![Screenshot](./assets/screenshots/yazi.png)
 
 # Applications
