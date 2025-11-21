@@ -58,6 +58,11 @@ with lib;
           urgency = "Low";
           app-name = "Example App: Spotify";
         };
+        spotify = {
+          state = "muted";
+          urgency = "Low";
+          app-name = "Spotify";
+        };
       };
 
       widgets = [
