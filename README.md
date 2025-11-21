@@ -217,18 +217,18 @@ My configuration has also integrated ai assistance, which can help you with quic
 </details>
 
 <details>
-  <summary>Ghostty</summary>
+  <summary>Kitty</summary>
 
   ### Overview
-  Modern GPU-accelerated terminal emulator with excellent performance and Wayland support. Configured with Gruvbox Dark theme and custom keybindings.
+  Modern GPU-accelerated terminal emulator with excellent performance and Wayland support. Configured with Gruvbox Dark theme.
 
   ### Configuration
   Enable in your `home.nix`:
 ```nix
-  features.application.ghostty.enable = true;
+  features.application.kitty.enable = true;
 ```
 
-  Configuration location: `modules/home/applications/ghostty.nix`
+  Configuration location: `modules/home/applications/kitty.nix`
 
 </details>
 
