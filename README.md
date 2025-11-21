@@ -220,7 +220,7 @@ My configuration has also integrated ai assistance, which can help you with quic
   <summary>Kitty</summary>
 
   ### Overview
-  Modern GPU-accelerated terminal emulator with excellent performance and Wayland support. Configured with Gruvbox Dark theme.
+  Modern terminal emulator with excellent performance and Wayland support. Configured with Gruvbox Dark theme.
 
   ### Configuration
   Enable in your `home.nix`:
