@@ -1,0 +1,18 @@
+<svg width="600" height="30" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background colors -->
+  <rect x="0" y="0" width="43" height="60" fill="#1d2021"/>
+  <rect x="43" y="0" width="43" height="60" fill="#282828"/>
+  <rect x="86" y="0" width="43" height="60" fill="#3c3836"/>
+  <rect x="129" y="0" width="43" height="60" fill="#504945"/>
+  <rect x="172" y="0" width="43" height="60" fill="#665c54"/>
+  <rect x="215" y="0" width="43" height="60" fill="#928374"/>
+  <rect x="258" y="0" width="43" height="60" fill="#ebdbb2"/>
+  <!-- Accent colors -->
+  <rect x="301" y="0" width="43" height="60" fill="#fb4934"/>
+  <rect x="344" y="0" width="43" height="60" fill="#b8bb26"/>
+  <rect x="387" y="0" width="43" height="60" fill="#fabd2f"/>
+  <rect x="430" y="0" width="43" height="60" fill="#83a598"/>
+  <rect x="473" y="0" width="43" height="60" fill="#d3869b"/>
+  <rect x="516" y="0" width="43" height="60" fill="#8ec07c"/>
+  <rect x="559" y="0" width="41" height="60" fill="#fe8019"/>
+</svg>
