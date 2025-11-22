@@ -4,15 +4,11 @@
    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&letterSpacing=tiny&duration=2000&pause=3000&color=ebdbb2&center=true&vCenter=true&width=435&lines=NixOs+Dotfiles" alt="NixOS Dotfiles">
 
 <p>
-<a href="https://nixos.org">
-   <img src="https://img.shields.io/badge/NixOS-Unstable-blue?style=for-the-badge&logo=NixOS&logoColor=83a598&label=NixOS&labelColor=282828&color=83a598" alt="NixOS Unstable">
-</a>&nbsp;&nbsp;<a href="https://github.com/Pazl27/nix-config/stargazers">
-   <img src="https://img.shields.io/github/stars/Pazl27/nix-config?style=for-the-badge&logo=starship&color=d79921&logoColor=d79921&labelColor=282828" alt="stars">
-</a>&nbsp;&nbsp;<a href="https://github.com/Pazl27/nix-config/commits/master/">
-   <img src="https://img.shields.io/github/last-commit/Pazl27/nix-config?style=for-the-badge&logo=github&logoColor=fb4934&label=Last%20Commit&labelColor=282828&color=fb4934" alt="last commit">
-</a>&nbsp;&nbsp;<a href="https://github.com/Pazl27/nix-config/blob/master/LICENSE">
-   <img src="https://img.shields.io/github/license/Pazl27/nix-config?style=for-the-badge&color=b16286&logoColor=b16286&labelColor=282828" alt="license">
-</a>&nbsp;&nbsp;</p>
+<a href="https://github.com/Pazl27/nix-config/stargazers"><img src="https://img.shields.io/github/stars/Pazl27/nix-config?style=for-the-badge&logo=starship&color=d79921&logoColor=d79921&labelColor=282828"  alt="stars"></a>&nbsp;&nbsp;
+<a href="https://nixos.org"><img src="https://img.shields.io/badge/NixOS-Unstable-blue?style=for-the-badge&logo=NixOS&logoColor=83a598&label=NixOS&labelColor=282828&color=83a598" alt="NixOs Unstable"></a>&nbsp;&nbsp;
+<a href="https://github.com/Pazl27/nix-config/commits/master/"><img src="https://img.shields.io/github/last-commit/Pazl27/nix-config?style=for-the-badge&logo=github&logoColor=fb4934&label=Last%20Commit&labelColor=282828&color=fb4934" alt="last commit"></a>&nbsp;&nbsp;
+<a href="https://github.com/Pazl27/nix-config/blob/master/LICENSE"><img src="https://img.shields.io/github/license/Pazl27/nix-config?style=for-the-badge&color=b16286&logoColor=b16286&labelColor=282828" alt="license"></a>&nbsp;&nbsp;
+</p>
 </div>
 
 # Description
