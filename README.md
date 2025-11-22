@@ -1,6 +1,7 @@
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&letterSpacing=tiny&duration=2000&pause=3000&color=F7F7F7&center=true&vCenter=true&width=435&lines=NixOs+Dotfiles)](https://git.io/typing-svg)
-
 <div align="center">
+   <img src="assets/imgs/nixos-logo.png" width="100px" /> 
+   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&letterSpacing=tiny&duration=2000&pause=3000&color=ebdbb2&center=true&vCenter=true&width=435&lines=NixOs+Dotfiles" alt="NixOS Dotfiles">
+
 <p>
 <a href="https://github.com/Pazl27/nix-config/stargazers"><img src="https://img.shields.io/github/stars/Pazl27/nix-config?style=for-the-badge&logo=starship&color=d79921&logoColor=d79921&labelColor=282828"  alt="stars"></a>&nbsp;&nbsp;
 <a href="https://github.com/Pazl27/nix-config/forks"><img src="https://img.shields.io/github/forks/Pazl27/nix-config?style=for-the-badge&logo=appveyor&logoColor=98971a&label=Forks&labelColor=282828&color=98971a" alt="forks"></a>&nbsp;&nbsp;
