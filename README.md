@@ -5,7 +5,7 @@
    <br>
    <img src="./assets/imgs/gruvbox-palette.svg" width="600px" />
 
-   <br><br>
+   <br>
 
 <p>
 <a href="https://github.com/Pazl27/nix-config/commits/master/"><img src="https://img.shields.io/github/last-commit/Pazl27/nix-config?style=for-the-badge&logo=github&logoColor=fb4934&label=Last%20Commit&labelColor=282828&color=fb4934" alt="last commit"></a>&nbsp;&nbsp;
