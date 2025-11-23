@@ -4,6 +4,7 @@
   # ╚════════════════════════════════════════╝
   bootDevice = "nodev";
   useUEFI = true;
+  sddmTheme = "japanese_aesthetic";
 
   # ╔════════════════════════════════════════╗
   # ║  GIT CONFIGURATION                     ║
