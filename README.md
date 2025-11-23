@@ -3,7 +3,7 @@
    <br>
    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&letterSpacing=tiny&duration=2000&pause=3000&color=ebdbb2&center=true&vCenter=true&width=435&lines=NixOs+Dotfiles" alt="NixOS Dotfiles">
    <br>
-   <img src="./assets/imgs/palette.svg" width="600px" />
+   <img src="./assets/imgs/palett.svg" width="600px" />
 
    <br>
 
