@@ -22,6 +22,7 @@ with lib;
       hyprpicker
       pulsemixer
       wl-clipboard
+      curl
     ];
 
     # Waybar configuration
@@ -54,6 +55,7 @@ with lib;
             "custom/screenshot"
             "custom/colorpicker"
             "custom/endpoint"
+            "custom/weather"
             "mpris"
             "battery"
             "custom/notification"
@@ -214,6 +216,19 @@ with lib;
             on-click = "playerctl -p spotify play-pause";
             return-type = "json";
             tooltip = true;
+          };
+
+          "custom/weather" = {
+            exec = ''
+              location=$(curl -s "https://ipinfo.io/city" 2>/dev/null || echo "Unknown")
+              temp=$(curl -s "https://wttr.in/?format=%t" 2>/dev/null | sed 's/+//g')
+              condition=$(curl -s "https://wttr.in/?format=%C" 2>/dev/null)
+              echo "{\"text\":\"$temp\", \"tooltip\":\"$location: $condition\", \"class\":\"weather\"}"
+            '';
+            interval = 1800;
+            format = " {}";
+            return-type = "json";
+            on-click = "xdg-open https://wttr.in/";
           };
 
           # ─── Network & Bluetooth ───────────────────────────────
@@ -611,6 +626,20 @@ with lib;
                 padding: 0px 5px;
                 transition: all .3s ease;
                 }
+        #custom-weather {
+          padding: 0px 5px;
+          transition: all .3s ease;
+          color: #a89984;
+          }
+
+        #custom-weather:hover {
+          transition: all .3s ease;
+          color: #fb4934;
+          }
+
+        #custom-weather.weather-error {
+          color: #fb4934;
+          }
       '';
     };
   };
