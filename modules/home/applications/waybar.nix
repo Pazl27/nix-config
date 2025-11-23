@@ -15,13 +15,13 @@ with lib;
     home.packages = with pkgs; [
       waybar
 
-      playerctl # Für custom/playerctl
-      blueman # Für Bluetooth-Management
-      swaynotificationcenter # Für swaync
-      wlogout # Für Power-Menu
-      hyprpicker # Für Colorpicker
-      pulsemixer # Für Audio-Control
-      wl-clipboard # Für Copy-Funktionen
+      playerctl
+      blueman
+      swaynotificationcenter
+      wlogout
+      hyprpicker
+      pulsemixer
+      wl-clipboard
     ];
 
     # Waybar configuration
@@ -50,7 +50,11 @@ with lib;
 
           modules-right = [
             "group/expand"
-            "custom/playerctl"
+            # "custom/playerctl"
+            "custom/screenshot"
+            "custom/colorpicker"
+            "custom/endpoint"
+            "mpris"
             "battery"
             "custom/notification"
           ];
@@ -150,6 +154,30 @@ with lib;
           };
 
           # ─── Audio and Media ───────────────────────────────────
+          mpris = {
+            format = "{player_icon} {dynamic}";
+            format-paused = "{status_icon} <i>{dynamic}</i>";
+            player-icons = {
+              default = "🎵";
+              spotify = "";
+            };
+            status-icons = {
+              paused = "";
+              playing = "";
+            };
+            dynamic-order = [
+              "artist"
+              "title"
+            ];
+            dynamic-len = 40;
+            dynamic-separator = " - ";
+            player-hidden = [ "firefox" ];
+            on-click = "playerctl -p spotify play-pause";
+            on-scroll-up = "playerctl -p spotify previous";
+            on-scroll-down = "playerctl -p spotify next";
+            ignored-players = [ "firefox" ];
+          };
+
           pulseaudio = {
             format = "{volume}% {icon}{format_source}";
             format-bluetooth = "{volume}% {icon}  {format_source}";
@@ -217,7 +245,7 @@ with lib;
 
           # ─── Power ─────────────────────────────────────────────
           "custom/power" = {
-            format = " {}";
+            format = " {}";
             interval = 86400;
             on-click = "wlogout";
             rotate = 0;
@@ -268,8 +296,8 @@ with lib;
             };
             modules = [
               "custom/expand"
-              "custom/screenshot"
-              "custom/colorpicker"
+              # "custom/screenshot"
+              # "custom/colorpicker"
               "memory"
               "cpu"
               "disk"
@@ -407,7 +435,7 @@ with lib;
         #custom-power {
                 padding: 0px 5px;
                 transition: all .3s ease;
-                color: #ffffff;
+                color: #458588;
                 }
 
         #clock {
@@ -478,6 +506,24 @@ with lib;
                 color: #a89984;
 
                 }
+
+        #mpris {
+          padding: 0px 5px;
+          transition: all .3s ease;
+          color: #a89984;
+        }
+
+        #mpris.playing {
+          color: #b8bb26;
+        }
+
+        #mpris.paused {
+          color: #a89984;
+        }
+
+        #mpris:hover {
+          color: #fb4934;
+        }
 
         #pulseaudio {
                 padding: 0px 5px;
