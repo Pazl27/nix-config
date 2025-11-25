@@ -36,8 +36,6 @@
         integrations = {
           cmp = true;
           notify = true;
-          gitsigns = true;
-          neotree = true;
           which_key = true;
           illuminate = {
             enabled = true;

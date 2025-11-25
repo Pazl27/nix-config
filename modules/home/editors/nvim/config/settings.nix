@@ -28,8 +28,8 @@
       tabstop = 2;
       softtabstop = 2;
 
-      # Show tabline always
-      showtabline = 2;
+      # Show tabline never
+      showtabline = 0;
 
       # Use spaces instead of tabs
       expandtab = true;
