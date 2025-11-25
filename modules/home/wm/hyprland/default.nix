@@ -10,7 +10,6 @@ let
 in
 {
   imports = [
-    ./hyprland-conf.nix
     ./hyprlock.nix
   ];
 
@@ -32,6 +31,14 @@ in
         # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprbars
         # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
         # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprgrass
+      ];
+
+      settings = lib.mkMerge [
+        (import ./env.nix)
+        (import ./general.nix)
+        (import ./keybinds.nix)
+        (import ./rules.nix)
+        (import ./exec.nix)
       ];
 
       extraConfig = ''
