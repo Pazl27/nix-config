@@ -1,17 +1,18 @@
 #!/bin/bash
-
 # Directory containing installer scripts
 INSTALLER_DIR="$HOME/.config/scripts/installer"
 
 # Define menu options with icons and display names in order
 declare -a menu_order=(
-    " System Update"
+    " Nix Shell"
+    " Flake Update"
     " Create Web App"
     " Remove Web App"
 )
 
 declare -A options
-options[" System Update"]="system-update.sh"
+options[" Nix Shell"]="shell.sh"
+options[" Flake Update"]="flake.sh"
 options[" Create Web App"]="webapp-install.sh"
 options[" Remove Web App"]="webapp-remove.sh"
 
