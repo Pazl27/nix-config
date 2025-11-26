@@ -316,6 +316,163 @@ with lib;
       }
     '';
 
+    xdg.configFile."rofi/list.rasi".text = ''
+            /*****----- Configuration -----*****/
+            configuration {
+                  show-icons:                 false;
+                    display-columns:            1;
+                    kb-mode-previous:           "";
+                    kb-mode-next:               "";
+                    kb-row-up:                  "Up,Control+k";
+                    kb-row-down:                "Down,Control+j";
+                    kb-accept-entry:            "Control+m,Return,KP_Enter";
+                }
+
+            /*****----- Global Properties -----*****/
+            * {
+                  font:                        "JetBrains Mono Nerd Font 11";
+                    background:                  #1d2021;
+                    background-alt:              #282828;
+                    foreground:                  #ebdbb2;
+                    selected:                    #504945;
+                    active:                      #FE8019;
+                    urgent:                      #fb4934;
+                    border-color:                #3c3836; 
+                    input-bg:                    #3c3836;
+                }
+
+            /*****----- Main Window -----*****/
+            window {
+                  transparency:                "real";
+                    location:                    center;
+                    anchor:                      center;
+                    fullscreen:                  false;
+                    width:                       650px;
+                    border-radius:               12px;
+                    border:                      1px;  /* Smaller border */
+                    border-color:                @border-color;
+                    background-color:            @background;
+                    padding:                     15px;  /* More space */
+                }
+
+            /*****----- Main Box -----*****/
+            mainbox {
+                  enabled:                     true;
+                    spacing:                     15px;  /* More spacing between sections */
+              margin:                      0px;
+                padding:                     0px;
+                background-color:            transparent;
+                children:                    [ "inputbar", "message", "listview" ];
+            }
+
+          /*****----- Input Bar -----*****/
+          inputbar {
+                enabled:                     true;
+                  spacing:                     12px;
+            margin:                      0px;
+              padding:                     12px 18px;  /* More padding */
+              border:                      0px;  /* No border */
+              border-radius:               10px;  /* Rounded like selected items */
+              background-color:            @input-bg;  /* Floating appearance */
+              text-color:                  @foreground;
+              children:                    [ "prompt", "entry" ];
+          }
+
+      prompt {
+            enabled:                     true;
+              background-color:            transparent;
+              text-color:                  @active;
+          }
+
+      entry {
+            enabled:                     true;
+              background-color:            transparent;
+              text-color:                  @foreground;
+              cursor:                      text;
+              placeholder:                 "Search...";
+              placeholder-color:           #928374;
+          }
+
+      /*****----- Message -----*****/
+      message {
+            enabled:                     true;
+              margin:                      0px;
+              padding:                     12px;
+              border:                      0px;
+              border-radius:               10px;
+              background-color:            @background-alt;
+              text-color:                  @foreground;
+          }
+
+      textbox {
+            background-color:            transparent;
+              text-color:                  @foreground;
+              vertical-align:              0.5;
+              horizontal-align:            0.0;
+          }
+
+      /*****----- Listview -----*****/
+      listview {
+            enabled:                     true;
+              columns:                     1;
+              lines:                       8;
+              cycle:                       true;
+              dynamic:                     true;
+              scrollbar:                   false;
+              layout:                      vertical;
+              reverse:                     false;
+              fixed-height:                true;
+              fixed-columns:               true;
+              spacing:                     8px;  /* More space between items */
+              margin:                      0px;
+              padding:                     5px 0px;  /* Vertical padding */
+              background-color:            transparent;
+              border:                      0px;
+          }
+
+      /*****----- Elements -----*****/
+      element {
+            enabled:                     true;
+              spacing:                     12px;
+              margin:                      0px;
+              padding:                     12px 18px;  /* More padding */
+              border:                      0px;
+              border-radius:               10px;  /* Rounded like input */
+              background-color:            transparent;
+              text-color:                  @foreground;
+              cursor:                      pointer;
+          }
+
+      element normal.normal {
+            background-color:            transparent;
+              text-color:                  @foreground;
+          }
+
+      element selected.normal {
+            background-color:            @selected;  /* Same as input bg style */
+              text-color:                  @foreground;
+          }
+
+      element alternate.normal {
+            background-color:            transparent;
+              text-color:                  @foreground;
+          }
+
+      element-text {
+            background-color:            transparent;
+              text-color:                  inherit;
+            cursor:                      inherit;
+            vertical-align:              0.5;
+            horizontal-align:            0.0;
+          }
+
+      element-icon {
+            background-color:            transparent;
+              size:                        18px;
+              cursor:                      inherit;
+        }
+    '';
+
     home.file.".config/rofi" = {
       source = ../../../assets/rofi;
       recursive = true;

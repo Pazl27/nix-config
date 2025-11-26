@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Directory containing installer scripts
 INSTALLER_DIR="$HOME/.config/scripts/installer"
 
@@ -26,7 +26,9 @@ done
 menu=$(echo -e "$menu" | head -c -1)
 
 # Show rofi menu
-selected=$(echo -e "$menu" | rofi -dmenu -i -p ">" -theme "$HOME/.config/rofi/ai.rasi")
+selected=$(echo -e "$menu" | rofi -dmenu -i -p ">" \
+    -theme "$HOME/.config/rofi/list.rasi" \
+    -theme-str 'window { height: 350px; }')
 
 # Execute the corresponding script if something was selected
 if [[ -n "$selected" ]]; then
