@@ -92,6 +92,10 @@
       fillchars = {
         eob = " ";
       };
+
+      # Auto-reload files when changed outside vim
+      autoread = true;
+      updatetime = 250;
     };
   };
 }

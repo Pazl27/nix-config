@@ -71,5 +71,29 @@
         '';
       };
     }
+    # Auto-reload files when changed outside
+    {
+      event = [
+        "FocusGained"
+        "BufEnter"
+        "CursorHold"
+        "CursorHoldI"
+      ];
+      pattern = "*";
+      command = "checktime";
+    }
+
+    # Notification when file changes
+    {
+      event = [ "FileChangedShellPost" ];
+      pattern = "*";
+      callback = {
+        __raw = ''
+          function()
+                  vim.notify("File changed on disk. Buffer reloaded.", vim.log.levels.WARN)
+            end
+        '';
+      };
+    }
   ];
 }
