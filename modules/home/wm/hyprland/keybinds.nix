@@ -19,6 +19,7 @@
     "$mainMod SHIFT, S, exec, $scriptDir/snapshot.sh"
     "$mainMod, I, exec, wlogout"
     "$mainMod, P, exec, $scriptDir/rofi/list-installer.sh"
+    "$mainMod, Y, exec, $scriptDir/rofi/clipboard.sh"
 
     # Window management
     "$mainMod, Tab, cyclenext"
