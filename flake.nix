@@ -105,12 +105,17 @@
             nixvim.homeModules.nixvim
             spicetify-nix.homeManagerModules.default
             dankMaterialShell.homeModules.dankMaterialShell.default
+            hyprland.homeManagerModules.default
             textfox.homeManagerModules.default
+            pokemon-icat.homeManagerModules.default
+            {
+              home.file.".config/scripts".source = "${myScripts}/share/scripts";
+            }
+            { config._module.args.host = name; }
             {
               home.username = username;
               home.homeDirectory = homeDirectory;
             }
-            { config._module.args.host = name; }
           ];
         };
 
