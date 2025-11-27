@@ -11,5 +11,6 @@
     ./system.nix
     ./fonts.nix
     ./steam.nix
+    ./bluetooth.nix
   ];
 }
