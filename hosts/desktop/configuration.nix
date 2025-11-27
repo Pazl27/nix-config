@@ -12,7 +12,7 @@
   services.xserver.enable = true;
   services.desktopManager.gnome.enable = false;
   programs.hyprland.enable = true;
-  programs.niri.enable = true;
+  programs.niri.enable = false;
 
   # Shell
   programs.zsh.enable = true;
@@ -25,9 +25,6 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-    ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK2tcTVu+NRaLxji8wk1rngZ0+VvpLj+yfVofpM02nqJ nix-wsl@DESKTOP-QB6O3EE"
     ];
   };
 

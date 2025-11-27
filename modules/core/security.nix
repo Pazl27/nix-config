@@ -40,10 +40,6 @@
       iptables -A INPUT -i lo -j ACCEPT
       ip6tables -A INPUT -i lo -j ACCEPT
 
-      # === SSH RATE LIMITING (Anti Brute-Force) ===
-      iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --set --name SSH
-      iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 60 --hitcount 4 --name SSH -j DROP
-
       # === PROTECTION AGAINST PORT SCANNING ===
       iptables -N port-scan 2>/dev/null || true
       iptables -A port-scan -p tcp --tcp-flags SYN,ACK,FIN,RST RST -m limit --limit 1/s --limit-burst 2 -j RETURN
@@ -67,91 +63,6 @@
       iptables -F port-scan 2>/dev/null || true
       iptables -X port-scan 2>/dev/null || true
     '';
-  };
-
-  # ============================================
-  # SSH HARDENING
-  # ============================================
-  services.openssh = lib.mkIf config.services.openssh.enable {
-    settings = {
-      # === AUTHENTICATION ===
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-      ChallengeResponseAuthentication = false;
-      KbdInteractiveAuthentication = false;
-      PermitEmptyPasswords = false;
-      PubkeyAuthentication = true;
-
-      # === SECURITY ===
-      X11Forwarding = false;
-      AllowAgentForwarding = true;
-      AllowTcpForwarding = true;
-      PermitUserEnvironment = false;
-
-      # === CONNECTION LIMITS ===
-      MaxAuthTries = 3;
-      MaxSessions = 10;
-      LoginGraceTime = 30;
-      ClientAliveInterval = 300;
-      ClientAliveCountMax = 2;
-
-      # === MODERN CRYPTOGRAPHY ===
-      KexAlgorithms = [
-        "curve25519-sha256"
-        "curve25519-sha256@libssh.org"
-        "diffie-hellman-group16-sha512"
-        "diffie-hellman-group18-sha512"
-        "diffie-hellman-group-exchange-sha256"
-      ];
-
-      Ciphers = [
-        "chacha20-poly1305@openssh.com"
-        "aes256-gcm@openssh.com"
-        "aes128-gcm@openssh.com"
-        "aes256-ctr"
-        "aes192-ctr"
-        "aes128-ctr"
-      ];
-
-      Macs = [
-        "hmac-sha2-512-etm@openssh.com"
-        "hmac-sha2-256-etm@openssh.com"
-        "umac-128-etm@openssh.com"
-      ];
-    };
-
-    # Security banner
-    banner = ''
-      ╔═══════════════════════════════════════════╗
-      ║   AUTHORIZED ACCESS ONLY                  ║
-      ║   All activity is logged and monitored    ║
-      ║   Unauthorized access is prohibited       ║
-      ╚═══════════════════════════════════════════╝
-    '';
-  };
-
-  # ============================================
-  # FAIL2BAN (Anti Brute-Force)
-  # ============================================
-  services.fail2ban = {
-    enable = true;
-    maxretry = 5;
-    bantime = "1h";
-
-    # Progressive ban time
-    bantime-increment = {
-      enable = true;
-      maxtime = "168h"; # 1 week max
-      factor = "2";
-    };
-
-    # Don't ban local networks
-    ignoreIP = [
-      "127.0.0.0/8"
-      "10.0.0.0/8"
-      "172.16.0.0/12"
-      "192.168.0.0/16"
-    ];
   };
 
   # ============================================
@@ -256,7 +167,6 @@
   # ============================================
   environment.systemPackages = with pkgs; [
     iptables
-    fail2ban
   ];
 
   # ============================================
