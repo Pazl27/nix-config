@@ -6,14 +6,17 @@
     "no_blur ture, match:class ^()$, match:title ^()$"
 
     # File picker windows
-    "float ture, center true, match:title ^(Open File|Open|Save|Save As|Export|Import|Choose File|Rename), match:class ^(.*)$"
-    "float true, match:class (thunar), match:title (File Operation Progress)"
-    "float true, match:title ((Add|Open).*(File|Folder))"
-    "float true, match:title ((Select).*(open))"
+    "float true,match:class ^(xdg-desktop-portal-gtk)$"
+    "size 1000 800, match:class ^(xdg-desktop-portal-gtk)$"
+    "center true, match:class ^(xdg-desktop-portal-gtk)$"
     "float true,match:class ^(thunar)$"
     "size 1000 800, match:class ^(thunar)$"
     "center true, match:class ^(thunar)$"
     "opacity 0.8 0.8, match:class (thunar)"
+
+    # Bluetooth manager
+    "float true, match:class (.blueman-manager-wrapped)"
+    "size 1300 875, match:class (.blueman-manager-wrapped)"
 
     # Disable borders for swaync
     # "noborder true, match:class (swaync)"
@@ -42,18 +45,18 @@
 
     # AI assistant
     "float true, match:class ^(askai)$"
-    "size 90% 80%, match:class ^(askai)$"
+    "size 1300 875, match:class (askai)"
     "center true, match:class ^(askai)$"
 
     # Drop terminal
     "float true, match:class ^(dropterm)$"
     "workspace special:drop, match:class ^(dropterm)$"
-    "size 90% 80%, match:class ^(dropterm)$"
+    "size 1300 875, match:class (dropterm)"
     "center true, match:class ^(dropterm)$"
 
     # Installer window
     "float true, match:class ^(installer)$"
-    "size 90% 80%, match:class ^(installer)$"
+    "size 1300 875, match:class (installer)"
     "center true, match:class ^(installer)$"
 
     # Floating waybar popup
