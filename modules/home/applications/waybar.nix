@@ -54,10 +54,10 @@ with lib;
             # "custom/playerctl"
             "custom/screenshot"
             "custom/colorpicker"
-            "custom/endpoint"
-            "custom/weather"
+            # "custom/endpoint"
             "mpris"
-            "battery"
+            "custom/weather"
+            # "battery"
             "custom/notification"
           ];
 
@@ -161,15 +161,15 @@ with lib;
             format-paused = "{status_icon} <i>{dynamic}</i>";
             player-icons = {
               default = "🎵";
-              spotify = "";
+              spotify = "";
             };
             status-icons = {
-              paused = "";
-              playing = "";
+              paused = "";
+              playing = "";
             };
             dynamic-order = [
-              "artist"
               "title"
+              "artist"
             ];
             dynamic-len = 40;
             dynamic-separator = " - ";
@@ -185,12 +185,12 @@ with lib;
             format-bluetooth = "{volume}% {icon}  {format_source}";
             format-bluetooth-muted = "<span foreground='#ea6961'>󰗾 {format_source}</span>";
             format-muted = "<span foreground='#ea6961'></span> {format_source}";
-            format-source = " ";
-            format-source-muted = " <span foreground='#ea6961'> </span>";
+            format-source = "";
+            format-source-muted = "<span foreground='#ea6961'></span>";
             format-icons = {
               default = [
-                ""
-                ""
+                " "
+                " "
                 " "
               ];
               headphone = "";
@@ -226,17 +226,17 @@ with lib;
               echo "{\"text\":\"$temp\", \"tooltip\":\"$location: $condition\", \"class\":\"weather\"}"
             '';
             interval = 1800;
-            format = " {}";
+            format = "{}";
             return-type = "json";
             on-click = "xdg-open https://wttr.in/";
           };
 
           # ─── Network & Bluetooth ───────────────────────────────
           network = {
-            format-disconnected = "󰖪 ";
-            format-ethernet = "󰈀 ";
+            format-disconnected = "󰖪";
+            format-ethernet = "󰈀";
             format-linked = "󰈀 {ifname} (No IP)";
-            format-wifi = " ";
+            format-wifi = "";
             interval = 2;
             on-click = "$HOME/.config/scripts/rofi/wifi.sh";
             rotate = 0;
@@ -250,8 +250,8 @@ with lib;
             format-disabled = "󰂲";
             format-off = "BT-off";
             format-on = "󰂯";
-            on-click = "$HOME/.config/scripts/rofi/bluetooth.sh";
-            on-click-right = "blueman-manager";
+            on-click = "blueman-manager";
+            on-click-right = "$HOME/.config/scripts/rofi/bluetooth.sh";
             tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
             tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
             tooltip-format-enumerate-connected = "{device_alias}\n{device_address}";
@@ -316,8 +316,8 @@ with lib;
               "memory"
               "cpu"
               "disk"
-              "temperature"
-              "backlight"
+              # "temperature"
+              # "backlight"
               "custom/endpoint"
             ];
             orientation = "horizontal";
