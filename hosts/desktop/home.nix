@@ -73,6 +73,7 @@
           drawio
           claude-code
           localsend
+          vial
         ];
       };
     };
