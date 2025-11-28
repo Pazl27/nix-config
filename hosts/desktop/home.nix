@@ -67,22 +67,14 @@
         enable = true;
         apps = with pkgs; [
           obsidian
-          keepassxc
-          telegram-desktop
+          keepass
           vlc
-          libreoffice
-          thunderbird
           gimp
-          inkscape
+          drawio
+          claude-code
+          localsend
         ];
       };
     };
   };
-
-  home.packages = with pkgs; [
-    keepass
-    claude-code
-    localsend
-
-  ];
 }
