@@ -32,6 +32,8 @@
     ./modules/home/tools/pokemon-icat.nix
 
     # applications
+    ./modules/home/applications/apps.nix
+    ./modules/home/applications/obs.nix
     ./modules/home/applications/kitty.nix
     ./modules/home/applications/thunar.nix
     ./modules/home/applications/gtk.nix

@@ -55,12 +55,26 @@
       gtk.enable = true;
       discord.enable = true;
       spotify.enable = true;
+      obs.enable = true;
       firefox = {
         enable = true;
         default = true;
       };
       prismlauncher = {
         enable = true;
+      };
+      apps = {
+        enable = true;
+        apps = with pkgs; [
+          obsidian
+          keepassxc
+          telegram-desktop
+          vlc
+          libreoffice
+          thunderbird
+          gimp
+          inkscape
+        ];
       };
     };
   };

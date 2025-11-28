@@ -2,8 +2,12 @@
   config,
   lib,
   pkgs,
+  host,
   ...
 }:
+let
+  inherit (import ../../hosts/${host}/variables.nix) virtualCamera;
+in
 {
   # ============================================
   # LOCALE & TIMEZONE
@@ -147,4 +151,9 @@
   # ============================================
   services.fwupd.enable = lib.mkDefault true;
   services.fstrim.enable = lib.mkDefault true;
+
+  # ============================================
+  # OBS VIRTUAL CAMERA
+  # ============================================
+  programs.obs-studio.enableVirtualCamera = virtualCamera;
 }
