@@ -17,7 +17,8 @@ dir="$HOME/dev/$chosen"
 # pkill -x "$terminal" 2>/dev/null || true
 # sleep 0.1
 
-zeditor "$dir"
+# optionally launch zed
+# zeditor "$dir"
 sleep 0.1
 
 # Launch terminal with tmux session (attach if exists, else create new)
