@@ -13,6 +13,7 @@
     "size 1000 800, match:class ^(thunar)$"
     "center true, match:class ^(thunar)$"
     "opacity 0.8 0.8, match:class (thunar)"
+    "float true,match:class ^(org.gnome.FileRoller)$"
 
     # Bluetooth manager
     "float true, match:class (.blueman-manager-wrapped)"
@@ -30,7 +31,7 @@
     "float true, match:class ^(KeePass2)$"
     "center true, match:class ^(KeePass2)$"
     "size 1000 600, match:class ^(KeePass2)$, match:title ^(KeePass)$"
-    "size 1000 600, match:class ^(KeePass2)$, match:title ^(Database.kdbx - KeePass)$"
+    "size 1000 600, match:class ^(Database.kdbx - KeePass)$, match:title ^(Database.kdbx - KeePass)$"
     "size 550 300, match:class ^(KeePass2)$, match:title ^(Open Database - Database.kdbx)$"
 
     # nsxiv
