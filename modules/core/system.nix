@@ -146,11 +146,27 @@ in
     options = lib.mkDefault "--delete-older-than 30d";
   };
 
+  # removed becuase it needs access to repo and cant commit .lock changes
+  # system.autoUpgrade = {
+  #   enable = true;
+  #   dates = "Mon 00:00";
+  #   persistent = true;
+  #   flake = "/home/${host}/nix-config#${host}";
+  #   flags = [
+  #     "--update-input"
+  #     "nixpkgs"
+  #     "--update-input"
+  #     "home-manager"
+  #   ];
+  #   allowReboot = false;
+  # };
+
   # ============================================
   # ADDITIONAL USEFUL SETTINGS
   # ============================================
   services.fwupd.enable = lib.mkDefault true;
   services.fstrim.enable = lib.mkDefault true;
+  services.gvfs.enable = true;
 
   # ============================================
   # OBS VIRTUAL CAMERA
