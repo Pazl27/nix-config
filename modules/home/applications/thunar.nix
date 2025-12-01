@@ -18,14 +18,14 @@ with lib;
       xfce.thunar-media-tags-plugin
 
       # File management
-      gvfs
       file-roller
 
       # Thumbnails
+      xfce.tumbler
       ffmpegthumbnailer
+      libgsf
     ];
 
-    # MIME Types
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {
@@ -34,25 +34,44 @@ with lib;
       };
     };
 
-    # XDG User Dirs
     xdg.userDirs = {
       enable = true;
       createDirectories = true;
     };
 
-    # Thunar Daemon
     systemd.user.services.thunar-daemon = {
       Unit = {
         Description = "Thunar file manager daemon";
         After = [ "graphical-session-pre.target" ];
         PartOf = [ "graphical-session.target" ];
       };
+
       Service = {
         Type = "dbus";
         BusName = "org.xfce.Thunar";
         ExecStart = "${pkgs.xfce.thunar}/bin/thunar --daemon";
         Restart = "on-failure";
       };
+
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+    };
+
+    systemd.user.services.tumbler = {
+      Unit = {
+        Description = "Tumbler thumbnailing service";
+        After = [ "graphical-session-pre.target" ];
+        PartOf = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        Type = "dbus";
+        BusName = "org.freedesktop.thumbnails.Thumbnailer1";
+        ExecStart = "${pkgs.xfce.tumbler}/lib/tumbler-1/tumblerd";
+        Restart = "on-failure";
+      };
+
       Install = {
         WantedBy = [ "graphical-session.target" ];
       };
