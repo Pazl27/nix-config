@@ -12,15 +12,11 @@
     "float true,match:class ^(thunar)$"
     "size 1000 800, match:class ^(thunar)$"
     "center true, match:class ^(thunar)$"
-    "opacity 0.8 0.8, match:class (thunar)"
     "float true,match:class ^(org.gnome.FileRoller)$"
 
     # Bluetooth manager
     "float true, match:class (.blueman-manager-wrapped)"
     "size 1300 875, match:class (.blueman-manager-wrapped)"
-
-    # Disable borders for swaync
-    # "noborder true, match:class (swaync)"
 
     # JetBrains IDEs
     "float true, match:class ^(jetbrains-clion)$, match:title ^(Welcome to CLion)$"
@@ -37,9 +33,6 @@
     # nsxiv
     "size 1000 800, match:class ^(Nsxiv)$, match:title ^(nsxiv)$"
     "center true, match:class ^(Nsxiv)$"
-
-    # Docker Desktop
-    "workspace 9, match:class ^(.*Docker Desktop.*)$"
 
     # Android Emulator
     "float true, match:class ^(Emulator)$"
@@ -60,11 +53,6 @@
     "size 1300 875, match:class (installer)"
     "center true, match:class ^(installer)$"
 
-    # Floating waybar popup
-    "float true, match:class ^(floating_waybar)$"
-    "size 90% 80%, match:class ^(floating_waybar)$"
-    "center true, match:class ^(floating_waybar)$"
-
     # Inactive opacity for IDEs
     "opacity 1.2, match:class ^(jetbrains-studio)$"
     "opacity 1.2, match:class ^(jetbrains-idea)$"
@@ -81,8 +69,17 @@
     "float true, match:class ^(steam)$, match:title ^(.* - News)$"
     "float true, match:class ^(steam)$, match:title ^(.* - Community)$"
     "float true, match:class ^(steam)$, match:title ^(.* - Properties)$"
+
     # stream
     "float true, match:title ^(Select what to share)$"
+
+    # network
+    "float true, match:class (nm-connection-editor)"
+    "size 600 400, match:class (nm-connection-editor)"
+
+    # sound
+    "float true, match:class (org.pulseaudio.pavucontrol)"
+    "size 500 400, match:class (org.pulseaudio.pavucontrol)"
   ];
 
   # Layer rules
