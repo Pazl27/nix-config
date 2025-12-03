@@ -173,11 +173,17 @@ with lib;
             ];
             dynamic-len = 40;
             dynamic-separator = " - ";
-            player-hidden = [ "firefox" ];
+            player-hidden = [
+              "firefox"
+              "playerctld"
+            ];
             on-click = "playerctl -p spotify play-pause";
             on-scroll-up = "playerctl -p spotify previous";
             on-scroll-down = "playerctl -p spotify next";
-            ignored-players = [ "firefox" ];
+            ignored-players = [
+              "firefox"
+              "playerctld"
+            ];
           };
 
           pulseaudio = {
