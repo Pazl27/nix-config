@@ -33,7 +33,7 @@ in
         background = [
           {
             monitor = "";
-            path = "screenshot"; # This captures and blurs your current screen
+            path = "screenshot";
             blur_size = 7;
             blur_passes = 4;
             noise = 0.0117;
@@ -78,7 +78,7 @@ in
             color = "rgb(235, 219, 178)"; # Gruvbox fg
             font_size = 22;
             font_family = "JetBrains Mono Nerd Font";
-            position = "0, -20"; # Moved down from 30 to -20
+            position = "0, -20";
             halign = "center";
             valign = "center";
           }
@@ -89,14 +89,14 @@ in
             color = "rgb(235, 219, 178)"; # Gruvbox fg
             font_size = 18;
             font_family = "JetBrains Mono Nerd Font";
-            position = "0, -50"; # Moved down from 6 to -50
+            position = "0, -50";
             halign = "center";
             valign = "center";
           }
           # Weather
           {
             monitor = "";
-            text = ''cmd[update:1800000] echo "<b>Feels like<big> $(${pkgs.curl}/bin/curl -s 'wttr.in?format=%t' | ${pkgs.gnugrep}/bin/grep -o '[0-9]*°C' || echo 'N/A') </big></b>"'';
+            text = ''cmd[update:1800000] echo "<b>Feels like<big> $(${pkgs.curl}/bin/curl -s 'wttr.in?format=%t' 2>/dev/null | ${pkgs.gnused}/bin/sed 's/+//g' || echo 'N/A') </big></b>"'';
             color = "rgb(235, 219, 178)"; # Gruvbox fg
             font_size = 18;
             font_family = "JetBrains Mono Nerd Font";
