@@ -15,12 +15,13 @@ with lib;
     home.packages = with pkgs; [
       waybar
 
+      pavucontrol
       playerctl
       blueman
+      networkmanagerapplet
       swaynotificationcenter
       wlogout
       hyprpicker
-      pulsemixer
       wl-clipboard
       curl
     ];
@@ -38,11 +39,9 @@ with lib;
 
           modules-left = [
             "custom/power"
+            "custom/weather"
             "clock"
-            "pulseaudio"
-            "network"
-            "bluetooth"
-            "tray"
+            "mpris"
           ];
 
           modules-center = [
@@ -51,12 +50,13 @@ with lib;
 
           modules-right = [
             "group/expand"
-            # "custom/playerctl"
+            "tray"
             "custom/screenshot"
             "custom/colorpicker"
+            "bluetooth"
+            "network"
+            "pulseaudio"
             # "custom/endpoint"
-            "mpris"
-            "custom/weather"
             # "battery"
             "custom/notification"
           ];
@@ -200,21 +200,9 @@ with lib;
               "Easy Effects Sink"
               "Monitor of Easy Effects Sink"
             ];
-            on-click = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
-            on-click-right = "kitty --class=floating_waybar -e pulsemixer";
+            on-click = "pavucontrol";
+            on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
             scroll-step = 0;
-            tooltip = true;
-          };
-
-          "custom/playerctl" = {
-            exec = ''playerctl -p spotify metadata -f '{\"text\": \"{{markup_escape(title)}} - {{markup_escape(artist)}} \", \"tooltip\": \"{{markup_escape(title)}} - {{markup_escape(artist)}}  {{ duration(position) }}/{{ duration(mpris:length) }}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F'';
-            format = "{2} <span>{0}</span>";
-            format-icons = {
-              Paused = " ";
-              Playing = " ";
-            };
-            on-click = "playerctl -p spotify play-pause";
-            return-type = "json";
             tooltip = true;
           };
 
@@ -238,7 +226,7 @@ with lib;
             format-linked = "󰈀 {ifname} (No IP)";
             format-wifi = "";
             interval = 2;
-            on-click = "$HOME/.config/scripts/rofi/wifi.sh";
+            on-click = "nm-connection-editor";
             rotate = 0;
             tooltip = true;
             tooltip-format = "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>\nIP: <b>{ipaddr}/{cidr}</b>\nGateway: <b>{gwaddr}</b>\nNetmask: <b>{netmask}</b>";
@@ -260,7 +248,7 @@ with lib;
 
           # ─── Power ─────────────────────────────────────────────
           "custom/power" = {
-            format = " {}";
+            format = "";
             interval = 86400;
             on-click = "wlogout";
             rotate = 0;
@@ -281,7 +269,7 @@ with lib;
               inhibited-none = "";
               inhibited-notification = "";
               none = "";
-              notification = "";
+              notification = "󰅸";
             };
             on-click = "swaync-client -t -sw";
             on-click-right = "swaync-client -d -sw";
@@ -311,8 +299,6 @@ with lib;
             };
             modules = [
               "custom/expand"
-              # "custom/screenshot"
-              # "custom/colorpicker"
               "memory"
               "cpu"
               "disk"
@@ -380,43 +366,43 @@ with lib;
 
       # Waybar CSS styling
       style = ''
-                * {
-                  font-size: 15px;
-                  font-family: "CodeNewRoman Nerd Font Propo";
-                }
+        * {
+          font-size: 15px;
+          font-family: "CodeNewRoman Nerd Font Propo";
+        }
 
-                window#waybar {
-                  all: unset;
-                }
+        window#waybar {
+          all: unset;
+        }
 
-                .modules-left {
-                  padding: 7px;
-                  margin: 5px;
-                  border-radius: 10px;
-                  background: rgba(40, 40, 40, 0.5);
-                  box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
-                }
+        .modules-left {
+          padding: 7px;
+          margin: 5px;
+          border-radius: 10px;
+          background: rgba(40, 40, 40, 0.5);
+          box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+        }
 
-                .modules-center {
-                  padding: 7px;
-                  margin: 5px;
-                  border-radius: 10px;
-                  background: rgba(40, 40, 40, 0.5);
-                  box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
-                }
+        .modules-center {
+          padding: 7px;
+          margin: 5px;
+          border-radius: 10px;
+          background: rgba(40, 40, 40, 0.5);
+          box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+        }
 
-                .modules-right {
-                  padding: 7px;
-                  margin: 5px;
-                  border-radius: 10px;
-                  background: rgba(40, 40, 40, 0.5);
-                  box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
-                }
+        .modules-right {
+          padding: 7px;
+          margin: 5px;
+          border-radius: 10px;
+          background: rgba(40, 40, 40, 0.5);
+          box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+        }
 
-                tooltip {
-                  background: #282828;
-                  color: #a89984;
-                }
+        tooltip {
+          background: #282828;
+          color: #a89984;
+        }
 
         #clock:hover,
         #custom-power:hover,
@@ -436,12 +422,6 @@ with lib;
                 }
 
         #custom-notification {
-                padding: 0px 5px;
-                transition: all .3s ease;
-                color: #a89984;
-                }
-
-        #custom-playerctl {
                 padding: 0px 5px;
                 transition: all .3s ease;
                 color: #a89984;
