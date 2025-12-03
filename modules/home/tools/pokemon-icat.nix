@@ -14,7 +14,7 @@ with lib;
     programs.pokemon-icat = {
       enable = true;
       spritesCommit = "e1d237e02b8c0b385c644f184f26720909a82132";
-      spritesHash = "sha256-3uD98h6VYepyOeIPaCdcTMFMVuwH8UvLl6scC8HMxu0=";
+      spritesHash = "sha256-Xow5hkO/Dy+prVvQr9nGuNX/IzooPvcCCzAnd3yWlPI=";
       upscaleFactor = 3.0;
     };
 
