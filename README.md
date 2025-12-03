@@ -201,6 +201,17 @@ My configuration has also integrated ai assistance, which can help you with quic
 </details>
 
 <details>
+  <summary>Hyprlock</summary>
+
+  ### Overview
+  Lock screen with weather.
+  <img src="./assets/screenshots/hyprlock.png" alt="Hyprlock Screenshot">
+
+  Configuration location: `modules/home/wm/hyprlock.nix`
+
+</details>
+
+<details>
   <summary>Thunar</summary>
 
   ### Overview
