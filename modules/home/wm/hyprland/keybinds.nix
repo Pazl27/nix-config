@@ -4,7 +4,6 @@
     # Applications
     "$mainMod, Return, exec, $terminal"
     "$mainMod, Q, killactive"
-    "$mainMod, M, exit"
     "$mainMod SHIFT, E, exec, $fileManager"
     "$mainMod, E, exec, $scriptDir/yazi.sh"
     "$mainMod, B, exec, $browser"
