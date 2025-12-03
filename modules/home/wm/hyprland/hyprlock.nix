@@ -19,121 +19,116 @@ in
     ];
 
     # Hyprlock configuration
-    xdg.configFile."hypr/hyprlock.conf".text = ''
-      # Gruvbox color variables
-      $background = rgb(1d2021)
-      $foreground = rgb(ebdbb2)
-      $red = rgb(fb4934)
-      $green = rgb(b8bb26)
-      $yellow = rgb(fabd2f)
-      $blue = rgb(83a598)
-      $purple = rgb(d3869b)
-      $aqua = rgb(8ec07c)
-      $orange = rgb(fe8019)
+    programs.hyprlock = {
+      enable = true;
 
-      # BACKGROUND
-      background {
-          monitor =
-          path = screenshot
-          color = $background
-          blur_passes = 2
-          contrast = 1
-          brightness = 0.5
-          vibrancy = 0.2
-          vibrancy_darkness = 0.2
-      }
+      settings = {
+        general = {
+          disable_loading_bar = true;
+          hide_cursor = true;
+          grace = 0;
+          no_fade_in = false;
+        };
 
-      # GENERAL
-      general {
-          no_fade_in = true
-          no_fade_out = true
-          hide_cursor = false
-          grace = 0
-          disable_loading_bar = true
-      }
+        background = [
+          {
+            monitor = "";
+            path = "screenshot"; # This captures and blurs your current screen
+            blur_size = 7;
+            blur_passes = 4;
+            noise = 0.0117;
+            contrast = 1.1;
+            brightness = 0.8;
+            vibrancy = 0.21;
+            vibrancy_darkness = 0.0;
+          }
+        ];
 
-      # INPUT FIELD
-      input-field {
-          monitor =
-          size = 250, 60
-          outline_thickness = 2
-          dots_size = 0.2
-          dots_spacing = 0.35
-          dots_center = true
-          outer_color = rgba(0, 0, 0, 0)
-          inner_color = rgba(40, 40, 40, 0.5)
-          font_color = $foreground
-          fade_on_empty = false
-          rounding = 8
-          check_color = $orange
-          fail_color = $red
-          placeholder_text = <i><span foreground="##ebdbb2">Input Password...</span></i>
-          hide_input = false
-          position = 0, -200
-          halign = center
-          valign = center
-      }
+        # Hours
+        label = [
+          {
+            monitor = "";
+            text = ''cmd[update:1000] echo "<b><big> $(date +"%H") </big></b>"'';
+            color = "rgb(131, 165, 152)"; # Gruvbox aqua
+            font_size = 112;
+            font_family = "JetBrains Mono Nerd Font";
+            shadow_passes = 3;
+            shadow_size = 4;
+            position = "0, 220";
+            halign = "center";
+            valign = "center";
+          }
+          # Minutes
+          {
+            monitor = "";
+            text = ''cmd[update:1000] echo "<b><big> $(date +"%M") </big></b>"'';
+            color = "rgb(131, 165, 152)"; # Gruvbox aqua
+            font_size = 112;
+            font_family = "JetBrains Mono Nerd Font";
+            shadow_passes = 3;
+            shadow_size = 4;
+            position = "0, 80";
+            halign = "center";
+            valign = "center";
+          }
+          # Day of week
+          {
+            monitor = "";
+            text = ''cmd[update:18000000] echo "<b><big> $(date +'%A') </big></b>"'';
+            color = "rgb(235, 219, 178)"; # Gruvbox fg
+            font_size = 22;
+            font_family = "JetBrains Mono Nerd Font";
+            position = "0, -20"; # Moved down from 30 to -20
+            halign = "center";
+            valign = "center";
+          }
+          # Date
+          {
+            monitor = "";
+            text = ''cmd[update:18000000] echo "<b> $(date +'%d %b') </b>"'';
+            color = "rgb(235, 219, 178)"; # Gruvbox fg
+            font_size = 18;
+            font_family = "JetBrains Mono Nerd Font";
+            position = "0, -50"; # Moved down from 6 to -50
+            halign = "center";
+            valign = "center";
+          }
+          # Weather
+          {
+            monitor = "";
+            text = ''cmd[update:1800000] echo "<b>Feels like<big> $(${pkgs.curl}/bin/curl -s 'wttr.in?format=%t' | ${pkgs.gnugrep}/bin/grep -o '[0-9]*°C' || echo 'N/A') </big></b>"'';
+            color = "rgb(235, 219, 178)"; # Gruvbox fg
+            font_size = 18;
+            font_family = "JetBrains Mono Nerd Font";
+            position = "0, 40";
+            halign = "center";
+            valign = "bottom";
+          }
+        ];
 
-      # DATE
-      label {
-          monitor =
-          text = cmd[update:1000] echo "$(date +"%A, %B %d")"
-          color = $foreground
-          font_size = 22
-          font_family = JetBrains Mono
-          position = 0, 300
-          halign = center
-          valign = center
-      }
-
-      # TIME
-      label {
-          monitor = 
-          text = cmd[update:1000] echo "$(date +"%-I:%M")"
-          color = $foreground
-          font_size = 95
-          font_family = JetBrains Mono Extrabold
-          position = 0, 200
-          halign = center
-          valign = center
-      }
-
-      # Profile Picture
-      image {
-          monitor =
-          path = ~/Pictures/wallpaper/gruvbox/minimalistic/orbit.png 
-          size = 100
-          border_size = 2
-          border_color = $orange
-          position = 0, -100
-          halign = center
-          valign = center
-      }
-
-      # Battery Status
-      label {
-          monitor =
-          text = cmd[update:1000] echo "$($HOME/.config/scripts/battery.sh)"
-          color = $foreground
-          font_size = 15
-          font_family = JetBrains Mono
-          position = -15, -10
-          halign = right
-          valign = top
-      }
-
-      # Username
-      # label {
-      #     monitor =
-      #     text = cmd[update:1000] echo "$(whoami)"
-      #     color = $foreground
-      #     font_size = 18
-      #     font_family = JetBrains Mono
-      #     position = 0, -150
-      #     halign = center
-      #     valign = center
-      # }
-    '';
+        input-field = [
+          {
+            monitor = "";
+            size = "250, 50";
+            outline_thickness = 3;
+            dots_size = 0.26;
+            dots_spacing = 0.64;
+            dots_center = true;
+            dots_rounding = -1;
+            rounding = 22;
+            outer_color = "rgb(40, 40, 40)"; # Gruvbox bg
+            inner_color = "rgb(40, 40, 40)"; # Gruvbox bg
+            font_color = "rgb(131, 165, 152)"; # Gruvbox aqua
+            fade_on_empty = true;
+            placeholder_text = "<i>Password...</i>";
+            hide_input = false;
+            position = "0, -120";
+            halign = "center";
+            valign = "center";
+          }
+        ];
+      };
+    };
 
     # Hypridle configuration for automatic locking
     xdg.configFile."hypr/hypridle.conf".text = ''
