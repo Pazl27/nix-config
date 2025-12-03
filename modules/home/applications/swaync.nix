@@ -149,7 +149,7 @@ with lib;
                   color: @text;
                   all: unset;
                   font-size: 14px;
-                  font-family: "JetBrains Mono Nerd Font", "JetBrainsMono Nerd Font";
+                  font-family: "JetBrainsMono Nerd Font Propo";
                   transition: 200ms;
                 }
 
