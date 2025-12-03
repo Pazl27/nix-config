@@ -213,7 +213,7 @@ directly on the lock screen, using the system’s weather provider.
 It enhances the lock experience with at-a-glance info such as
 temperature and conditions, without needing to unlock the session.
 
-Configuration location: modules/home/wm/hyprlock.nix
+Configuration location: `modules/home/wm/hyprlock.nix`
 
 </details>
 
