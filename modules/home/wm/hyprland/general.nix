@@ -8,6 +8,10 @@
     gaps_in = 2;
     gaps_out = 5;
   };
+  
+  debug = {
+    disable_logs = false;
+  };
 
   # Decoration
   decoration = {
