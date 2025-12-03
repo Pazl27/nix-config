@@ -203,11 +203,17 @@ My configuration has also integrated ai assistance, which can help you with quic
 <details>
   <summary>Hyprlock</summary>
 
-  ### Overview
-  Lock screen with weather.
   <img src="./assets/screenshots/hyprlock.png" alt="Hyprlock Screenshot">
 
-  Configuration location: `modules/home/wm/hyprlock.nix`
+### Overview
+Lock screen with integrated weather display.
+
+This module configures Hyprlock to show current weather conditions
+directly on the lock screen, using the system’s weather provider.
+It enhances the lock experience with at-a-glance info such as
+temperature and conditions, without needing to unlock the session.
+
+Configuration location: modules/home/wm/hyprlock.nix
 
 </details>
 
