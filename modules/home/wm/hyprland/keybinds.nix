@@ -17,7 +17,7 @@
     "$mainMod, A, exec, $scriptDir/rofi/ai/askai.sh"
     "$mainMod, R, exec, $scriptDir/rofi/repo-rofi.sh"
     "$mainMod SHIFT, S, exec, $scriptDir/snapshot.sh"
-    "$mainMod, I, exec, wlogout"
+    "$mainMod, I, exec, $scriptDir/wlogout.sh"
     "$mainMod, P, exec, $scriptDir/rofi/list-installer.sh"
     "$mainMod, Y, exec, $scriptDir/rofi/clipboard.sh"
 

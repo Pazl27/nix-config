@@ -11,108 +11,133 @@ with lib;
   };
 
   config = mkIf config.features.application.wlogout.enable {
-    # Wlogout package
     home.packages = with pkgs; [
-      wlogout
       hyprlock
-      nerd-fonts.jetbrains-mono
     ];
 
-    # Wlogout configuration
-    xdg.configFile."wlogout/layout".text = ''
-      {
-          "label" : "lock",
-          "action" : "hyprlock",
-          "text" : "Lock",
-          "keybind" : "l"
-      }
-      {
-          "label" : "hibernate",
-          "action" : "systemctl hibernate",
-          "text" : "Hibernate",
-          "keybind" : "h"
-      }
-      {
-          "label" : "logout",
-          "action" : "hyprctl dispatch exit",
-          "text" : "Logout",
-          "keybind" : "e"
-      }
-      {
-          "label" : "shutdown",
-          "action" : "systemctl poweroff",
-          "text" : "Shutdown",
-          "keybind" : "s"
-      }
-      {
-          "label" : "suspend",
-          "action" : "systemctl suspend",
-          "text" : "Suspend",
-          "keybind" : "u"
-      }
-      {
-          "label" : "reboot",
-          "action" : "systemctl reboot",
-          "text" : "Reboot",
-          "keybind" : "r"
-      }
-    '';
+    # Copy wlogout icons to config directory
+    home.file.".config/wlogout/icons" = {
+      source = ../../../assets/wlogout;
+      recursive = true;
+    };
 
-    # Wlogout CSS styling
-    xdg.configFile."wlogout/style.css".text = ''
-      * {
-        background-image: none;
-      }
+    programs.wlogout = {
+      enable = true;
 
-      window {
-        background-color: rgba(0, 0, 0, 0);
-      }
+      layout = [
+        {
+          label = "shutdown";
+          action = "systemctl poweroff";
+          text = "Shutdown";
+          keybind = "s";
+        }
+        {
+          label = "logout";
+          action = "loginctl kill-session $XDG_SESSION_ID";
+          text = "Logout";
+          keybind = "e";
+        }
+        {
+          label = "lock";
+          action = "hyprlock";
+          text = "Lock";
+          keybind = "l";
+        }
+        {
+          label = "reboot";
+          action = "systemctl reboot";
+          text = "Reboot";
+          keybind = "r";
+        }
+        {
+          label = "hibernate";
+          action = "hyprlock && systemctl hibernate";
+          text = "Hibernate";
+          keybind = "h";
+        }
+      ];
 
-      button {
-        color: #cc241d;
-        font-family: "JetBrains Mono Nerd Font";
-        background-color: #1d2021;
-        border-radius: 20px;
-        border-style: none;
-        border-width: 0px;
-        margin: 10px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 25%;
-      }
+      style = ''
+        * {
+          background-image: none;
+          box-shadow: none;
+        }
 
-      button:focus, button:active, button:hover {
-        background-color: #ebdbb2;
-        outline-style: solid;
-      }
+        window {
+          font-family: "JetBrains Mono Nerd Font", monospace;
+          font-size: 12pt;
+          color: #ebdbb2; /* Gruvbox fg */
+          background-color: transparent;
+        }
 
-      #lock, #logout, #suspend, #hibernate, #shutdown, #reboot {
-        opacity: 0.9;
-      }
+        button {
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 30%;
+          background-color: transparent;
+          transition: all 0.3s ease-in;
+          box-shadow: 0 0 10px 2px transparent;
+          border-radius: 16px;
+          margin: 8px;
+          border: none;
+          min-width: 120px;
+          min-height: 120px;
+        }
 
-      #lock {
-        background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/lock.png"));
-      }
+        button:focus,
+        button:hover {
+          background-size: 45%;
+          box-shadow: 0 0 10px 3px rgba(131, 165, 152, 0.5);
+          background-color: rgba(131, 165, 152, 0.3); /* Gruvbox aqua with transparency */
+          color: transparent;
+          transition: all 0.3s cubic-bezier(.55, 0.0, .28, 1.682), box-shadow 0.5s ease-in;
+        }
 
-      #logout {
-        background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/logout.png"));
-      }
+        #shutdown {
+          background-image: image(url("icons/power.png"));
+        }
 
-      #suspend {
-        background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/suspend.png"));
-      }
+        #shutdown:hover,
+        #shutdown:focus {
+          background-image: image(url("icons/power-hover.png"));
+        }
 
-      #hibernate {
-        background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/hibernate.png"));
-      }
+        #logout {
+          background-image: image(url("icons/logout.png"));
+        }
 
-      #shutdown {
-        background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/shutdown.png"));
-      }
+        #logout:hover,
+        #logout:focus {
+          background-image: image(url("icons/logout-hover.png"));
+        }
 
-      #reboot {
-        background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/reboot.png"));
-      }
-    '';
+        #reboot {
+          background-image: image(url("icons/restart.png"));
+        }
+
+        #reboot:hover,
+        #reboot:focus {
+          background-image: image(url("icons/restart-hover.png"));
+        }
+
+        #lock {
+          background-image: image(url("icons/lock.png"));
+        }
+
+        #lock:hover,
+        #lock:focus {
+          background-image: image(url("icons/lock-hover.png"));
+        }
+
+        #hibernate {
+          background-image: image(url("icons/hibernate.png"));
+        }
+
+        #hibernate:hover,
+        #hibernate:focus {
+          background-image: image(url("icons/hibernate-hover.png"));
+        }
+      '';
+    };
   };
 }
