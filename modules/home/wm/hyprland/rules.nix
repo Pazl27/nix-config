@@ -89,10 +89,10 @@
     "ignore_alpha 0.5, match:namespace (waybar)"
 
     # SwayNC
-    # "blur true, match:namespace (swaync-control-center)"
-    # "ignore_alpha 0.5, match:namespace swaync-control-center"
-    # "blur true, match:namespace (swaync-notification-window)"
-    # "ignore_alpha 0.5, match:namespace swaync-notification-window"
+    "blur true, match:namespace (swaync-control-center)"
+    "ignore_alpha 0.5, match:namespace swaync-control-center"
+    "blur true, match:namespace (swaync-notification-window)"
+    "ignore_alpha 0.5, match:namespace swaync-notification-window"
     "animation slide right, match:namespace (swaync-notification-window)"
 
     # Wlogout
@@ -100,7 +100,9 @@
     # "animation popin, match:namespace logout_dialog"
 
     # Rofi
-    "dim_around true, match:namespace (rofi)"
+    "blur true, match:namespace rofi"
+    "dim_around true, match:namespace rofi"
+    "ignore_alpha 0, match:namespace rofi"
     "animation slide top, match:namespace rofi"
   ];
 }

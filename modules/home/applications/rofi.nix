@@ -34,7 +34,7 @@ with lib;
         location: 0;
         font: "CaskaydiaCove Nerd Font 12";
         display-drun: "";
-        
+
         /* for custom ones do Test:~/path/to/file */
         modi: "drun,window,ssh";
         display-drun: " ";
@@ -263,7 +263,7 @@ with lib;
 
       prompt {
           padding:                     10px;
-          text-color:                  #ebdbb2;  
+          text-color:                  #ebdbb2;
           background-color:            #3c3836;  /* Gruvbox dark bg */
       }
 
@@ -337,7 +337,7 @@ with lib;
                     selected:                    #504945;
                     active:                      #FE8019;
                     urgent:                      #fb4934;
-                    border-color:                #3c3836; 
+                    border-color:                #3c3836;
                     input-bg:                    #3c3836;
                 }
 
@@ -471,6 +471,196 @@ with lib;
               size:                        18px;
               cursor:                      inherit;
         }
+    '';
+
+    xdg.configFile."rofi/wallpaper.rasi".text = ''
+      /* config - Wallpaper select */
+
+      configuration {
+          modi:                        "drun";
+          show-icons:                  true;
+        	drun-display-format:         "{name}";
+          hover-select:                true;
+          font:                        "JetBrains Mono Nerd Font 10";
+
+          kb-mode-previous: "";
+          kb-mode-next: "";
+          kb-row-up: "Up,Control+k,";
+          kb-row-down: "Down,Control+j";
+          kb-row-left: "Control+h";
+          kb-row-right: "Control+l";
+      }
+
+      /* Config and colors ----------------------------------------------- */
+
+      * {
+            background:                  #282828FF;
+            background-alt:              #3c3836FF;
+            foreground:                  #EBDBB2FF;
+            selected:                    #83A598FF;
+            active:                      #B8BB26FF;
+            urgent:                      #FB4934FF;
+
+            text-selected:               #282828FF;
+            text:                        #EBDBB2FF;
+
+            shade-shadow:                white / 6%;
+            shade-bg:                    white / 12%;
+            shade-border:                white / 24%;
+      }
+
+      window {
+            fullscreen:                  true;
+            transparency:                "real";
+            cursor:                      "default";
+            background-color:            black / 12%;
+            border:                      0px;
+            border-color:                @selected;
+            width:                       100%;
+            height:                      100%;
+            margin:                      0px;
+            padding:                     0px;
+      }
+
+      /* Elements ----------------------------------------------------- */
+      element normal.normal, element alternate.normal {
+            background-color:            transparent;
+            text-color:                  @text;
+      }
+
+      element selected.normal {
+            background-color:            @shade-bg;
+            text-color:                  white;
+            border:                      1px solid;
+            border-color:                @selected;
+      }
+
+      element-text {
+            background-color:            transparent;
+            text-color:                  inherit;
+            highlight:                   inherit;
+            cursor:                      inherit;
+            vertical-align:              0.5;
+            horizontal-align:            0.5;
+      }
+
+      /* Listview ---------------------------------------------------- */
+
+      listview {
+          border:                        0px;
+      }
+
+      /* Scrollbar ---------------------------------------------------- */
+      scrollbar {
+            margin:                      0px 4px;
+            handle-width:                8px;
+            handle-color:                white;
+            background-color:            @shade-shadow;
+            border-radius:               4px;
+      }
+
+      /* Message ------------------------------------------------------ */
+      message {
+            background-color:            @shade-bg;
+            border:                      1px solid;
+            border-color:                transparent;
+            border-radius:               12px;
+            padding:                     24px;
+      }
+
+      error-message {
+            padding:                     100px;
+            border:                      0px solid;
+            border-radius:               0px;
+            background-color:            black / 10%;
+            text-color:                  @text;
+      }
+
+      textbox {
+            background-color:            transparent;
+            text-color:                  @text;
+            vertical-align:              0.5;
+            horizontal-align:            0.5;
+            highlight:                   none;
+      }
+
+      /* Main Box --------------------------------------------------- */
+      mainbox {
+          children:                    [ "inputbar", "listview" ];
+          background-color:            transparent;
+
+          spacing:                     24px;
+          margin:                      0px;
+          padding:                     64px;
+      }
+
+      /* ---- List ---- */
+      listview {
+          columns:                     4;
+          lines:                       4;
+          cycle:                       true;
+          dynamic:                     true;
+          scrollbar:                   false;
+          layout:                      vertical;
+          reverse:                     false;
+          fixed-height:                true;
+          fixed-columns:               true;
+
+          background-color:           transparent;
+          text-color:                 @foreground;
+
+          spacing:                     0px;
+          margin:                      0px;
+          padding:                     0px;
+      }
+
+      /* Elements --------------------------------------------------- */
+      element {
+          cursor:                      pointer;
+          border-radius:               36px;
+          background-color:            transparent;
+          text-color:                  @foreground;
+          orientation:                 vertical;
+
+          spacing:                     0px;
+          margin:                      0px;
+          padding:                     0px;
+      }
+
+      element-icon {
+          expand:                      false;
+          background-color:            transparent;
+          text-color:                  inherit;
+          size:                        26%;
+          cursor:                      inherit;
+      }
+
+        /* Search Bar -------------------------------------------------- */
+      inputbar {
+            children: [ "textbox-prompt", "entry" ];
+            background-color: transparent;
+            text-color: @foreground;
+            spacing: 16px;
+            padding: 0px 64px;
+      }
+
+        textbox-prompt {
+            expand: false;
+            background-color: transparent;
+            text-color: @foreground;
+            text: "Search:";
+            font: "JetBrains Mono Nerd Font 10";
+            horizontal-align: 0.0;
+      }
+
+        entry {
+            background-color: @shade-bg;
+            text-color: @text;
+            border-radius: 12px;
+            padding: 8px 16px;
+            placeholder: "Type to search…";
+            highlight: @selected;
+      }
     '';
 
     home.file.".config/rofi" = {
