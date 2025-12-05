@@ -88,7 +88,7 @@ with lib;
         button:hover {
           background-size: 45%;
           box-shadow: 0 0 10px 3px rgba(131, 165, 152, 0.5);
-          background-color: rgba(131, 165, 152, 0.3); /* Gruvbox aqua with transparency */
+          background-color: rgba(69, 133, 136, 0.3);
           color: transparent;
           transition: all 0.3s cubic-bezier(.55, 0.0, .28, 1.682), box-shadow 0.5s ease-in;
         }
