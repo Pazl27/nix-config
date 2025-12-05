@@ -256,7 +256,7 @@ with lib;
           "custom/power" = {
             format = "";
             interval = 86400;
-            on-click = "wlogout";
+            on-click = "$HOME/.config/scripts/wlogout.sh";
             rotate = 0;
             tooltip = false;
           };
