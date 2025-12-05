@@ -83,7 +83,8 @@ My configuration has also integrated ai assistance, which can help you with quic
   - `wifi.sh` - WiFi manager
   - `bluetooth.sh` - Bluetooth device manager
   - `wallpaper_switcher.sh` - Wallpaper selector
-  - `resolution.sh` - Display resolution changer
+  - `list-installer.sh` - Open installer window
+  - `repo-rofi.sh` - Open a workspace inside the `dev` directory
 
   Configuration location: `modules/home/applications/rofi.nix`
 
@@ -298,10 +299,9 @@ The `SUPER` key refers to the **Left Alt** or **Option** key on most keyboards.
 |-------------------------------------|-----------------------------------------------------|
 | <kbd>Super</kbd> + <kbd>Return</kbd>        | Open terminal (`kitty`)                             |
 | <kbd>Super</kbd> + <kbd>Q</kbd>            | Kill the active window                              |
-| <kbd>Super</kbd> + <kbd>M</kbd>            | Exit Hyprland session                               |
-| <kbd>Super</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Open file manager (`nautilus`)                |
+| <kbd>Super</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Open file manager (`thunar`)                |
 | <kbd>Super</kbd> + <kbd>E</kbd>            | Launch terminal file manager (`yazi.sh`)            |
-| <kbd>Super</kbd> + <kbd>B</kbd>            | Open browser (`zen-browser`)                        |
+| <kbd>Super</kbd> + <kbd>B</kbd>            | Open browser (`firefox`)                        |
 | <kbd>Super</kbd> + <kbd>V</kbd>            | Toggle floating mode                                |
 | <kbd>Super</kbd> + <kbd>Space</kbd>        | Open app launcher (`rofi -show drun`)               |
 | <kbd>Super</kbd> + <kbd>F</kbd>            | Toggle fullscreen                                   |
