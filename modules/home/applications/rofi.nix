@@ -637,20 +637,11 @@ with lib;
 
         /* Search Bar -------------------------------------------------- */
       inputbar {
-            children: [ "textbox-prompt", "entry" ];
+            children: [ "entry" ];
             background-color: transparent;
             text-color: @foreground;
             spacing: 16px;
             padding: 0px 64px;
-      }
-
-        textbox-prompt {
-            expand: false;
-            background-color: transparent;
-            text-color: @foreground;
-            text: "Search:";
-            font: "JetBrains Mono Nerd Font 10";
-            horizontal-align: 0.0;
       }
 
         entry {
@@ -658,7 +649,7 @@ with lib;
             text-color: @text;
             border-radius: 12px;
             padding: 8px 16px;
-            placeholder: "Type to search…";
+            placeholder: "Search";
             highlight: @selected;
       }
     '';
