@@ -644,13 +644,13 @@ with lib;
             padding: 0px 64px;
       }
 
-        entry {
-            background-color: @shade-bg;
-            text-color: @text;
-            border-radius: 12px;
-            padding: 8px 16px;
-            placeholder: "Search";
-            highlight: @selected;
+      entry {
+          background-color: @shade-bg;
+          text-color: @text;
+          border-radius: 12px;
+          padding: 8px 16px;
+          placeholder: "Search";
+          highlight: @selected;
       }
     '';
 
