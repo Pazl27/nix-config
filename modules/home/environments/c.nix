@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -18,7 +23,7 @@ with lib;
       valgrind
 
       # Additional tools
-      clang-tools  # Includes clangd LSP, clang-format
+      clang-tools # Includes clangd LSP, clang-format
       pkg-config
       autoconf
       automake

@@ -16,6 +16,12 @@
       java.enable = true;
       c.enable = false;
       cpp.enable = true;
+      database = {
+        enable = true;
+        gui = true;
+        cli = false;
+      };
+      docker.enable = true;
     };
     wm = {
       niri.enable = false;

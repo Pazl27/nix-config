@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -9,5 +14,7 @@
     ./node.nix
     ./python.nix
     ./rust.nix
+    ./database.nix
+    ./docker.nix
   ];
 }

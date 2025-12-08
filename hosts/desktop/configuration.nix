@@ -18,6 +18,7 @@
   programs.zsh.enable = true;
 
   # User
+  virtualisation.docker.enable = true;
   users.users.desktop = {
     isNormalUser = true;
     description = "desktop";
@@ -25,6 +26,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "docker"
     ];
   };
 
