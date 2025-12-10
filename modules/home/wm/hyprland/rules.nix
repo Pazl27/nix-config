@@ -26,6 +26,7 @@
     # KeePass2
     "float true, match:class ^(.*KeePass.*)$"
     "center true, match:class ^(.*KeePass.*)$"
+    "center true, match:class ^(KeePass2)$, match:title ^(Open Database - Database.kdbx)$"
     "size 1000 600, match:class ^(.*KeePass.*)$, match:title ^(.*KeePass.*)$"
     "size 550 300, match:class ^(KeePass2)$, match:title ^(Open Database - Database.kdbx)$"
 
