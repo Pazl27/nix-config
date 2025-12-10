@@ -71,16 +71,10 @@
           desc = "Commits";
         };
       };
-      "<leader>fs" = {
+      "<leader>gs" = {
         action = "git_status";
         options = {
           desc = "Status";
-        };
-      };
-      "<leader>sc" = {
-        action = "command_history";
-        options = {
-          desc = "Command History";
         };
       };
       "<leader>sC" = {
@@ -95,19 +89,19 @@
           desc = "Telescope Workspace diagnostics";
         };
       };
-      "<leader>sk" = {
+      "<leader>fk" = {
         action = "keymaps";
         options = {
           desc = "Keymaps";
         };
       };
-      "<leader>sM" = {
+      "<leader>fM" = {
         action = "man_pages";
         options = {
           desc = "Man pages";
         };
       };
-      "<leader>so" = {
+      "<leader>fo" = {
         action = "vim_options";
         options = {
           desc = "Options";

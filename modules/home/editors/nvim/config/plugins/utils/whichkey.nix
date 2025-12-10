@@ -53,7 +53,7 @@
         {
           __unkeyed-1 = "<leader>t";
           mode = "n";
-          group = "Terminal";
+          group = "Test";
         }
         {
           __unkeyed-1 = "<leader>m";

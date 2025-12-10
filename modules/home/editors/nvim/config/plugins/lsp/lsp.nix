@@ -7,9 +7,6 @@
     lsp-format = {
       enable = true;
     };
-    helm = {
-      enable = true;
-    };
     rustaceanvim = {
       enable = true;
       # rustaceanvim handles rust-analyzer automatically
@@ -32,6 +29,9 @@
       enable = true;
       inlayHints = true;
       servers = {
+        zls = {
+          enable = true;
+        };
         html = {
           enable = true;
         };
@@ -57,23 +57,8 @@
         gopls = {
           enable = true;
         };
-        terraformls = {
-          enable = true;
-        };
         jsonls = {
           enable = true;
-        };
-        helm_ls = {
-          enable = true;
-          extraOptions = {
-            settings = {
-              "helm_ls" = {
-                yamlls = {
-                  path = "${pkgs.yaml-language-server}/bin/yaml-language-server";
-                };
-              };
-            };
-          };
         };
         yamlls = {
           enable = true;
@@ -342,4 +327,3 @@
     })
   '';
 }
-

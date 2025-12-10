@@ -6,7 +6,7 @@
     settings = {
       copilot = {
         suggestion = {
-          enabled = false;
+          enabled = true;
         };
         panel = {
           enabled = false;

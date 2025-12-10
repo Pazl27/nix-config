@@ -4,7 +4,6 @@ _: {
     ./settings.nix
     ./keymaps.nix
     ./auto_cmds.nix
-    ./file_types.nix
 
     # Themes
     ./plugins/themes
@@ -54,7 +53,6 @@ _: {
     ./plugins/utils/trouble.nix
     ./plugins/utils/markdown-preview.nix
     ./plugins/utils/markview.nix
-    ./plugins/utils/toggleterm.nix
     ./plugins/utils/web-devicons.nix
     ./plugins/utils/crates.nix
     ./plugins/utils/colorizer.nix
