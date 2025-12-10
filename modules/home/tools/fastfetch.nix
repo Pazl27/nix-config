@@ -67,12 +67,6 @@ with lib;
     # Optional: Add some shell aliases
     programs.zsh.shellAliases = mkIf config.features.terminal.zsh.enable {
       ff = "fastfetch";
-      sysinfo = "fastfetch";
-    };
-
-    programs.bash.shellAliases = mkIf config.features.terminal.bash.enable {
-      ff = "fastfetch";
-      sysinfo = "fastfetch";
     };
 
     home.file.".config/fastfetch/pngs" = {
