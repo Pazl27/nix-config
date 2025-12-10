@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -12,9 +17,18 @@ with lib;
       enable = true;
       enableZshIntegration = true;
 
-      settings = {
-        add_newline = true;
-      };
+      settings = lib.mkMerge [
+        (builtins.fromTOML (
+          builtins.readFile "${pkgs.starship}/share/starship/presets/nerd-font-symbols.toml"
+        ))
+        {
+          add_newline = true;
+
+          git_branch = {
+            format = "[$symbol$branch(:$remote_branch)]($style) ";
+          };
+        }
+      ];
     };
   };
 }
