@@ -23,6 +23,7 @@ in
       vulkan-validation-layers
       vulkan-tools
       vulkan-extension-layer
+
       # LSP servers
       rust-analyzer
       nil
@@ -30,6 +31,12 @@ in
       jdt-language-server
       gopls
       pyright
+
+      nodePackages.typescript-language-server  # For general JS/TS
+      nodePackages.vscode-langservers-extracted  # HTML, CSS, JSON
+      yaml-language-server
+      dockerfile-language-server
+      docker-compose-language-service
     ];
     # Configure Zed
     programs.zed-editor = {
@@ -72,6 +79,21 @@ in
               path = "${pkgs.pyright}/bin/pyright-langserver";
             };
           };
+          typescript-language-server = {
+            binary = {
+              path = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
+            };
+          };
+          yaml-language-server = {
+            binary = {
+              path = "${pkgs.yaml-language-server}/bin/yaml-language-server";
+            };
+          };
+          dockerfile-language-server = {
+            binary = {
+              path = "${pkgs.dockerfile-language-server-nodejs}/bin/docker-langserver";
+            };
+          };
         };
       };
       userKeymaps = zedKeybindings;
@@ -81,6 +103,16 @@ in
         "java"
         "go"
         "python"
+        "toml"
+        "git-firefly"
+        "dockerfile"
+        "docker-compose"
+        "make"
+        "catppuccin-icons"
+        "log"
+        "ini"
+        "env"
+        "gruvbox-baby"
       ];
     };
     home.sessionVariables = {
