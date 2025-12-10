@@ -32,8 +32,8 @@ in
       gopls
       pyright
 
-      nodePackages.typescript-language-server  # For general JS/TS
-      nodePackages.vscode-langservers-extracted  # HTML, CSS, JSON
+      nodePackages.typescript-language-server # For general JS/TS
+      nodePackages.vscode-langservers-extracted # HTML, CSS, JSON
       yaml-language-server
       dockerfile-language-server
       docker-compose-language-service
@@ -91,7 +91,7 @@ in
           };
           dockerfile-language-server = {
             binary = {
-              path = "${pkgs.dockerfile-language-server-nodejs}/bin/docker-langserver";
+              path = "${pkgs.dockerfile-language-server}/bin/docker-langserver";
             };
           };
         };
