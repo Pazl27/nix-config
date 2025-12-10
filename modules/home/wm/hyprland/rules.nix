@@ -24,10 +24,9 @@
     "float true, match:class ^(jetbrains-rustrover)$, match:title ^(Welcome to RustRover)$"
 
     # KeePass2
-    "float true, match:class ^(KeePass2)$"
-    "center true, match:class ^(KeePass2)$"
-    "center true, match:class ^(.*KeePass2.*)$"
-    "size 1000 600, match:class ^(.*KeePass2.*)$, match:title ^(.*KeePass2.*)$"
+    "float true, match:class ^(.*KeePass.*)$"
+    "center true, match:class ^(.*KeePass.*)$"
+    "size 1000 600, match:class ^(.*KeePass.*)$, match:title ^(.*KeePass.*)$"
     "size 550 300, match:class ^(KeePass2)$, match:title ^(Open Database - Database.kdbx)$"
 
     # nsxiv
