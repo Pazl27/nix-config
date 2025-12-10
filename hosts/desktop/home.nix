@@ -22,6 +22,7 @@
         cli = false;
       };
       docker.enable = true;
+      zig.enable = true;
     };
     wm = {
       niri.enable = false;
