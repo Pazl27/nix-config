@@ -24,6 +24,7 @@ with lib;
       hyprpicker
       wl-clipboard
       curl
+      bc
     ];
 
     # Waybar configuration
@@ -56,8 +57,6 @@ with lib;
             "bluetooth"
             "network"
             "pulseaudio"
-            # "custom/endpoint"
-            # "battery"
             "custom/notification"
           ];
 
@@ -98,56 +97,51 @@ with lib;
             tooltip-format = "<tt>{calendar}</tt>";
           };
 
-          battery = {
-            format = "{capacity}% {icon}";
-            format-alt = "{time} {icon}";
-            format-charging = "{capacity}% 󰂄";
-            format-icons = [
-              "󰁻"
-              "󰁼"
-              "󰁾"
-              "󰂀"
-              "󰂂"
-              "󰁹"
-            ];
-            format-plugged = "{capacity}% 󰂄 ";
-            interval = 30;
-            states = {
-              good = 95;
-              warning = 30;
-              critical = 20;
-            };
-          };
-
           cpu = {
             format = "󰻠";
             tooltip = true;
+            tooltip-format = "CPU Usage: {usage}%\nLoad: {load}";
           };
 
           memory = {
             format = "";
             interval = 30;
             tooltip = true;
+            tooltip-format = "RAM: {used:0.1f}GB / {total:0.1f}GB\nUsed: {percentage}%\nSwap: {swapUsed:0.1f}GB / {swapTotal:0.1f}GB";
           };
 
           disk = {
             format = "";
             interval = 30;
+            path = "/";
+            tooltip = true;
+            tooltip-format = "Used: {used}\nFree: {free}\nTotal: {total}";
           };
 
           temperature = {
             critical-threshold = 80;
             format = "";
+            interval = 2;
+            hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
+            tooltip = true;
+            tooltip-format = "Temperature: {temperatureC}°C";
           };
 
-          backlight = {
-            format = "{percent}% {icon}";
-            format-icons = [
-              "󰃞"
-              "󰃟"
-              "󰃠"
-            ];
-            tooltip = false;
+          "custom/gpu" = {
+            exec = ''
+              bash -c '
+              usage=$(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits)
+              temp=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)
+              mem=$(nvidia-smi --query-gpu=memory.used,memory.total --format=csv,noheader,nounits)
+              mem_used=$(echo $mem | cut -d, -f1 | xargs)
+              mem_total=$(echo $mem | cut -d, -f2 | xargs)
+              mem_percent=$(echo "scale=0; $mem_used * 100 / $mem_total" | bc)
+              echo "{\"text\":\"󰢮\", \"tooltip\":\"GPU Usage: $usage%\\nTemperature: $temp°C\\nMemory: $mem_used MB / $mem_total MB ($mem_percent%)\"}"
+              '
+            '';
+            interval = 2;
+            format = "󰢮";
+            return-type = "json";
           };
 
           tray = {
@@ -237,6 +231,7 @@ with lib;
             tooltip = true;
             tooltip-format = "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>\nIP: <b>{ipaddr}/{cidr}</b>\nGateway: <b>{gwaddr}</b>\nNetmask: <b>{netmask}</b>";
             tooltip-format-disconnected = "Disconnected";
+            tooltip-format-ethernet = "Interface: <b>{ifname}</b>\nIP: <b>{ipaddr}/{cidr}</b>\nGateway: <b>{gwaddr}</b>\nSpeed: <b>{bandwidthDownBytes}</b>  <b>{bandwidthUpBytes}</b>";
           };
 
           bluetooth = {
@@ -308,8 +303,8 @@ with lib;
               "memory"
               "cpu"
               "disk"
-              # "temperature"
-              # "backlight"
+              "temperature"
+              "custom/gpu"
               "custom/endpoint"
             ];
             orientation = "horizontal";
@@ -415,98 +410,95 @@ with lib;
         #custom-notification:hover,
         #bluetooth:hover,
         #network:hover,
-        #battery:hover,
         #cpu:hover,
         #memory:hover,
         #disk:hover,
         #temperature:hover,
-        #backlight:hover,
         #custom-screenshot:hover,
-                #custom-colorpicker:hover {
-                transition: all .3s ease;
-                color: #fb4934;
-                }
+        #custom-colorpicker:hover,
+        #custom-gpu:hover {
+          transition: all .3s ease;
+          color: #fb4934;
+        }
 
         #custom-notification {
-                padding: 0px 5px;
-                transition: all .3s ease;
-                color: #a89984;
-                }
+          padding: 0px 5px;
+          transition: all .3s ease;
+          color: #a89984;
+        }
 
         #custom-power {
-                padding: 0px 5px;
-                transition: all .3s ease;
-                color: #458588;
-                }
+          padding: 0px 5px;
+          transition: all .3s ease;
+          color: #458588;
+        }
 
         #clock {
-                padding: 0px 5px;
-                color: #a89984;
-                transition: all .3s ease;
-                }
+          padding: 0px 5px;
+          color: #a89984;
+          transition: all .3s ease;
+        }
 
         #tray {
-                padding: 0px 5px;
-                transition: all .3s ease;
-                color: #a89984;
-                }
+          padding: 0px 5px;
+          transition: all .3s ease;
+          color: #a89984;
+        }
 
         #workspaces {
-                padding: 0px 5px;
-                }
+          padding: 0px 5px;
+        }
 
         #workspaces button {
-                all: unset;
-                padding: 0px 5px;
-                color: rgba(251, 73, 52, 0.4);
-                transition: all .2s ease;
-                }
+          all: unset;
+          padding: 0px 5px;
+          color: rgba(251, 73, 52, 0.4);
+          transition: all .2s ease;
+        }
 
         #workspaces button:hover {
-                color: rgba(0, 0, 0, 0);
-                border: none;
-                text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
-                transition: all 1s ease;
-                }
+          color: rgba(0, 0, 0, 0);
+          border: none;
+          text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
+          transition: all 1s ease;
+        }
 
         #workspaces button.active {
-                color: #fb4934;
-                border: none;
-                text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
-                }
+          color: #fb4934;
+          border: none;
+          text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+        }
 
         #workspaces button.empty {
-                color: rgba(0, 0, 0, 0);
-                border: none;
-                text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .2);
-                }
+          color: rgba(0, 0, 0, 0);
+          border: none;
+          text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .2);
+        }
 
         #workspaces button.empty:hover {
-                color: rgba(0, 0, 0, 0);
-                border: none;
-                text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
-                transition: all 1s ease;
-                }
+          color: rgba(0, 0, 0, 0);
+          border: none;
+          text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
+          transition: all 1s ease;
+        }
 
         #workspaces button.empty.active {
-                color: #fb4934;
-                border: none;
-                text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
-                }
+          color: #fb4934;
+          border: none;
+          text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+        }
 
         #bluetooth {
-                padding: 0px 5px;
-                transition: all .3s ease;
-                color: #a89984;
-
-                }
+          padding: 0px 5px;
+          transition: all .3s ease;
+          color: #a89984;
+        }
 
         #network {
-                padding: 0px 5px;
-                transition: all .3s ease;
-                color: #a89984;
-
-                }
+          padding: 0px 5px;
+          transition: all .3s ease;
+          color: #a89984;
+        }
 
         #mpris {
           padding: 0px 5px;
@@ -527,105 +519,87 @@ with lib;
         }
 
         #pulseaudio {
-                padding: 0px 5px;
-                transition: all .3s ease;
-                color: #a89984;
-
-                }
-
-        #battery {
-                padding: 0px 5px;
-                transition: all .3s ease;
-                color: #a89984;
-
-                }
-
-        #battery.charging {
-                color: #b8bb26;
-                }
-
-        #battery.warning:not(.charging) {
-                color: #fabd2f;
-                }
-
-        #battery.critical:not(.charging) {
-                color: #fb4934;
-                animation-name: blink;
-                animation-duration: 0.5s;
-                animation-timing-function: linear;
-                animation-iteration-count: infinite;
-                animation-direction: alternate;
-                }
+          padding: 0px 5px;
+          transition: all .3s ease;
+          color: #a89984;
+        }
 
         #group-expand {
-                padding: 0px 5px;
-                transition: all .3s ease;
-                }
+          padding: 0px 5px;
+          transition: all .3s ease;
+        }
 
         #custom-expand {
-                padding: 0px 5px;
-                color: rgba(235, 219, 178, 0.2);
-                text-shadow: 0px 0px 2px rgba(0, 0, 0, .7);
-                transition: all .3s ease;
-                }
+          padding: 0px 5px;
+          color: rgba(235, 219, 178, 0.2);
+          text-shadow: 0px 0px 2px rgba(0, 0, 0, .7);
+          transition: all .3s ease;
+        }
 
         #custom-expand:hover {
-                color: rgba(255, 255, 255, .2);
-                text-shadow: 0px 0px 2px rgba(255, 255, 255, .5);
-                }
+          color: rgba(255, 255, 255, .2);
+          text-shadow: 0px 0px 2px rgba(255, 255, 255, .5);
+        }
 
         #custom-colorpicker {
-                padding: 0px 5px;
-                }
+          padding: 0px 5px;
+        }
 
         #cpu,
         #memory,
         #disk,
         #temperature,
-        #backlight,
         #custom-screenshot,
-        #custom-colorpicker {
-                padding: 0px 5px;
-                transition: all .3s ease;
-                color: #a89984;
+        #custom-colorpicker,
+        #custom-gpu {
+          padding: 0px 5px;
+          transition: all .3s ease;
+          color: #a89984;
+        }
 
-                }
+        #temperature.critical {
+          color: #fb4934;
+          animation-name: blink;
+          animation-duration: 0.5s;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+        }
 
         #custom-endpoint {
-                color: transparent;
-                text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 1);
-
-                }
+          color: transparent;
+          text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 1);
+        }
 
         #tray {
-                padding: 0px 5px;
-                transition: all .3s ease;
-
-                }
+          padding: 0px 5px;
+          transition: all .3s ease;
+        }
 
         #tray menu * {
-                padding: 0px 5px;
-                transition: all .3s ease;
-                }
+          padding: 0px 5px;
+          transition: all .3s ease;
+        }
 
         #tray menu separator {
-                padding: 0px 5px;
-                transition: all .3s ease;
-                }
+          padding: 0px 5px;
+          transition: all .3s ease;
+        }
+
         #custom-weather {
           padding: 0px 5px;
           transition: all .3s ease;
           color: #a89984;
-          }
+        }
 
         #custom-weather:hover {
           transition: all .3s ease;
           color: #fb4934;
-          }
+        }
 
         #custom-weather.weather-error {
           color: #fb4934;
-          }
+        }
       '';
     };
   };
