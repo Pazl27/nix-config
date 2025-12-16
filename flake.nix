@@ -60,7 +60,11 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+
       myScripts = pkgs.callPackage ./pkgs/scripts.nix { };
+      myNixvim = pkgs.callPackage ./pkgs/nixvim.nix {
+        inherit nixvim;
+      };
 
       # Define your hosts
       hosts = {
@@ -183,7 +187,17 @@
       # Build NixOS configurations
       nixosConfigurations = builtins.mapAttrs mkNixOS nixosHosts;
 
-      # Optionally expose the scripts package
-      packages.${system}.my-scripts = myScripts;
+      packages.${system} = {
+        my-scripts = myScripts;
+        nixvim = myNixvim;
+        default = myNixvim;
+      };
+
+      apps.${system} = {
+        nixvim = {
+          type = "app";
+          program = "${myNixvim}/bin/nvim";
+        };
+      };
     };
 }
