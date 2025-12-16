@@ -24,13 +24,34 @@ with lib;
       xfce.tumbler
       ffmpegthumbnailer
       libgsf
-    ];
 
+      # Image viewer
+      nsxiv
+
+    ];
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {
+        # Directories
         "inode/directory" = "thunar.desktop";
         "application/x-directory" = "thunar.desktop";
+
+        # PDFs - open with Firefox
+        "application/pdf" = "firefox.desktop";
+
+        # Images - open with nsxiv
+        "image/png" = "nsxiv.desktop";
+        "image/jpeg" = "nsxiv.desktop";
+        "image/jpg" = "nsxiv.desktop";
+        "image/gif" = "nsxiv.desktop";
+        "image/bmp" = "nsxiv.desktop";
+        "image/webp" = "nsxiv.desktop";
+        "image/tiff" = "nsxiv.desktop";
+        "image/svg+xml" = "nsxiv.desktop";
+        "image/x-portable-pixmap" = "nsxiv.desktop";
+        "image/x-portable-graymap" = "nsxiv.desktop";
+        "image/x-portable-bitmap" = "nsxiv.desktop";
+        "image/x-portable-anymap" = "nsxiv.desktop";
       };
     };
 
