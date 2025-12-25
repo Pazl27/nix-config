@@ -1,3 +1,4 @@
+{ host ? "desktop", ... }:
 {
   # Window rules
   windowrule = [

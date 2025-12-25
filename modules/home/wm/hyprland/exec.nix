@@ -1,9 +1,13 @@
 {
+  host ? "desktop",
+  ...
+}:
+{
   exec-once = [
     # "swaync"
     "swww-daemon"
-    # "waybar"
-    "udiskie"
+    "waybar"
+    # "udiskie"
     "hypridle"
     "battery-notify"
     "hyprpm reload -n"

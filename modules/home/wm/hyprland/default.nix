@@ -3,6 +3,7 @@
   lib,
   pkgs,
   inputs,
+  host,
   ...
 }:
 let
@@ -34,11 +35,11 @@ in
       ];
 
       settings = lib.mkMerge [
-        (import ./env.nix)
-        (import ./general.nix)
-        (import ./keybinds.nix)
-        (import ./rules.nix)
-        (import ./exec.nix)
+        (import ./env.nix { inherit host; })
+        (import ./general.nix { inherit host; })
+        (import ./keybinds.nix { inherit host; })
+        (import ./rules.nix { inherit host; })
+        (import ./exec.nix { inherit host; })
       ];
 
       extraConfig = ''
@@ -121,46 +122,46 @@ in
       };
     };
 
-    systemd.user.services.waybar = {
-      Unit = {
-        Description = "Highly customizable Wayland bar for Sway and Wlroots based compositors";
-        Documentation = "https://github.com/Alexays/Waybar/wiki";
-        PartOf = [ "graphical-session.target" ];
-        After = [ "graphical-session.target" ];
-        Requires = [ "graphical-session.target" ];
-        OnFailure = [ "waybar-failure-notify.service" ];
-      };
-      Service = {
-        Type = "simple";
-        ExecStart = "${pkgs.waybar}/bin/waybar";
-        ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
-        Restart = "on-failure";
-        RestartSec = "1s";
-        Environment = [
-          "PATH=${
-            pkgs.lib.makeBinPath [
-              pkgs.curl
-              pkgs.gnused
-              pkgs.coreutils
-            ]
-          }:${config.home.profileDirectory}/bin"
-        ];
-      };
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-    };
+    # systemd.user.services.waybar = {
+    #   Unit = {
+    #     Description = "Highly customizable Wayland bar for Sway and Wlroots based compositors";
+    #     Documentation = "https://github.com/Alexays/Waybar/wiki";
+    #     PartOf = [ "graphical-session.target" ];
+    #     After = [ "graphical-session.target" ];
+    #     Requires = [ "graphical-session.target" ];
+    #     OnFailure = [ "waybar-failure-notify.service" ];
+    #   };
+    #   Service = {
+    #     Type = "simple";
+    #     ExecStart = "${pkgs.waybar}/bin/waybar";
+    #     ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
+    #     Restart = "on-failure";
+    #     RestartSec = "1s";
+    #     Environment = [
+    #       "PATH=${
+    #         pkgs.lib.makeBinPath [
+    #           pkgs.curl
+    #           pkgs.gnused
+    #           pkgs.coreutils
+    #         ]
+    #       }:${config.home.profileDirectory}/bin"
+    #     ];
+    #   };
+    #   Install = {
+    #     WantedBy = [ "graphical-session.target" ];
+    #   };
+    # };
 
-    # Notification service that triggers on waybar failure
-    systemd.user.services.waybar-failure-notify = {
-      Unit = {
-        Description = "Notify when Waybar crashes";
-      };
+    # # Notification service that triggers on waybar failure
+    # systemd.user.services.waybar-failure-notify = {
+    #   Unit = {
+    #     Description = "Notify when Waybar crashes";
+    #   };
 
-      Service = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.libnotify}/bin/notify-send -u critical 'Waybar Crashed' 'Waybar has crashed and been restarted. Check logs: journalctl --user -u waybar -n 50'";
-      };
-    };
+    #   Service = {
+    #     Type = "oneshot";
+    #     ExecStart = "${pkgs.libnotify}/bin/notify-send -u critical 'Waybar Crashed' 'Waybar has crashed and been restarted. Check logs: journalctl --user -u waybar -n 50'";
+    #   };
+    # };
   };
 }
