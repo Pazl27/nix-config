@@ -654,6 +654,178 @@ with lib;
       }
     '';
 
+    # ============================================
+    # LAUNCHPAD THEME
+    # ============================================
+    xdg.configFile."rofi/launchpad.rasi".text = ''
+      /* config - App Launcher */
+
+      configuration {
+          modi:                        "drun";
+          show-icons:                  true;
+          drun-display-format:         "{name}";
+          hover-select:                true;
+          font:                        "JetBrains Mono Nerd Font 12";
+
+          kb-mode-previous: "";
+          kb-mode-next: "";
+          kb-row-up: "Up,Control+k,";
+          kb-row-down: "Down,Control+j";
+          kb-row-left: "Control+h";
+          kb-row-right: "Control+l";
+      }
+
+      /* Config and colors ----------------------------------------------- */
+
+      * {
+            background:                  #282828FF;
+            background-alt:              #3c3836FF;
+            foreground:                  #EBDBB2FF;
+            selected:                    #83A598FF;
+            active:                      #B8BB26FF;
+            urgent:                      #FB4934FF;
+
+            text-selected:               #282828FF;
+            text:                        #EBDBB2FF;
+
+            shade-shadow:                white / 6%;
+            shade-bg:                    white / 12%;
+            shade-border:                white / 24%;
+      }
+
+      window {
+            fullscreen:                  true;
+            transparency:                "real";
+            cursor:                      "default";
+            background-color:            black / 40%;
+            border:                      0px;
+            border-color:                @selected;
+            width:                       100%;
+            height:                      100%;
+            x-offset:                    0;
+            y-offset:                    0;
+            location:                    center;
+      }
+
+      /* Main Box --------------------------------------------------- */
+      mainbox {
+          children:                    [ "inputbar", "listview" ];
+          background-color:            transparent;
+          spacing:                     32px;
+          padding:                     80px;
+      }
+
+      /* Search Bar -------------------------------------------------- */
+      inputbar {
+            children:                    [ "entry" ];
+            background-color:            transparent;
+            text-color:                  @foreground;
+            spacing:                     0px;
+            padding:                     0px;
+            margin:                      0px 0px 16px 0px;
+      }
+
+      entry {
+          background-color:            @shade-bg;
+          text-color:                  @text;
+          border-radius:               16px;
+          padding:                     16px 24px;
+          placeholder:                 "Search applications...";
+          placeholder-color:           @foreground;
+          highlight:                   @selected;
+      }
+
+      /* List --------------------------------------------------- */
+      listview {
+          columns:                     6;
+          lines:                       4;
+          cycle:                       false;
+          dynamic:                     false;
+          scrollbar:                   false;
+          layout:                      vertical;
+          reverse:                     false;
+          fixed-height:                true;
+          fixed-columns:               true;
+          flow:                        horizontal;
+
+          background-color:            transparent;
+          text-color:                  @foreground;
+
+          spacing:                     32px;
+          margin:                      0px;
+          padding:                     0px;
+      }
+
+      /* Elements --------------------------------------------------- */
+      element {
+          cursor:                      pointer;
+          border-radius:               16px;
+          background-color:            transparent;
+          text-color:                  @foreground;
+          orientation:                 vertical;
+
+          spacing:                     12px;
+          margin:                      0px;
+          padding:                     24px;
+      }
+
+      element normal.normal {
+          background-color:            transparent;
+          text-color:                  @text;
+      }
+
+      element selected.normal {
+          background-color:            @shade-bg;
+          text-color:                  white;
+          border:                      2px solid;
+          border-color:                @selected;
+      }
+
+      element-icon {
+          expand:                      false;
+          background-color:            transparent;
+          text-color:                  inherit;
+          size:                        128px;
+          cursor:                      inherit;
+          horizontal-align:            0.5;
+      }
+
+      element-text {
+          background-color:            transparent;
+          text-color:                  inherit;
+          highlight:                   inherit;
+          cursor:                      inherit;
+          vertical-align:              0.5;
+          horizontal-align:            0.5;
+          font:                        "JetBrains Mono Nerd Font 11";
+      }
+
+      /* Message ------------------------------------------------------ */
+      message {
+            background-color:            @shade-bg;
+            border:                      1px solid;
+            border-color:                transparent;
+            border-radius:               12px;
+            padding:                     24px;
+      }
+
+      error-message {
+            padding:                     100px;
+            border:                      0px solid;
+            border-radius:               0px;
+            background-color:            black / 10%;
+            text-color:                  @text;
+      }
+
+      textbox {
+            background-color:            transparent;
+            text-color:                  @text;
+            vertical-align:              0.5;
+            horizontal-align:            0.5;
+            highlight:                   none;
+      }
+    '';
+
     home.file.".config/rofi" = {
       source = ../../../assets/rofi;
       recursive = true;
