@@ -51,95 +51,66 @@ with lib;
       text = ''
         /**
          * @name system24 (gruvbox)
-         * @description a tui-style discord theme with Gruvbox Dark Hard colors
-         * @author refact0r (modified for Gruvbox)
-         * @version 2.0.0
-         * @invite nz87hXyvcy
-         * @website https://github.com/refact0r/system24
-         * @source https://github.com/refact0r/system24/blob/master/theme/system24.theme.css
+         * @description Override system24 v2.0 with Gruvbox colors
          */
 
+        /* IMPORT THE BASE THEME FIRST */
         @import url('https://refact0r.github.io/system24/build/system24.css');
 
+        /* SETTINGS OVERRIDES */
+        /* We use 'body' to match the theme's specificity for settings */
         body {
-            --font: 'JetBrains Mono';
-            --code-font: 'JetBrains Mono';
-            font-weight: 400;
-            letter-spacing: -0.05ch;
+              --font: 'JetBrains Mono';
+              --code-font: 'JetBrains Mono';
+              --font-weight: 400; 
+              --letter-spacing: -0.05ch;
 
-            --gap: 12px;
-            --divider-thickness: 4px;
-            --border-thickness: 2px;
-            --border-hover-transition: 0.2s ease;
-
-            --animations: on;
-            --list-item-transition: 0.2s ease;
-            --dms-icon-svg-transition: 0.4s ease;
-
-            --top-bar-height: var(--gap);
-            --top-bar-button-position: titlebar;
-            --top-bar-title-position: off;
-            --subtle-top-bar-title: off;
-
-            --custom-window-controls: off;
-            --window-control-size: 14px;
-
-            --custom-dms-icon: off;
-            --dms-icon-svg-url: url("");
-            --dms-icon-svg-size: 90%;
-            --dms-icon-color-before: var(--icon-secondary);
-            --dms-icon-color-after: var(--white);
-            --custom-dms-background: off;
-            --dms-background-image-url: url("");
-            --dms-background-image-size: cover;
-            --dms-background-color: linear-gradient(70deg, var(--blue-2), var(--purple-2), var(--red-2));
-
-            --background-image: off;
-            --background-image-url: url("");
-
-            --transparency-tweaks: off;
-            --remove-bg-layer: off;
-            --panel-blur: off;
-            --blur-amount: 12px;
-            --bg-floating: var(--bg-3);
-
-            --small-user-panel: on;
-            --unrounding: on;
-
-            --custom-spotify-bar: on;
-            --ascii-titles: on;
-            --ascii-loader: system24;
-
-            --panel-labels: on;
-            --label-color: var(--text-muted);
-            --label-font-weight: 500;
+              --gap: 12px;
+              --divider-thickness: 4px;
+              --border-thickness: 2px;
+              
+              --panel-labels: on;
+              --label-font-weight: 500;
+              --ascii-titles: on;
+              --ascii-loader: system24;
         }
 
-        :root {
-            --colors: on;
+        /* COLOR OVERRIDES */
+        /* Using "html:root" gives this block higher priority (specificity) 
+        than the standard ":root" used in the imported theme.
+        */
+        html:root {
+            /* Gruvbox Palette Map */
+            
+            /* Text Colors */
+            --text-0: #1d2021; /* bg-4 */
+            --text-1: #fbf1c7; /* light 1 */
+            --text-2: #ebdbb2; /* light 2 */
+            --text-3: #d5c4a1; /* light 3 */
+            --text-4: #bdae93; /* light 4 */
+            --text-5: #928374; /* gray */
 
-            --text-0: var(--bg-4);
-            --text-1: #fbf1c7;
-            --text-2: #ebdbb2;
-            --text-3: #d5c4a1;
-            --text-4: #bdae93;
-            --text-5: #928374;
-
+            /* Backgrounds */
             --bg-1: #504945;
             --bg-2: #3c3836;
             --bg-3: #282828;
             --bg-4: #1d2021;
+            
+            /* Interactions */
             --hover: hsla(27, 25%, 35%, 0.3);
             --active: var(--bg-1);
             --active-2: #665c54;
             --message-hover: var(--hover);
 
+            /* Accents (Orange/Gruvbox Focus) */
             --accent-1: #fe8019;
             --accent-2: #fe8019;
             --accent-3: #fe8019;
             --accent-4: #d65d0e;
             --accent-5: #af3a03;
             --accent-new: #fb4934;
+
+            /* Advanced Colors (Gradients & Status) */
             --mention: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 90%) 40%, transparent);
             --mention-hover: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 95%) 40%, transparent);
             --reply: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 90%) 40%, transparent);
@@ -156,39 +127,13 @@ with lib;
             --border-hover: var(--accent-2);
             --button-border: hsla(27, 25%, 70%, 0.1);
 
-            --red-1: #fb4934;
-            --red-2: #cc241d;
-            --red-3: #9d0006;
-            --red-4: #cc241d;
-            --red-5: #9d0006;
-
-            --green-1: #b8bb26;
-            --green-2: #98971a;
-            --green-3: #79740e;
-            --green-4: #98971a;
-            --green-5: #79740e;
-
-            --blue-1: #83a598;
-            --blue-2: #458588;
-            --blue-3: #076678;
-            --blue-4: #458588;
-            --blue-5: #076678;
-
-            --yellow-1: #fabd2f;
-            --yellow-2: #d79921;
-            --yellow-3: #b57614;
-            --yellow-4: #d79921;
-            --yellow-5: #b57614;
-
-            --purple-1: #d3869b;
-            --purple-2: #b16286;
-            --purple-3: #8f3f71;
-            --purple-4: #b16286;
-            --purple-5: #8f3f71;
-
-            --orange-1: #fe8019;
-            --orange-2: #d65d0e;
-            --orange-3: #af3a03;
+            /* Full Palette Definition */
+            --red-1: #fb4934; --red-2: #cc241d; --red-3: #9d0006; --red-4: #cc241d; --red-5: #9d0006;
+            --green-1: #b8bb26; --green-2: #98971a; --green-3: #79740e; --green-4: #98971a; --green-5: #79740e;
+            --blue-1: #83a598; --blue-2: #458588; --blue-3: #076678; --blue-4: #458588; --blue-5: #076678;
+            --yellow-1: #fabd2f; --yellow-2: #d79921; --yellow-3: #b57614; --yellow-4: #d79921; --yellow-5: #b57614;
+            --purple-1: #d3869b; --purple-2: #b16286; --purple-3: #8f3f71; --purple-4: #b16286; --purple-5: #8f3f71;
+            --orange-1: #fe8019; --orange-2: #d65d0e; --orange-3: #af3a03;
         }
       '';
     };
