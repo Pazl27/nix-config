@@ -48,9 +48,6 @@
       # === PROTECTION AGAINST SYN FLOOD ===
       iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP
 
-      # === DROP FRAGMENTED PACKETS ===
-      iptables -A INPUT -f -j DROP
-
       # === DROP XMAS PACKETS ===
       iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
 
@@ -77,8 +74,8 @@
 
     # SYN flood protection
     "net.ipv4.tcp_syncookies" = 1;
-    "net.ipv4.tcp_syn_retries" = 2;
-    "net.ipv4.tcp_synack_retries" = 2;
+    "net.ipv4.tcp_syn_retries" = 4;
+    "net.ipv4.tcp_synack_retries" = 4;
     "net.ipv4.tcp_max_syn_backlog" = 4096;
 
     # Don't accept ICMP redirects
@@ -183,8 +180,9 @@
   # ============================================
   # NETWORK
   # ============================================
+  # Avahi disabled to prevent network broadcast interference during gaming
   services.avahi = {
-    enable = true;
+    enable = false;
     nssmdns4 = true;
     openFirewall = true;
   };

@@ -118,11 +118,11 @@ in
   # ============================================
   # PERFORMANCE
   # ============================================
-  # CPU Governor for better performance
-  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
+  # CPU Governor - schedutil allows dynamic frequency scaling to prevent thermal throttling
+  powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
 
-  # Kernel parameters for better audio
-  boot.kernelParams = [ "threadirqs" ];
+  # Kernel parameters - threadirqs removed to prevent network interrupt delays
+  # boot.kernelParams = [ "threadirqs" ];
 
   # ============================================
   # PRINTING
