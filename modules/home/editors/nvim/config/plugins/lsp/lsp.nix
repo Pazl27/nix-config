@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+    extraPackages = with pkgs; [
+        nixfmt-rfc-style  
+      ];
+
   plugins = {
     lsp-lines = {
       enable = true;
