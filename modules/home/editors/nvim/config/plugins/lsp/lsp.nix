@@ -29,16 +29,32 @@
       enable = true;
       inlayHints = true;
       servers = {
-        zls = {
+        nixd = {
           enable = true;
+          settings = {
+            nixpkgs = {
+              # Point to your nixpkgs input
+              expr = "import <nixpkgs> { }";
+            };
+            formatting = {
+              command = [ "nixfmt" ]; # or "alejandra" or "nixpkgs-fmt"
+            };
+            options = {
+              # NixOS options
+              nixos = {
+                expr = ''(builtins.getFlake "/home/desktop/nix-config").nixosConfigurations.desktop.options'';
+              };
+              # Home Manager options
+              home_manager = {
+                expr = ''(builtins.getFlake "/home/desktop/nix-config").homeConfigurations.desktop.options'';
+              };
+            };
+          };
         };
         html = {
           enable = true;
         };
         lua_ls = {
-          enable = true;
-        };
-        nil_ls = {
           enable = true;
         };
         ts_ls = {

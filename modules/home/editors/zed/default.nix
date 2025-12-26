@@ -26,7 +26,6 @@ in
 
       # LSP servers
       rust-analyzer
-      nil
       nixd
       jdt-language-server
       gopls
@@ -52,11 +51,6 @@ in
               checkOnSave = {
                 command = "clippy";
               };
-            };
-          };
-          nil = {
-            binary = {
-              path = "${pkgs.nil}/bin/nil";
             };
           };
           nixd = {
