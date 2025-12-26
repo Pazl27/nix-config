@@ -1,7 +1,20 @@
 { config, pkgs, ... }:
 {
 
-  drivers.nvidia.enable = true;
+  drivers = {
+    nvidia.enable = true;
+    amdgpu.enable = false;
+    intel.enable = false;
+    nvidia-prime.enable = false;
+  };
+
+  hardware = {
+    hardware-clock.enable = true;
+
+    wooting.enable = true;
+    finalmouse.enable = true;
+    logitech.wireless.enable = true;
+  };
   core.steam.enable = true;
 
   # Network
