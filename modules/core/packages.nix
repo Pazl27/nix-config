@@ -7,5 +7,6 @@
     vim
     wget
     chromium
+    gnome-calculator
   ];
 }
