@@ -42,7 +42,7 @@ with lib;
             "custom/power"
             "custom/weather"
             "clock"
-            "mpris"
+            "custom/playerctl"
           ];
 
           modules-center = [
@@ -149,35 +149,18 @@ with lib;
             spacing = 10;
           };
 
-          # ─── Audio and Media ───────────────────────────────────
-          mpris = {
-            format = "{player_icon} {dynamic}";
-            format-paused = "{status_icon} <i>{dynamic}</i>";
-            player-icons = {
-              default = "🎵";
-              spotify = "";
+          "custom/playerctl" = {
+            exec = ''
+              playerctl -p spotify metadata -f '{"text": "{{markup_escape(title)}} - {{markup_escape(artist)}} ", "tooltip": "{{markup_escape(title)}} - {{markup_escape(artist)}}  {{ duration(position) }}/{{ duration(mpris:length) }}", "alt": "{{status}}", "class": "{{status}}"}' -F
+            '';
+            format = "{2} <span>{0}</span>";
+            format-icons = {
+              Paused = "";
+              Playing = "";
             };
-            status-icons = {
-              paused = "";
-              playing = "";
-            };
-            dynamic-order = [
-              "title"
-              "artist"
-            ];
-            dynamic-len = 40;
-            dynamic-separator = " - ";
-            player-hidden = [
-              "firefox"
-              "playerctld"
-            ];
             on-click = "playerctl -p spotify play-pause";
-            on-scroll-up = "playerctl -p spotify previous";
-            on-scroll-down = "playerctl -p spotify next";
-            ignored-players = [
-              "firefox"
-              "playerctld"
-            ];
+            return-type = "json";
+            tooltip = true;
           };
 
           pulseaudio = {
@@ -524,6 +507,10 @@ with lib;
           color: #a89984;
         }
 
+        #pulseaudio:hover {
+          color: #fb4934;
+        }
+
         #group-expand {
           padding: 0px 5px;
           transition: all .3s ease;
@@ -598,6 +585,24 @@ with lib;
         }
 
         #custom-weather.weather-error {
+          color: #fb4934;
+        }
+
+        #custom-playerctl {
+          padding: 0px 5px;
+          transition: all .3s ease;
+          color: #a89984;
+        }
+
+        #custom-playerctl.Playing {
+          color: #b8bb26;
+        }
+
+        #custom-playerctl.Paused {
+          color: #a89984;
+        }
+
+        #custom-playerctl:hover {
           color: #fb4934;
         }
       '';
