@@ -29,6 +29,18 @@ with lib;
       nsxiv
 
     ];
+
+    # Services
+    services = {
+      # Auto-mounting
+      udiskie = {
+        enable = true;
+        automount = true;
+        notify = true;
+        tray = "auto";
+      };
+    };
+
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {

@@ -7,7 +7,6 @@
     # "swaync"
     "swww-daemon"
     "waybar"
-    # "udiskie"
     "hypridle"
     "battery-notify"
     "hyprpm reload -n"

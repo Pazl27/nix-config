@@ -100,9 +100,6 @@ in
       # Brightness control
       brightnessctl
 
-      # Auto-mounting
-      udiskie
-
       # Image viewer
       nsxiv
 
@@ -110,17 +107,6 @@ in
       wl-clipboard
       cliphist
     ];
-
-    # Services
-    services = {
-      # Auto-mounting
-      udiskie = {
-        enable = true;
-        automount = true;
-        notify = true;
-        tray = "auto";
-      };
-    };
 
     # systemd.user.services.waybar = {
     #   Unit = {
