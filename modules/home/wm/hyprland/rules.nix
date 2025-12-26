@@ -1,4 +1,7 @@
-{ host ? "desktop", ... }:
+{
+  host ? "desktop",
+  ...
+}:
 {
   # Window rules
   windowrule = [
@@ -81,6 +84,9 @@
     # sound
     "float true, match:class (org.pulseaudio.pavucontrol)"
     "size 500 400, match:class (org.pulseaudio.pavucontrol)"
+
+    # calculator
+    "float true, match:class (org.gnome.Calculator)"
   ];
 
   # Layer rules
