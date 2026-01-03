@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
-    extraPackages = with pkgs; [
-        nixfmt-rfc-style  
-      ];
+  extraPackages = with pkgs; [
+    nixfmt-rfc-style
+  ];
 
   plugins = {
     lsp-lines = {
@@ -73,7 +73,6 @@
         pyright = {
           enable = true;
         };
-        # rust_analyzer is now handled by rustaceanvim, so it's removed
         gopls = {
           enable = true;
         };
