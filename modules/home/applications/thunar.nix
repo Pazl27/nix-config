@@ -48,8 +48,8 @@ with lib;
         "inode/directory" = "thunar.desktop";
         "application/x-directory" = "thunar.desktop";
 
-        # PDFs - open with Firefox
-        "application/pdf" = "firefox.desktop";
+        # PDFs - open with LibreOffice Draw
+        "application/pdf" = "libreoffice-draw.desktop";
 
         # Images - open with nsxiv
         "image/png" = "nsxiv.desktop";
@@ -64,6 +64,14 @@ with lib;
         "image/x-portable-graymap" = "nsxiv.desktop";
         "image/x-portable-bitmap" = "nsxiv.desktop";
         "image/x-portable-anymap" = "nsxiv.desktop";
+
+        # Videos - open with mpv
+        "video/mp4" = "mpv.desktop";
+        "video/x-matroska" = "mpv.desktop"; # mkv
+        "video/x-msvideo" = "mpv.desktop"; # avi
+        "video/webm" = "mpv.desktop";
+        "video/quicktime" = "mpv.desktop"; # mov
+        "video/mpeg" = "mpv.desktop";
       };
     };
 

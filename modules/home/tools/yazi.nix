@@ -85,6 +85,10 @@ with lib;
         open = {
           rules = [
             {
+              mime = "application/pdf";
+              use = "open";
+            }
+            {
               mime = "text/*";
               use = "edit";
             }
