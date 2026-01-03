@@ -1,7 +1,9 @@
 { host ? "desktop", ... }:
-{
-  # Keybindings
-  bind = [
+let
+  inherit (import ../../../../hosts/${host}/variables.nix) hyprland_layout;
+
+  # Common keybindings (always included)
+  commonBinds = [
     # Applications
     "$mainMod, Return, exec, $terminal"
     "$mainMod, Q, killactive"
@@ -10,7 +12,6 @@
     "$mainMod, B, exec, $browser"
     "$mainMod, V, togglefloating"
     "$mainMod, SPACE, exec, $menu"
-    # "$mainMod, D, togglesplit"
     "$mainMod, N, exec, swaync-client -t"
     "$mainMod, W, exec, $scriptDir/rofi/wifi.sh"
     "$mainMod, G, exec, $scriptDir/rofi/wallpaper_switcher.sh"
@@ -28,8 +29,10 @@
     # Focus movement
     "$mainMod, h, movefocus, l"
     "$mainMod, l, movefocus, r"
+  ];
 
-    # Hyprscrolling
+  # Hyprscrolling specific keybinds
+  scrollingBinds = [
     "$mainMod SHIFT, comma, layoutmsg, swapcol l"
     "$mainMod SHIFT, period, layoutmsg, swapcol r"
     "$mainMod SHIFT, L, layoutmsg, movewindowto r"
@@ -41,15 +44,25 @@
     "$mainMod, f, layoutmsg, colresize -conf"
     "$mainMod SHIFT, f, fullscreen"
     "$mainMod, D, layoutmsg, orientationcycle left top"
+  ];
 
-    # witout hyprscrolling
-    # "$mainMod SHIFT, h, movewindow, l"
-    # "$mainMod SHIFT, l, movewindow, r"
-    # "$mainMod SHIFT, j, movewindow, d"
-    # "$mainMod SHIFT, k, movewindow, u"
-    # "$mainMod, j, movefocus, d"
-    # "$mainMod, k, movefocus, u"
-    # "$mainMod, f, fullscreen"
+  # Default (dwindle) keybinds
+  defaultBinds = [
+    "$mainMod SHIFT, h, movewindow, l"
+    "$mainMod SHIFT, l, movewindow, r"
+    "$mainMod SHIFT, j, movewindow, d"
+    "$mainMod SHIFT, k, movewindow, u"
+    "$mainMod, j, movefocus, d"
+    "$mainMod, k, movefocus, u"
+    "$mainMod, f, fullscreen"
+  ];
+
+  # Choose layout-specific binds based on hyprland_layout variable
+  layoutBinds = if hyprland_layout == "scrolling" then scrollingBinds else defaultBinds;
+in
+{
+  # Keybindings
+  bind = commonBinds ++ layoutBinds ++ [
 
     # Resize windows
     "$mainMod ALT, l, resizeactive, 10 0"

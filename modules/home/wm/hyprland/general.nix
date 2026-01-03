@@ -1,8 +1,12 @@
 { host ? "desktop", ... }:
+let
+  inherit (import ../../../../hosts/${host}/variables.nix) hyprland_layout;
+  layout = if hyprland_layout == "scrolling" then "scrolling" else "dwindle";
+in
 {
   # General settings
   general = {
-    layout = "scrolling";
+    layout = layout;
     border_size = 3;
     "col.active_border" = "rgb(DF4633) rgb(1e2122) rgb(1e2122) rgb(DF4633)";
     "col.inactive_border" = "rgb(24273A) rgb(24273A) rgb(24273A) rgb(27273A) 45deg";

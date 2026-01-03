@@ -18,5 +18,5 @@
   gitUsername = "Pazl";
   gitEmail = "130466427+Pazl27@users.noreply.github.com";
   app_launcher = "launchpad"; # Options: "default" or "launchpad"
-
+  hyprland_layout = "scrolling"; # Options: "dwindle" or "scrolling"
 }
