@@ -160,7 +160,7 @@
                   (hostConfig + "/home.nix")
                   nixvim.homeModules.nixvim
                   spicetify-nix.homeManagerModules.default
-                  dankMaterialShell.homeModules.dankMaterialShell.default
+                  dankMaterialShell.homeModules.dank-material-shell
                   hyprland.homeManagerModules.default
                   textfox.homeManagerModules.default
                   pokemon-icat.homeManagerModules.default
