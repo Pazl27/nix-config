@@ -48,8 +48,8 @@ with lib;
         "inode/directory" = "thunar.desktop";
         "application/x-directory" = "thunar.desktop";
 
-        # PDFs - open with LibreOffice Draw
-        "application/pdf" = "libreoffice-draw.desktop";
+        # PDFs
+        "application/pdf" = "org.kde.okular.desktop";
 
         # Images - open with nsxiv
         "image/png" = "nsxiv.desktop";
