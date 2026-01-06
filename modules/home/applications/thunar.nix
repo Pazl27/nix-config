@@ -30,16 +30,36 @@ with lib;
 
     ];
 
-    # Services
-    services = {
-      # Auto-mounting
-      udiskie = {
-        enable = true;
-        automount = true;
-        notify = true;
-        tray = "auto";
-      };
+    services.udiskie = {
+      enable = true;
+      automount = true;
+      notify = true;
+      tray = "auto";
     };
+
+    # Ensure thumbnail cache directory exists and persists
+    xdg.cacheHome = "${config.home.homeDirectory}/.cache";
+
+    # Tumbler config to ensure it saves thumbnails
+    xdg.configFile."tumbler/tumbler.rc".text = ''
+      [General]
+      MaxFileSize=1073741824
+
+      [DesktopThumbnailer]
+      Disabled=false
+
+      [GstVideoThumbnailer]
+      Disabled=false
+
+      [FFMpegThumbnailer]
+      Disabled=false
+
+      [PopplerThumbnailer]
+      Disabled=false
+
+      [PixbufThumbnailer]
+      Disabled=false
+    '';
 
     xdg.mimeApps = {
       enable = true;
@@ -51,7 +71,7 @@ with lib;
         # PDFs
         "application/pdf" = "org.kde.okular.desktop";
 
-        # Images - open with nsxiv
+        # Images
         "image/png" = "nsxiv.desktop";
         "image/jpeg" = "nsxiv.desktop";
         "image/jpg" = "nsxiv.desktop";
@@ -65,12 +85,12 @@ with lib;
         "image/x-portable-bitmap" = "nsxiv.desktop";
         "image/x-portable-anymap" = "nsxiv.desktop";
 
-        # Videos - open with mpv
+        # Videos
         "video/mp4" = "mpv.desktop";
-        "video/x-matroska" = "mpv.desktop"; # mkv
-        "video/x-msvideo" = "mpv.desktop"; # avi
+        "video/x-matroska" = "mpv.desktop";
+        "video/x-msvideo" = "mpv.desktop";
         "video/webm" = "mpv.desktop";
-        "video/quicktime" = "mpv.desktop"; # mov
+        "video/quicktime" = "mpv.desktop";
         "video/mpeg" = "mpv.desktop";
       };
     };
@@ -78,44 +98,6 @@ with lib;
     xdg.userDirs = {
       enable = true;
       createDirectories = true;
-    };
-
-    systemd.user.services.thunar-daemon = {
-      Unit = {
-        Description = "Thunar file manager daemon";
-        After = [ "graphical-session-pre.target" ];
-        PartOf = [ "graphical-session.target" ];
-      };
-
-      Service = {
-        Type = "dbus";
-        BusName = "org.xfce.Thunar";
-        ExecStart = "${pkgs.xfce.thunar}/bin/thunar --daemon";
-        Restart = "on-failure";
-      };
-
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-    };
-
-    systemd.user.services.tumbler = {
-      Unit = {
-        Description = "Tumbler thumbnailing service";
-        After = [ "graphical-session-pre.target" ];
-        PartOf = [ "graphical-session.target" ];
-      };
-
-      Service = {
-        Type = "dbus";
-        BusName = "org.freedesktop.thumbnails.Thumbnailer1";
-        ExecStart = "${pkgs.xfce.tumbler}/lib/tumbler-1/tumblerd";
-        Restart = "on-failure";
-      };
-
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
     };
   };
 }
