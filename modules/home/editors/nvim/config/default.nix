@@ -32,6 +32,7 @@ _: {
 
     # UI plugins
     ./plugins/ui/bufferline.nix
+    ./plugins/ui/bento.nix
     ./plugins/ui/lualine.nix
     ./plugins/ui/alpha.nix
     # ./plugins/ui/sidekick.nix
