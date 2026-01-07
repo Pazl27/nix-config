@@ -31,15 +31,17 @@ with lib;
 
       shellAliases = {
         # Modern CLI tools
-        ll = "${pkgs.eza}/bin/eza -la --icons";
-        ls = "${pkgs.eza}/bin/eza --icons";
-        tree = "${pkgs.eza}/bin/eza -1A --group-directories-first --color=always --git-ignore --tree";
+        ll = "${pkgs.eza}/bin/eza -la --icons=always $@";
+        ls = "${pkgs.eza}/bin/eza --icons=always $@";
+        tree = "${pkgs.eza}/bin/eza -1A --group-directories-first --color=always --git-ignore --tree --icons=always $@";
         vi = "nvim";
         vim = "nvim";
         c = "clear";
 
         # Git
         gl = "${pkgs.git}/bin/git log --graph --pretty=format:'%C(magenta)%h %C(white)%an  %ar%C(blue)  %D%n%s%n'";
+        gla = "${pkgs.serie}/bin/serie";
+        glf = "$HOME/.config/scripts/git-logs.sh";
 
         # Home Manager
         hms = "home-manager switch --flake ~/nix-config#$(whoami)";
@@ -129,6 +131,8 @@ with lib;
     programs.fzf = {
       enable = true;
       enableZshIntegration = true;
+      defaultCommand = "${pkgs.fd}/bin/fd --type f";
+      fileWidgetCommand = "${pkgs.fd}/bin/fd --type f";
     };
 
     # Zoxide integration
