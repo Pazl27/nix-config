@@ -143,6 +143,9 @@
 
     # Increase inotify limits
     "fs.inotify.max_user_watches" = 524288;
+
+    # Disable core pattern
+    "kernel.core_pattern" = "|/bin/false";
   };
 
   # ============================================
@@ -194,4 +197,18 @@
   # Disable coredumps
   systemd.coredump.enable = false;
 
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "soft";
+      item = "core";
+      value = "0";
+    }
+    {
+      domain = "*";
+      type = "hard";
+      item = "core";
+      value = "0";
+    }
+  ];
 }
