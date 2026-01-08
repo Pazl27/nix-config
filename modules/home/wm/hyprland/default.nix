@@ -100,54 +100,9 @@ in
       # Brightness control
       brightnessctl
 
-      # Image viewer
-      nsxiv
-
       # Clipboard manager (optional)
       wl-clipboard
       cliphist
     ];
-
-    # systemd.user.services.waybar = {
-    #   Unit = {
-    #     Description = "Highly customizable Wayland bar for Sway and Wlroots based compositors";
-    #     Documentation = "https://github.com/Alexays/Waybar/wiki";
-    #     PartOf = [ "graphical-session.target" ];
-    #     After = [ "graphical-session.target" ];
-    #     Requires = [ "graphical-session.target" ];
-    #     OnFailure = [ "waybar-failure-notify.service" ];
-    #   };
-    #   Service = {
-    #     Type = "simple";
-    #     ExecStart = "${pkgs.waybar}/bin/waybar";
-    #     ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
-    #     Restart = "on-failure";
-    #     RestartSec = "1s";
-    #     Environment = [
-    #       "PATH=${
-    #         pkgs.lib.makeBinPath [
-    #           pkgs.curl
-    #           pkgs.gnused
-    #           pkgs.coreutils
-    #         ]
-    #       }:${config.home.profileDirectory}/bin"
-    #     ];
-    #   };
-    #   Install = {
-    #     WantedBy = [ "graphical-session.target" ];
-    #   };
-    # };
-
-    # # Notification service that triggers on waybar failure
-    # systemd.user.services.waybar-failure-notify = {
-    #   Unit = {
-    #     Description = "Notify when Waybar crashes";
-    #   };
-
-    #   Service = {
-    #     Type = "oneshot";
-    #     ExecStart = "${pkgs.libnotify}/bin/notify-send -u critical 'Waybar Crashed' 'Waybar has crashed and been restarted. Check logs: journalctl --user -u waybar -n 50'";
-    #   };
-    # };
   };
 }

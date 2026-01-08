@@ -29,14 +29,18 @@ let
     # Focus movement
     "$mainMod, h, movefocus, l"
     "$mainMod, l, movefocus, r"
+
+    # Monitor movement
+    "$mainMod SHIFT CTRL, H, movewindow, mon:l"
+    "$mainMod SHIFT CTRL, L, movewindow, mon:r"
   ];
 
   # Hyprscrolling specific keybinds
   scrollingBinds = [
-    "$mainMod SHIFT, comma, layoutmsg, swapcol l"
-    "$mainMod SHIFT, period, layoutmsg, swapcol r"
-    "$mainMod SHIFT, L, layoutmsg, movewindowto r"
-    "$mainMod SHIFT, H, layoutmsg, movewindowto l"
+    "$mainMod, comma, layoutmsg, movewindowto l"
+    "$mainMod, period, layoutmsg, movewindowto r"
+    "$mainMod SHIFT, L, layoutmsg, swapcol r"
+    "$mainMod SHIFT, H, layoutmsg, swapcol l"
     "$mainMod SHIFT, j, movetoworkspace, +1"
     "$mainMod SHIFT, k, movetoworkspace, -1"
     "$mainMod, j, workspace, +1"
@@ -109,9 +113,9 @@ in
   # Mouse bindings
   bindm = [
     "$mainMod, mouse:272, movewindow"
-    "$mainMod, Control_L, movewindow"
+    # "$mainMod, Control_L, movewindow"
     "$mainMod, mouse:273, resizewindow"
-    "$mainMod, ALT_L, resizewindow"
+    # "$mainMod, ALT_L, resizewindow"
   ];
 
   # Media keys
