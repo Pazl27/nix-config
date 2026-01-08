@@ -17,6 +17,7 @@
   # ╚════════════════════════════════════════╝
   gitUsername = "Pazl";
   gitEmail = "130466427+Pazl27@users.noreply.github.com";
+  window_manager = "hyprland"; # Options: "hyprland" (default), "niri", or "" (defaults to hyprland)
   app_launcher = "launchpad"; # Options: "default" or "launchpad"
   hyprland_layout = "scrolling"; # Options: "dwindle" or "scrolling"
 }

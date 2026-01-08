@@ -4,6 +4,13 @@
   pkgs,
   ...
 }:
+let
+  inherit (import ./variables.nix) window_manager;
+
+  # Determine which window managers to enable
+  enableHyprland = window_manager == "hyprland" || window_manager == "";
+  enableNiri = window_manager == "niri";
+in
 {
   # Features für Home Manager
   features = {
@@ -22,13 +29,13 @@
         cli = false;
       };
       docker.enable = true;
-      zig.enable = true;
+      zig.enable = false;
     };
     wm = {
-      niri.enable = false;
+      niri.enable = enableNiri;
       hyprland = {
-        enable = true;
-        hyprlock.enable = true;
+        enable = enableHyprland;
+        hyprlock.enable = enableHyprland;
       };
     };
     # === Editors ===
@@ -52,7 +59,7 @@
       bat.enable = true;
       ssh.enable = true;
       yazi.enable = true;
-      pokemon.enable = true;
+      pokemon.enable = false;
     };
     # === Applications ===
     application = {
@@ -73,15 +80,23 @@
       apps = {
         enable = true;
         apps = with pkgs; [
-          obsidian
-          keepass
-          vlc
           gimp
+          kdePackages.kolourpaint
           drawio
+
           claude-code
-          localsend
           vial
+          postman
+          obsidian
+
+          ferdium
+          localsend
+          keepass
+
+          vlc
           abiword
+          kdePackages.okular
+          libreoffice-fresh
         ];
       };
     };

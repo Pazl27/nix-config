@@ -21,12 +21,6 @@
   networking.hostName = "desktop";
   networking.networkmanager.enable = true;
 
-  # Display Server & Desktop
-  services.xserver.enable = true;
-  services.desktopManager.gnome.enable = false;
-  programs.hyprland.enable = true;
-  programs.niri.enable = false;
-
   # Shell
   programs.zsh.enable = true;
 
@@ -42,6 +36,4 @@
       "docker"
     ];
   };
-
-  system.stateVersion = "25.05";
 }

@@ -2,9 +2,15 @@
   config,
   lib,
   pkgs,
+  host,
   ...
 }:
 with lib;
+let
+  inherit (import ../../../hosts/${host}/variables.nix) window_manager;
+  useNiri = window_manager == "niri";
+  useHyprland = window_manager == "hyprland" || window_manager == "";
+in
 {
   options.features.application.waybar = {
     enable = mkEnableOption "Waybar status bar configuration";
@@ -46,7 +52,7 @@ with lib;
           ];
 
           modules-center = [
-            "hyprland/workspaces"
+            (if useHyprland then "hyprland/workspaces" else "niri/workspaces")
           ];
 
           modules-right = [
@@ -61,6 +67,8 @@ with lib;
           ];
 
           # ─── Workspaces ────────────────────────────────────────
+        }
+        // (if useHyprland then {
           "hyprland/workspaces" = {
             format = "{icon}";
             format-icons = {
@@ -80,6 +88,17 @@ with lib;
               ];
             };
           };
+        } else {})
+        // (if useNiri then {
+          "niri/workspaces" = {
+            format = "{icon}";
+            format-icons = {
+              "active" = "";
+              "default" = "";
+            };
+          };
+        } else {})
+        // {
 
           # ─── System Modules ────────────────────────────────────
           clock = {
