@@ -6,10 +6,11 @@
 }:
 with lib;
 let
-  niriConfig = import ./niri-configuration.nix { };
-  dmsConfig = import ./dms-config.nix {
-    homeDirectory = config.home.homeDirectory;
-  };
+  general = import ./general.nix { };
+  exec = import ./exec.nix { };
+  keybinds = import ./keybinds.nix { };
+  outputs = import ./outputs.nix { };
+  rules = import ./rules.nix { };
 in
 {
   options.features.wm.niri = {
@@ -17,27 +18,35 @@ in
   };
 
   config = mkIf config.features.wm.niri.enable {
-    programs.dankMaterialShell = {
-      enable = true;
-      enableSystemd = true;
-    };
-
     wayland.systemd.target = "graphical-session.target";
+
+    features.application = {
+      rofi.enable = true;
+      waybar.enable = true;
+      wlogout.enable = true;
+      swaync.enable = true;
+    };
 
     # Packages
     home.packages = with pkgs; [
       rofi
+      swww
+
       grim
+      slurp
+      grimblast
+
       wl-clipboard
+      cliphist
     ];
 
     # Config files
     xdg.configFile = {
-      "niri/config.kdl".text = niriConfig;
-
-      "DankMaterialShell/settings.json".text = builtins.toJSON dmsConfig.dmsSettings;
-
-      "DankMaterialShell/gruvbox-theme.json".text = builtins.toJSON dmsConfig.gruvboxTheme;
+      "niri/config.kdl".text = general;
+      "niri/startup.kdl".text = exec;
+      "niri/binds.kdl".text = keybinds;
+      "niri/outputs.kdl".text = outputs;
+      "niri/windowrules.kdl".text = rules;
     };
   };
 }
