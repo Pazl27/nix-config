@@ -206,116 +206,6 @@ with lib;
       @theme "theme.rasi"
     '';
 
-    # ============================================
-    # CONFIG 3: Wallpaper Select
-    # ============================================
-    xdg.configFile."rofi/wallselect.rasi".text = ''
-      /*****----- Configuration -----*****/
-      configuration {
-          show-icons:                 true;
-          drun-display-format:        "{name}";
-        kb-mode-previous: "";
-        kb-mode-next: "";
-        kb-row-up: "Up,Control+k,";
-        kb-row-down: "Down,Control+j";
-        kb-row-left: "Control+h";
-        kb-row-right: "Control+l";
-      }
-
-      /*****----- Global Properties -----*****/
-      * {
-          font:                        "JetBrains Mono Nerd Font 9";
-          background:                  #1d2021;  /* Gruvbox dark bg */
-          background-alt:              #3c3836;  /* Gruvbox dark alt bg */
-          foreground:                  #ebdbb2;  /* Gruvbox fg */
-          selected:                    #fB4934;  /* Gruvbox bright pink */
-      }
-
-      /*****----- Main Window -----*****/
-      window {
-          fullscreen:                  false;
-          location:                    center;
-          width:                       80%;
-          border-radius:               6px;
-          padding:                     10px;
-          background-color:            transparent;
-      }
-
-      /*****----- Main Layout -----*****/
-      mainbox {
-          border-radius:               6px;
-          spacing:                     0px;
-          orientation:                 vertical;
-          children:                    [ "inputbar", "listbox" ];
-      }
-
-      listbox {
-          spacing:                     0px;
-          orientation:                 vertical;
-          children:                    [ "listview" ];
-      }
-
-      /*****----- Input Bar (Search) -----*****/
-      inputbar {
-          children: [prompt, entry];
-          background-color:            #3c3836;  /* Gruvbox dark bg */
-      }
-
-      prompt {
-          padding:                     10px;
-          text-color:                  #ebdbb2;
-          background-color:            #3c3836;  /* Gruvbox dark bg */
-      }
-
-      entry {
-          padding:                     10px 0;
-          text-color:                  #ebdbb2;
-          background-color:            #3c3836;  /* slightly darker for input */
-          border-radius:               4px;
-      }
-
-      /*****----- Listview: Icon Grid -----*****/
-      listview {
-          columns:                     5;
-          lines:                       3;
-          layout:                      vertical;
-          fixed-columns:               true;
-          fixed-height:                true;
-          dynamic:                     false;
-          spacing:                     10px;
-          padding:                     8px;
-          border-radius:               0px 0px 6px 6px;
-          background-color:            #282828;  /* Gruvbox slightly lighter bg for grid */
-      }
-
-      /*****----- Element Styling -----*****/
-      element {
-          padding:                     0px 10px 0px 10px;
-          border-radius:               6px;
-          background-color:            transparent;
-          horizontal-align:            0.5;
-      }
-
-      element selected.normal {
-          background-color:            @selected;
-      }
-
-      element-icon {
-          size:                        159px;
-          border-radius:               6px;
-          background-color:            transparent;
-          vertical-align:              0.5;
-          padding:                     2px;
-      }
-
-      element-text {
-          text-color:                  transparent;
-          background-color:            transparent;
-          padding:                     0px;
-          font:                        "JetBrains Mono Nerd Font 0";
-      }
-    '';
-
     xdg.configFile."rofi/list.rasi".text = ''
             /*****----- Configuration -----*****/
             configuration {
@@ -473,6 +363,9 @@ with lib;
         }
     '';
 
+    # ============================================
+    # WALLPAPER THEME
+    # ============================================
     xdg.configFile."rofi/wallpaper.rasi".text = ''
       /* config - Wallpaper select */
 
@@ -497,7 +390,7 @@ with lib;
             background:                  #282828FF;
             background-alt:              #3c3836FF;
             foreground:                  #EBDBB2FF;
-            selected:                    #83A598FF;
+            selected:                    #fe8019FF; /* Gruvbox blue: #83A598FF */
             active:                      #B8BB26FF;
             urgent:                      #FB4934FF;
 
@@ -681,7 +574,7 @@ with lib;
             background:                  #282828FF;
             background-alt:              #3c3836FF;
             foreground:                  #EBDBB2FF;
-            selected:                    #83A598FF;
+            selected:                    #fe8019FF; /* Gruvbox blue: #83A598FF */
             active:                      #B8BB26FF;
             urgent:                      #FB4934FF;
 
@@ -830,6 +723,5 @@ with lib;
       source = ../../../assets/rofi;
       recursive = true;
     };
-
   };
 }
