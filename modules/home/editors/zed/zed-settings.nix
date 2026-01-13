@@ -110,6 +110,13 @@
     };
   };
 
+  context_servers = {
+    mcp-server-context7 = {
+      enabled = true;
+      settings = {};
+    };
+  };
+
   # Git
   git = {
     git_gutter = "tracked_files";

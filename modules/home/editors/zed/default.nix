@@ -37,6 +37,13 @@ in
       dockerfile-language-server
       docker-compose-language-service
     ];
+
+    home.activation.cleanZedConfig = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
+      rm -f ~/.config/zed/keymap.json
+      rm -f ~/.config/zed/settings.json
+      rm -f ~/.config/zed/tasks.json
+    '';
+
     # Configure Zed
     programs.zed-editor = {
       enable = true;
@@ -107,8 +114,10 @@ in
         "ini"
         "env"
         "gruvbox-baby"
+        "context7-mcp"
       ];
     };
+
     home.sessionVariables = {
       # Point to NVIDIA Vulkan driver
       VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
