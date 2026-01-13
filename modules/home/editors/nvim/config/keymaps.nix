@@ -169,7 +169,7 @@
     {
       mode = "n";
       key = "<C-v>";
-      action = "\"+p";
+      action = "<cmd>set paste<cr>\"+p<cmd>set nopaste<cr>";
       options = {
         desc = "Paste from system clipboard";
         silent = true;
@@ -178,7 +178,7 @@
     {
       mode = "i";
       key = "<C-v>";
-      action = "<C-r>+";
+      action = "<C-o><cmd>set paste<cr><C-r>+<C-o><cmd>set nopaste<cr>";
       options = {
         desc = "Paste from system clipboard";
         silent = true;
@@ -187,7 +187,7 @@
     {
       mode = "v";
       key = "<C-v>";
-      action = "\"+p";
+      action = "<cmd>set paste<cr>\"+p<cmd>set nopaste<cr>";
       options = {
         desc = "Paste from system clipboard";
         silent = true;
