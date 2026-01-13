@@ -12,16 +12,16 @@ with lib;
 
   config = mkIf config.features.application.thunar.enable {
     home.packages = with pkgs; [
-      xfce.thunar
-      xfce.thunar-volman
-      xfce.thunar-archive-plugin
-      xfce.thunar-media-tags-plugin
+      thunar
+      thunar-volman
+      thunar-archive-plugin
+      thunar-media-tags-plugin
 
       # File management
       file-roller
 
       # Thumbnails
-      xfce.tumbler
+      tumbler
       ffmpegthumbnailer
       libgsf
 
