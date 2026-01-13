@@ -8,8 +8,10 @@ in
   general = {
     layout = layout;
     border_size = 3;
-    "col.active_border" = "rgb(DF4633) rgb(1e2122) rgb(1e2122) rgb(DF4633)";
-    "col.inactive_border" = "rgb(24273A) rgb(24273A) rgb(24273A) rgb(27273A) 45deg";
+    # "col.active_border" = "rgb(DF4633) rgb(1e2122) rgb(1e2122) rgb(DF4633)";
+    # "col.inactive_border" = "rgb(24273A) rgb(24273A) rgb(24273A) rgb(27273A) 45deg";
+    "col.active_border" = "rgb(fb4934) rgb(fb4934) rgb(fe8019) rgb(fb4934) 45deg";
+    "col.inactive_border" = "rgb(3c3836) rgb(504945) rgb(3c3836) rgb(504945) 45deg";
     gaps_in = 2;
     gaps_out = 5;
   };

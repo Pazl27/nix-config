@@ -1,4 +1,7 @@
-{ host ? "desktop", ... }:
+{
+  host ? "desktop",
+  ...
+}:
 let
   inherit (import ../../../../hosts/${host}/variables.nix) hyprland_layout;
 
@@ -43,6 +46,8 @@ let
     "$mainMod SHIFT, H, layoutmsg, swapcol l"
     "$mainMod SHIFT, j, movetoworkspace, +1"
     "$mainMod SHIFT, k, movetoworkspace, -1"
+    "$mainMod, up, movefocus, u"
+    "$mainMod, down, movefocus, d"
     "$mainMod, j, workspace, +1"
     "$mainMod, k, workspace, -1"
     "$mainMod, f, layoutmsg, colresize -conf"
@@ -66,49 +71,52 @@ let
 in
 {
   # Keybindings
-  bind = commonBinds ++ layoutBinds ++ [
+  bind =
+    commonBinds
+    ++ layoutBinds
+    ++ [
 
-    # Resize windows
-    "$mainMod ALT, l, resizeactive, 10 0"
-    "$mainMod ALT, h, resizeactive, -10 0"
-    "$mainMod ALT, k, resizeactive, 0 -10"
-    "$mainMod ALT, j, resizeactive, 0 10"
+      # Resize windows
+      "$mainMod ALT, l, resizeactive, 10 0"
+      "$mainMod ALT, h, resizeactive, -10 0"
+      "$mainMod ALT, k, resizeactive, 0 -10"
+      "$mainMod ALT, j, resizeactive, 0 10"
 
-    # Workspaces
-    "$mainMod, 1, workspace, 1"
-    "$mainMod, 2, workspace, 2"
-    "$mainMod, 3, workspace, 3"
-    "$mainMod, 4, workspace, 4"
-    "$mainMod, 5, workspace, 5"
-    "$mainMod, 6, workspace, 6"
-    "$mainMod, 7, workspace, 7"
-    "$mainMod, 8, workspace, 8"
-    "$mainMod, 9, workspace, 9"
-    "$mainMod, 0, workspace, 10"
+      # Workspaces
+      "$mainMod, 1, workspace, 1"
+      "$mainMod, 2, workspace, 2"
+      "$mainMod, 3, workspace, 3"
+      "$mainMod, 4, workspace, 4"
+      "$mainMod, 5, workspace, 5"
+      "$mainMod, 6, workspace, 6"
+      "$mainMod, 7, workspace, 7"
+      "$mainMod, 8, workspace, 8"
+      "$mainMod, 9, workspace, 9"
+      "$mainMod, 0, workspace, 10"
 
-    # Move to workspace
-    "$mainMod SHIFT, 1, movetoworkspace, 1"
-    "$mainMod SHIFT, 2, movetoworkspace, 2"
-    "$mainMod SHIFT, 3, movetoworkspace, 3"
-    "$mainMod SHIFT, 4, movetoworkspace, 4"
-    "$mainMod SHIFT, 5, movetoworkspace, 5"
-    "$mainMod SHIFT, 6, movetoworkspace, 6"
-    "$mainMod SHIFT, 7, movetoworkspace, 7"
-    "$mainMod SHIFT, 8, movetoworkspace, 8"
-    "$mainMod SHIFT, 9, movetoworkspace, 9"
-    "$mainMod SHIFT, 0, movetoworkspace, 10"
+      # Move to workspace
+      "$mainMod SHIFT, 1, movetoworkspace, 1"
+      "$mainMod SHIFT, 2, movetoworkspace, 2"
+      "$mainMod SHIFT, 3, movetoworkspace, 3"
+      "$mainMod SHIFT, 4, movetoworkspace, 4"
+      "$mainMod SHIFT, 5, movetoworkspace, 5"
+      "$mainMod SHIFT, 6, movetoworkspace, 6"
+      "$mainMod SHIFT, 7, movetoworkspace, 7"
+      "$mainMod SHIFT, 8, movetoworkspace, 8"
+      "$mainMod SHIFT, 9, movetoworkspace, 9"
+      "$mainMod SHIFT, 0, movetoworkspace, 10"
 
-    # Scroll workspaces
-    "$mainMod, mouse_down, workspace, e+1"
-    "$mainMod, mouse_up, workspace, e-1"
+      # Scroll workspaces
+      "$mainMod, mouse_down, workspace, e+1"
+      "$mainMod, mouse_up, workspace, e-1"
 
-    # Lock
-    "ALT CTRL, Q, exec, hyprlock"
+      # Lock
+      "ALT CTRL, Q, exec, hyprlock"
 
-    # Brightness
-    ", XF86MonBrightnessDown, exec, $scriptDir/brightness.sh --dec"
-    ", XF86MonBrightnessUp, exec, $scriptDir/brightness.sh --inc"
-  ];
+      # Brightness
+      ", XF86MonBrightnessDown, exec, $scriptDir/brightness.sh --dec"
+      ", XF86MonBrightnessUp, exec, $scriptDir/brightness.sh --inc"
+    ];
 
   # Mouse bindings
   bindm = [
