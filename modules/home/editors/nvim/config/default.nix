@@ -13,7 +13,6 @@ _: {
     ./plugins/cmp/lspkind.nix
     ./plugins/cmp/autopairs.nix
     ./plugins/cmp/schemastore.nix
-    ./plugins/cmp/actions-preview.nix
 
     # Snippets
     ./plugins/snippets/luasnip.nix

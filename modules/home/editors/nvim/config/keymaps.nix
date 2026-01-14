@@ -462,5 +462,23 @@
         desc = "Hide Terminal";
       };
     }
+    {
+      mode = "n";
+      key = "<leader>ca";
+      action.__raw = "vim.lsp.buf.code_action";
+      options = {
+        desc = "Code Actions";
+        silent = true;
+      };
+    }
+    {
+      mode = "v";
+      key = "<leader>ca";
+      action.__raw = "vim.lsp.buf.code_action";
+      options = {
+        desc = "Code Actions";
+        silent = true;
+      };
+    }
   ];
 }
