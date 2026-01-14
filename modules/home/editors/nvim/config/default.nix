@@ -10,7 +10,6 @@ _: {
 
     # Completion
     ./plugins/cmp/cmp.nix
-    ./plugins/cmp/cmp-copilot.nix
     ./plugins/cmp/lspkind.nix
     ./plugins/cmp/autopairs.nix
     ./plugins/cmp/schemastore.nix
@@ -27,7 +26,6 @@ _: {
     ./plugins/editor/todo-comments.nix
     ./plugins/editor/comment.nix
     ./plugins/editor/tmux.nix
-    ./plugins/editor/copilot-chat.nix
     ./plugins/editor/navic.nix
 
     # UI plugins
@@ -35,7 +33,6 @@ _: {
     ./plugins/ui/bento.nix
     ./plugins/ui/lualine.nix
     ./plugins/ui/alpha.nix
-    # ./plugins/ui/sidekick.nix
 
     # LSP and formatting
     ./plugins/lsp/lsp.nix
@@ -57,5 +54,10 @@ _: {
     ./plugins/utils/web-devicons.nix
     ./plugins/utils/crates.nix
     ./plugins/utils/colorizer.nix
+
+    # Ai
+    ./plugins/ai/copilot.nix
+    ./plugins/ai/copilot-chat.nix
+    # ./plugins/ai/sidekick.nix
   ];
 }

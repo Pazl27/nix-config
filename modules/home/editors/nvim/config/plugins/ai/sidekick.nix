@@ -1,8 +1,6 @@
 {
   plugins.sidekick = {
     enable = true;
-
-    # Equivalent to your Lua opts
     settings = {
       cli = {
         mux = {
@@ -13,7 +11,6 @@
     };
   };
 
-  # Key mappings
   keymaps = [
     {
       mode = [
@@ -21,27 +18,31 @@
         "v"
       ];
       key = "<leader>cc";
-      action = ''
+      action.__raw = ''
         function()
-          require("sidekick.cli").toggle({ name = "copilot", focus = true })
+          require("sidekick.cli").toggle({ name = "claude", focus = true })
         end
       '';
-      lua = true;
-      desc = "Sidekick Copilot Toggle";
+      options = {
+        desc = "Sidekick Copilot Toggle";
+        silent = true;
+      };
     }
     {
       mode = [ "n" ];
       key = "<tab>";
-      action = ''
+      action.__raw = ''
         function()
           if not require("sidekick").nes_jump_or_apply() then
             return "<Tab>"
           end
         end
       '';
-      lua = true;
-      expr = true;
-      desc = "Goto/Apply Next Edit Suggestion";
+      options = {
+        desc = "Goto/Apply Next Edit Suggestion";
+        expr = true;
+        silent = true;
+      };
     }
   ];
 }
