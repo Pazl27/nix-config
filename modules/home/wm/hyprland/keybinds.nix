@@ -107,8 +107,8 @@ in
       "$mainMod SHIFT, 0, movetoworkspace, 10"
 
       # Scroll workspaces
-      "$mainMod, mouse_down, workspace, e+1"
-      "$mainMod, mouse_up, workspace, e-1"
+      # "$mainMod, mouse_down, workspace, e+1"
+      # "$mainMod, mouse_up, workspace, e-1"
 
       # Lock
       "ALT CTRL, Q, exec, hyprlock"
