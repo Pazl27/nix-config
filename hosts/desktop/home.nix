@@ -17,9 +17,9 @@ in
     # === Development Environments ===
     environments = {
       node.enable = true;
-      python.enable = false;
+      python.enable = true;
       rust.enable = false;
-      go.enable = false;
+      go.enable = true;
       java.enable = true;
       c.enable = false;
       cpp.enable = true;
