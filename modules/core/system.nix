@@ -118,11 +118,19 @@ in
   # ============================================
   # PERFORMANCE
   # ============================================
-  # CPU Governor - schedutil allows dynamic frequency scaling to prevent thermal throttling
-  powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
+  # CPU Governor
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 
-  # Kernel parameters - threadirqs removed to prevent network interrupt delays
-  # boot.kernelParams = [ "threadirqs" ];
+  # Kernel parameters
+  boot.kernelParams = [
+    "intel_idle.max_cstate=1"
+    "processor.max_cstate=1"
+  ];
+
+  # ============================================
+  # IRQ BALANCING FOR GAMING
+  # ============================================
+  services.irqbalance.enable = true;
 
   # ============================================
   # PRINTING

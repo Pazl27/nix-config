@@ -116,6 +116,20 @@
     "net.ipv4.tcp_window_scaling" = 1;
     "net.ipv4.tcp_rfc1337" = 1;
 
+    # === GAMING NETWORK OPTIMIZATIONS ===
+
+    # Increase network buffer sizes
+    "net.core.rmem_max" = 16777216;
+    "net.core.wmem_max" = 16777216;
+    "net.core.netdev_max_backlog" = 5000;
+
+    # TCP optimizations
+    "net.ipv4.tcp_fastopen" = 3;
+    "net.ipv4.tcp_mtu_probing" = 1;
+
+    # Reduce TIME_WAIT connections
+    "net.ipv4.tcp_fin_timeout" = 15;
+
     # === KERNEL SECURITY ===
 
     # Restrict kernel pointer exposure
