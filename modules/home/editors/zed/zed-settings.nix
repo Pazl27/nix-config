@@ -1,72 +1,96 @@
 { pkgs }:
-
 {
-  hide_mouse = "never";
-
-  # Aesthetics
-  toolbar = {
-    quick_actions = false;
+  # ============================================================================
+  # VIM
+  # ============================================================================
+  vim_mode = true;
+  vim = {
+    toggle_relative_line_numbers = true;
+    use_system_clipboard = "never";
   };
-
-  outline_panel = {
-    button = false;
-  };
-
-  collaboration_panel = {
-    button = false;
-  };
-
-  notification_panel = {
-    button = false;
-  };
-
-  icon_theme = "Catppuccin Latte";
-  vertical_scroll_margin = 8;
-  buffer_font_family = "JetBrainsMono Nerd Font";
-  ui_font_size = 16;
-  buffer_font_size = 16;
   base_keymap = null;
+
+  # ============================================================================
+  # EDITOR
+  # ============================================================================
   cursor_blink = false;
+  vertical_scroll_margin = 8;
+  show_completions_on_input = true;
+  extend_comment_on_newline = false;
+
+  # --- Font ---
+  buffer_font_family = "JetBrainsMono Nerd Font";
+  buffer_font_size = 16;
+  buffer_line_height = {
+    custom = 1.5;
+  };
+
+  # --- Indentation ---
+  indent_guides = {
+    enabled = true;
+  };
+
+  # --- Hints ---
+  inlay_hints = {
+    enabled = false;
+  };
+
+  # ============================================================================
+  # SAVING & FORMATTING
+  # ============================================================================
   autosave = "on_focus_change";
   format_on_save = "off";
 
+  # ============================================================================
+  # THEME & UI
+  # ============================================================================
+  theme = {
+    mode = "system";
+    light = "Gruvbox Dark";
+    dark = "Gruvbox Dark Hard";
+  };
+  icon_theme = "Catppuccin Latte";
+  ui_font_size = 16;
+  hide_mouse = "never";
+
+  # --- Scrollbar ---
+  scrollbar = {
+    show = "never";
+  };
+
+  # --- Tab Bar ---
   tab_bar = {
     show = false;
     show_tab_bar_buttons = false;
     show_nav_history_buttons = false;
   };
 
-  indent_guides = {
-    enabled = true;
+  # --- Tabs ---
+  tabs = {
+    close_position = "right";
+    file_icons = true;
+    git_status = true;
+    activate_on_close = "left_neighbour";
+    show_close_button = "hover";
   };
 
-  inlay_hints = {
-    enabled = false;
+  # --- Toolbar ---
+  toolbar = {
+    quick_actions = false;
   };
 
-  scrollbar = {
-    show = "never";
+  # --- Panel Buttons (hide clutter) ---
+  outline_panel = {
+    button = false;
+  };
+  collaboration_panel = {
+    button = false;
+  };
+  notification_panel = {
+    button = false;
   };
 
-  buffer_line_height = {
-    custom = 1.5;
-  };
-
-  theme = {
-    mode = "system";
-    light = "Gruvbox Dark";
-    dark = "Gruvbox Dark Hard";
-  };
-
-  terminal = {
-    dock = "bottom";
-    font_family = "JetBrainsMono Nerd Font";
-    font_size = 15;
-    line_height = {
-      custom = 1.5;
-    };
-  };
-
+  # --- Theme Overrides ---
   "experimental.theme_overrides" = {
     players = [
       {
@@ -77,25 +101,45 @@
     ];
   };
 
-  tabs = {
-    close_position = "right";
-    file_icons = true;
-    git_status = true;
-    activate_on_close = "left_neighbour";
-    show_close_button = "hover";
+  # ============================================================================
+  # TERMINAL
+  # ============================================================================
+  terminal = {
+    dock = "bottom";
+    font_family = "JetBrainsMono Nerd Font";
+    font_size = 15;
+    line_height = {
+      custom = 1.5;
+    };
   };
 
-  show_completions_on_input = true;
-  extend_comment_on_newline = false;
-
-  # Keymaps
-  vim_mode = true;
-  vim = {
-    toggle_relative_line_numbers = true;
-    use_system_clipboard = "never";
+  # ============================================================================
+  # GIT
+  # ============================================================================
+  git = {
+    git_gutter = "tracked_files";
+    inline_blame = {
+      enabled = true;
+    };
   };
 
-  # Copilot
+  # ============================================================================
+  # DIAGNOSTICS
+  # ============================================================================
+  diagnostics = {
+    include_warnings = true;
+    inline = {
+      enabled = true;
+      update_debounce_ms = 150;
+      padding = 4;
+      min_column = 0;
+      max_severity = null;
+    };
+  };
+
+  # ============================================================================
+  # AI / COPILOT
+  # ============================================================================
   features = {
     edit_prediction_provider = "copilot";
   };
@@ -117,35 +161,19 @@
     };
   };
 
-  # Git
-  git = {
-    git_gutter = "tracked_files";
-    inline_blame = {
-      enabled = true;
-    };
-  };
-
-  # Rest
+  # ============================================================================
+  # FILES & SEARCH
+  # ============================================================================
   file_scan_exclusions = [
     "*.git"
     "*.DS_Store"
   ];
 
-  diagnostics = {
-    include_warnings = true;
-    inline = {
-      enabled = true;
-      update_debounce_ms = 150;
-      padding = 4;
-      min_column = 0;
-      max_severity = null;
-    };
-  };
-
+  # ============================================================================
+  # PRIVACY / TELEMETRY
+  # ============================================================================
   telemetry = {
-    # Send debug info like crash reports
     diagnostics = false;
-    # Send anonymized usage data like what languages you're using Zed with
     metrics = false;
   };
 }

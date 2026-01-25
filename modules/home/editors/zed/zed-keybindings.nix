@@ -1,210 +1,208 @@
 [
-  # Global key bindings
+  # ============================================================================
+  # GLOBAL BINDINGS
+  # ============================================================================
   {
     bindings = {
+      "ctrl-p" = null;
       "ctrl-j" = "menu::SelectNext";
       "ctrl-k" = "menu::SelectPrevious";
-      "ctrl-p" = null;
     };
   }
 
-  # VimControl (normal & visual mode)
+  # ============================================================================
+  # MENU NAVIGATION
+  # Active when any menu is open (command palette, file finder, etc.)
+  # ============================================================================
+  {
+    context = "menu";
+    bindings = {
+    };
+  }
+
+  # ============================================================================
+  # VIM CONTROL (Normal & Visual Mode)
+  # Core vim bindings when not in a menu
+  # ============================================================================
   {
     context = "VimControl && !menu";
     bindings = {
+      # --- Command Palette ---
       ":" = "command_palette::Toggle";
 
-      # Formatting and diagnostics
+      # --- LSP / Code Intelligence ---
+      "g d" = "editor::GoToDefinition";
+      "g D" = "editor::GoToDeclaration";
+      "g I" = "editor::GoToImplementation";
+      "g t" = "editor::GoToTypeDefinition";
+      "g r" = "editor::FindAllReferences";
+      "shift-k" = "editor::Hover";
+      "space c a" = "editor::ToggleCodeActions";
+      "space r n" = "editor::Rename";
+
+      # --- Formatting & Diagnostics ---
       "space x f" = "editor::Format";
       "space x x" = "diagnostics::Deploy";
 
-      # Buffer management
+      # --- Buffer / Pane Management ---
       "space b d" = "pane::CloseActiveItem";
       "space s v" = "pane::SplitVertical";
       "space s h" = "pane::SplitHorizontal";
+      "space s x" = "workspace::CloseInactiveTabsAndPanes";
 
-      # Code actions
-      "space c a" = "editor::ToggleCodeActions";
-      "shift-k" = "editor::Hover";
-      "shift-u" = "vim::Redo";
-      "space r n" = "editor::Rename";
-
-      # Panels
-      "space c c" = "workspace::ToggleRightDock";
-      "space c i" = "assistant::InlineAssist";
-
-      # File navigation
+      # --- File Navigation (space f = find/file) ---
       "space f f" = "file_finder::Toggle";
       "space f g" = "pane::DeploySearch";
       "space f t" = "task::Spawn";
       "space f b" = "tab_switcher::Toggle";
       "space f p" = "projects::OpenRecent";
-      "space e" = "workspace::ToggleLeftDock";
 
-      # Pane navigation
+      # --- Panels / UI ---
+      "space e" = "workspace::ToggleLeftDock";
+      "space c c" = "workspace::ToggleRightDock";
+      "space c i" = "assistant::InlineAssist";
+      "space t n" = "terminal_panel::ToggleFocus";
+
+      # --- Pane Navigation (vim-style) ---
       "ctrl-h" = "workspace::ActivatePaneLeft";
       "ctrl-l" = "workspace::ActivatePaneRight";
       "ctrl-k" = "workspace::ActivatePaneUp";
       "ctrl-j" = "workspace::ActivatePaneDown";
 
-      # Clipboard
-      "ctrl-c" = "editor::Copy";
-      "ctrl-v" = "editor::Paste";
-      "ctrl-x" = "editor::Cut";
-      "ctrl-a" = "editor::SelectAll";
-
-      # Git operations
+      # --- Git Operations (space g = git) ---
       "space g p" = "editor::ToggleSelectedDiffHunks";
       "space g b" = "git::Blame";
       "space g r" = "git::Restore";
       "space g i" = "editor::OpenGitBlameCommit";
       "space g c" = "editor::BlameHover";
       "space g w" = "git::Branch";
+      "space g l" = ["task::Spawn" { task_name = "Git Log"; reveal_target = "center"; }];
+      "space g g" = ["task::Spawn" { task_name = "Lazygit"; reveal_target = "center"; }];
 
-      # LSP navigation
-      "g d" = "editor::GoToDefinition";
-      "g D" = "editor::GoToDeclaration";
-      "g I" = "editor::GoToImplementation";
-      "g t" = "editor::GoToTypeDefinition";
-      "g r" = "editor::FindAllReferences";
+      # --- External Tools ---
+      "space l d" = ["task::Spawn" { task_name = "Lazydocker"; reveal_target = "center"; }];
+      "space t t" = ["task::Spawn" { task_name = "Tmux"; reveal_target = "center"; }];
 
-      # Terminal
-      "space t n" = "terminal_panel::ToggleFocus";
-
-      # Task spawning
-      "space g g" = [
-        "task::Spawn"
-        {
-          task_name = "Lazygit";
-          reveal_target = "center";
-        }
-      ];
-      "space l d" = [
-        "task::Spawn"
-        {
-          task_name = "Lazydocker";
-          reveal_target = "center";
-        }
-      ];
-      "space g l" = [
-        "task::Spawn"
-        {
-          task_name = "Git Log";
-          reveal_target = "center";
-        }
-      ];
-      "space t t" = [
-        "task::Spawn"
-        {
-          task_name = "Tmux";
-          reveal_target = "center";
-        }
-      ];
+      # --- Vim Fixes ---
+      "shift-u" = "vim::Redo";
     };
   }
 
-  # Visual mode
+  # ============================================================================
+  # VISUAL MODE SPECIFIC
+  # Bindings only active in visual/selection mode
+  # ============================================================================
   {
     context = "vim_mode == visual && !menu";
     bindings = {
+      # --- Line Movement ---
       "shift-j" = "editor::MoveLineDown";
       "shift-k" = "editor::MoveLineUp";
-      "shift-tab" = "editor::Backtab";
+
+      # --- Indentation ---
       "tab" = "editor::Tab";
-      "ctrl-c" = "editor::Copy";
+      "shift-tab" = "editor::Backtab";
+
+      # --- Yank to System Clipboard ---
+      "ctrl-c" = ["action::Sequence" [["editor::Copy" {}] ["vim::SwitchToNormalMode" {}]]];
+
+      # --- Paste from System Clipboard ---
       "ctrl-v" = "editor::Paste";
-      "ctrl-x" = "editor::Cut";
     };
   }
 
-  # Normal mode
+  # ============================================================================
+  # NORMAL MODE SPECIFIC
+  # Bindings only active in normal mode
+  # ============================================================================
   {
     context = "vim_mode == normal && !menu";
     bindings = {
-      "shift-y" = [
-        "workspace::SendKeystrokes"
-        "y $"
-      ];
+      # --- Yank to End of Line (like D deletes to end) ---
+      "shift-y" = ["workspace::SendKeystrokes" "y $"];
+
+      # --- Tab Navigation ---
       "tab" = "pane::ActivateNextItem";
       "shift-tab" = "pane::ActivatePreviousItem";
-      "ctrl-c" = "editor::Copy";
+
+      # --- Auto-save on Escape ---
+      "escape" = ["action::Sequence" [["workspace::Save" {}] ["buffer_search::Dismiss" {}]]];
+
+      # Paste from system clipboard
       "ctrl-v" = "editor::Paste";
-      "ctrl-x" = "editor::Cut";
+
       "ctrl-a" = "editor::SelectAll";
-      "escape" = "workspace::Save";
     };
   }
 
-  # Insert mode
+  # ============================================================================
+  # INSERT MODE SPECIFIC
+  # ============================================================================
   {
     context = "vim_mode == insert";
     bindings = {
-      "escape" = [
-        "workspace::SendKeystrokes"
-        "ctrl-c ctrl-s"
-      ];
+      # Exit insert mode and save
+      "escape" = ["workspace::SendKeystrokes" "ctrl-c ctrl-s"];
+
+      # Allow paste in insert mode
       "ctrl-v" = "editor::Paste";
-      "ctrl-j" = null;
-      "ctrl-k" = null;
     };
   }
 
-  # Empty pane or shared screen
+  # ============================================================================
+  # CODE ACTIONS / COMPLETIONS MENU
+  # When autocomplete or code actions popup is visible
+  # ============================================================================
+  {
+    context = "Editor && (showing_code_actions || showing_completions)";
+    bindings = {
+      "ctrl-j" = "editor::ContextMenuNext";
+      "ctrl-k" = "editor::ContextMenuPrevious";
+    };
+  }
+
+  # ============================================================================
+  # EMPTY PANE / SHARED SCREEN
+  # When no file is open - provides basic navigation
+  # ============================================================================
   {
     context = "EmptyPane || SharedScreen";
     bindings = {
+      # --- File Navigation ---
       "space f f" = "file_finder::Toggle";
       "space f g" = "pane::DeploySearch";
       "space f p" = "projects::OpenRecent";
+
+      # --- Panels ---
       "space e" = "workspace::ToggleLeftDock";
+      "space c c" = "workspace::ToggleRightDock";
+      "space t n" = "terminal_panel::ToggleFocus";
+
+      # --- Buffer ---
       "space b d" = "pane::CloseActiveItem";
       "space q a" = "zed::Quit";
-      "ctrl-c" = "editor::Copy";
-      "ctrl-v" = "editor::Paste";
-      "ctrl-x" = "editor::Cut";
-      "ctrl-a" = "editor::SelectAll";
+
+      # --- Pane Navigation ---
       "ctrl-h" = "workspace::ActivatePaneLeft";
       "ctrl-l" = "workspace::ActivatePaneRight";
       "ctrl-k" = "workspace::ActivatePaneUp";
       "ctrl-j" = "workspace::ActivatePaneDown";
-      "space c c" = "workspace::ToggleRightDock";
-      "space t n" = "terminal_panel::ToggleFocus";
 
-      "space g g" = [
-        "task::Spawn"
-        {
-          task_name = "Lazygit";
-          reveal_target = "center";
-        }
-      ];
-      "space l d" = [
-        "task::Spawn"
-        {
-          task_name = "Lazydocker";
-          reveal_target = "center";
-        }
-      ];
-      "space g l" = [
-        "task::Spawn"
-        {
-          task_name = "Git Log";
-          reveal_target = "center";
-        }
-      ];
-      "space t t" = [
-        "task::Spawn"
-        {
-          task_name = "Tmux";
-          reveal_target = "center";
-        }
-      ];
+      # --- External Tools ---
+      "space g g" = ["task::Spawn" { task_name = "Lazygit"; reveal_target = "center"; }];
+      "space g l" = ["task::Spawn" { task_name = "Git Log"; reveal_target = "center"; }];
+      "space l d" = ["task::Spawn" { task_name = "Lazydocker"; reveal_target = "center"; }];
+      "space t t" = ["task::Spawn" { task_name = "Tmux"; reveal_target = "center"; }];
     };
   }
 
-  # Project panel
+  # ============================================================================
+  # PROJECT PANEL (File Explorer)
+  # ============================================================================
   {
     context = "ProjectPanel && not_editing";
     bindings = {
+      # --- File Operations (vim-style) ---
       "a" = "project_panel::NewFile";
       "A" = "project_panel::NewDirectory";
       "r" = "project_panel::Rename";
@@ -213,47 +211,54 @@
       "c" = "project_panel::Copy";
       "p" = "project_panel::Paste";
 
+      # --- Close Panel ---
       "q" = "workspace::ToggleLeftDock";
       "space e" = "workspace::ToggleLeftDock";
+
+      # --- Other Panels ---
       "space c c" = "workspace::ToggleRightDock";
 
+      # --- Pane Navigation ---
       "ctrl-h" = "workspace::ActivatePaneLeft";
       "ctrl-l" = "workspace::ActivatePaneRight";
       "ctrl-k" = "workspace::ActivatePaneUp";
       "ctrl-j" = "workspace::ActivatePaneDown";
 
-      "space g g" = [
-        "task::Spawn"
-        {
-          task_name = "Lazygit";
-          reveal_target = "center";
-        }
-      ];
+      # --- Quick Lazygit Access ---
+      "space g g" = ["task::Spawn" { task_name = "Lazygit"; reveal_target = "center"; }];
     };
   }
 
-  # Dock
+  # ============================================================================
+  # DOCK (Side Panels - Left, Right, Bottom)
+  # ============================================================================
   {
     context = "Dock";
     bindings = {
+      # --- Pane Navigation ---
       "ctrl-h" = "workspace::ActivatePaneLeft";
       "ctrl-l" = "workspace::ActivatePaneRight";
       "ctrl-k" = "workspace::ActivatePaneUp";
       "ctrl-j" = "workspace::ActivatePaneDown";
+
+      # --- Close Bottom Dock ---
       "ctrl-x" = "workspace::ToggleBottomDock";
     };
   }
 
-  # Code actions and completions
+  # ============================================================================
+  # TERMINAL
+  # ============================================================================
   {
-    context = "Editor && (showing_code_actions || showing_completions)";
+    context = "Terminal";
     bindings = {
-      "ctrl-k" = "editor::ContextMenuPrevious";
-      "ctrl-j" = "editor::ContextMenuNext";
+      "escape" = "workspace::CloseActiveDock";
     };
   }
 
-  # Debug panel
+  # ============================================================================
+  # DEBUG PANEL
+  # ============================================================================
   {
     context = "DebugPanel";
     bindings = {
@@ -261,11 +266,14 @@
     };
   }
 
-  # Terminal
+  # ============================================================================
+  # PANE
+  # (General panes, e.g., settings, extensions, etc.)
+  # ============================================================================
   {
-    context = "Terminal";
+    context = "Pane";
     bindings = {
-      "escape" = "workspace::CloseActiveDock";
+      "escape" = "pane::CloseActiveItem";
     };
   }
 ]
