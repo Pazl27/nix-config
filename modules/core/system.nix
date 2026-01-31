@@ -123,8 +123,8 @@ in
 
   # Kernel parameters
   boot.kernelParams = [
-    "intel_idle.max_cstate=1"
     "processor.max_cstate=1"
+    "ipv6.disable=1"
   ];
 
   # ============================================
@@ -147,27 +147,6 @@ in
     ];
     auto-optimise-store = true;
   };
-
-  nix.gc = {
-    automatic = lib.mkDefault true;
-    dates = lib.mkDefault "weekly";
-    options = lib.mkDefault "--delete-older-than 30d";
-  };
-
-  # removed becuase it needs access to repo and cant commit .lock changes
-  # system.autoUpgrade = {
-  #   enable = true;
-  #   dates = "Mon 00:00";
-  #   persistent = true;
-  #   flake = "/home/${host}/nix-config#${host}";
-  #   flags = [
-  #     "--update-input"
-  #     "nixpkgs"
-  #     "--update-input"
-  #     "home-manager"
-  #   ];
-  #   allowReboot = false;
-  # };
 
   # ============================================
   # ADDITIONAL USEFUL SETTINGS
