@@ -139,9 +139,9 @@ _: {
               hint = "󰝶 ";
             };
           }
-          {
-            __unkeyed-1 = "navic";
-          }
+          # {
+          #   __unkeyed-1 = "navic";
+          # }
           # Rust: Cargo project info
           {
             __unkeyed-1.__raw = ''

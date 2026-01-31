@@ -480,5 +480,19 @@
         silent = true;
       };
     }
+    # terminal
+    {
+      mode = "n";
+      key = "<leader>tt";
+      action.__raw = ''
+        function()
+          vim.fn.jobstart(vim.fn.expand("$HOME/.config/scripts/zed-tmux.sh"), { detach = true })
+        end
+      '';
+      options = {
+        desc = "Run zed-tmux script";
+        silent = true;
+      };
+    }
   ];
 }

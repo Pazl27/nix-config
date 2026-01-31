@@ -32,6 +32,7 @@ _: {
     ./plugins/ui/bento.nix
     ./plugins/ui/lualine.nix
     ./plugins/ui/alpha.nix
+    ./plugins/ui/bredcrumbs.nix
 
     # LSP and formatting
     ./plugins/lsp/lsp.nix
