@@ -77,6 +77,7 @@ in
       prismlauncher = {
         enable = true;
       };
+      zathura.enable = true;
       apps = {
         enable = true;
         apps = with pkgs; [

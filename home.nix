@@ -47,6 +47,7 @@
     ./modules/home/applications/brave.nix
     ./modules/home/applications/firefox.nix
     ./modules/home/applications/minecraft.nix
+    ./modules/home/applications/zathura.nix
 
     # wm
     ./modules/home/wm
