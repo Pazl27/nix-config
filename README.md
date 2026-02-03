@@ -606,6 +606,16 @@ modules/
 
 Enable what you need in `home.nix`, everything is opt-in.
 
+## Running Nixvim Remotely
+
+You can run the Nixvim configuration from this flake on any machine with Nix installed, without cloning the repository:
+
+```bash
+nix run github:Pazl27/nix-config#nixvim
+```
+
+This fetches and runs the Nixvim package directly from the remote flake.
+
 ---
 
 # Keyboard

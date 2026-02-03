@@ -269,7 +269,8 @@
       # Build Darwin configurations
       darwinConfigurations = builtins.mapAttrs mkDarwin darwinHosts;
 
-      packages = forAllSystems (system:
+      packages = forAllSystems (
+        system:
         let
           myScripts = scriptsFor system;
           myNixvim = nixvimFor system;
@@ -277,11 +278,11 @@
         {
           my-scripts = myScripts;
           nixvim = myNixvim;
-          default = myNixvim;
         }
       );
 
-      apps = forAllSystems (system:
+      apps = forAllSystems (
+        system:
         let
           myNixvim = nixvimFor system;
         in
