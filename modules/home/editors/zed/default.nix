@@ -27,6 +27,7 @@ in
       # LSP servers
       rust-analyzer
       nixd
+      nil
       jdt-language-server
       gopls
       pyright
@@ -63,6 +64,11 @@ in
           nixd = {
             binary = {
               path = "${pkgs.nixd}/bin/nixd";
+            };
+          };
+          nil = {
+            binary = {
+              path = "${pkgs.nil}/bin/nil";
             };
           };
           jdtls = {
