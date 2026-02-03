@@ -365,16 +365,13 @@ Main scripts:
 ## Installation Manager
 ![Manager](./assets/screenshots/install-menu.png)
 
-The Installation Manager is a comprehensive package and webapp management system built around Rofi and FZF. It provides an intuitive interface for installing packages, managing system updates, and creating web applications. The scripts and the manager is inspired by Omachy.
+The Installation Manager provides tools for managing web applications and Nix-related tasks. It includes utilities for creating web apps and managing your Nix flake.
 
 ### Features
 
-- **Package Management**: Install/remove official Arch packages and AUR packages
-- **System Updates**: Check and apply system updates with preview
 - **Web App Creation**: Convert any website into a standalone desktop application
-- **Interactive UI**: Beautiful FZF interfaces with package previews and information
-- **Multi-selection**: Install multiple packages at once
-- **PKGBUILD Preview**: View AUR package build files before installation
+- **Nix Shell**: Search and launch temporary nix-shell environments with packages
+- **Flake Updates**: Interactive flake input updater with selective updates
 
 ### Usage
 
@@ -382,33 +379,7 @@ Launch the Installation Manager with `Super + P` and choose the action you want 
 
 #### Available Options:
 
-1. **System Update** - Check and apply system updates
-   - Shows available updates with package information
-   - Updates both official repos and AUR packages
-   - Updates locate database after completion
-
-2. **Install Official Packages** - Browse and install from official repositories
-![Pkg](./assets/screenshots/install-pkg.png)
-   - Multi-select packages with Tab
-   - Preview package information with `pacman -Sii`
-   - Browse through existing packages
-
-3. **Install AUR Packages** - Browse and install from AUR
-   - Multi-select AUR packages
-   - Preview package info and PKGBUILD files
-   - Browse through existing packages
-
-4. **Remove Packages** - Uninstall packages with dependencies
-   - Shows only explicitly installed packages
-   - Multi-select for batch removal
-   - Preview installed package information
-
-5. **System Update** - Create a system update
-   - Shows all packages that have updates
-   - see version increment of packages
-   - Preview installed package information
-
-6. **Create Web App** - Convert websites to desktop applications
+1. **Create Web App** - Convert websites to desktop applications
 ![Webapp](./assets/screenshots/create-webapp.png)
    - Enter app name, URL, and icon URL
    - Automatically downloads and sets up icons
@@ -417,39 +388,44 @@ Launch the Installation Manager with `Super + P` and choose the action you want 
    - The app can be found in the rofi menu after installation
   ![Webapp in Rofi](./assets/screenshots/webapp.png)
 
-
-7. **Remove Web App** - Clean up created web applications
+2. **Remove Web App** - Clean up created web applications
    - Lists all created web apps
    - Multi-select for batch removal
    - Removes both .desktop files and icons
+
+3. **Nix Shell** - Launch temporary shell with packages
+   - Search through all nixpkgs packages
+   - Multi-select packages with Tab
+   - Caches package list for fast subsequent searches
+   - Launches nix-shell with selected packages
+
+4. **Flake Update** - Update flake inputs
+   - Shows all current flake inputs with their revisions
+   - Select specific inputs to update or update all
+   - Optionally rebuild system after update
 
 ### Dependencies
 
 ```plaintext
 rofi
 fzf
-pacman
-yay
 gum
 curl
-kitty
+jq
 ```
 
 ### How It Works
 
 The system consists of several interconnected scripts:
 
-- `list-installer.sh` - Main rofi menu interface
-- `pkg-packman-install.sh` - Official package installation with fzf
-- `pkg-aur-install.sh` - AUR package installation with fzf
-- `pkg-remove.sh` - Package removal with fzf
-- `system-update.sh` - System update manager
 - `webapp-install.sh` - Web application creator
 - `webapp-launch.sh` - Web application launcher
 - `webapp-remove.sh` - Web application removal
+- `shell.sh` - Nix package search and nix-shell launcher
+- `flake.sh` - Flake input update manager
 - `show-done.sh` - Completion indicator
 
-All scripts use consistent styling and integrate seamlessly with the desktop environment. The web app feature is particularly powerful, allowing you to create desktop shortcuts for web services like ChatGPT, YouTube, or any web application, complete with custom icons and app-like behavior.
+All scripts use consistent styling and integrate seamlessly with the desktop environment. The web app feature allows you to create desktop shortcuts for web services like ChatGPT, YouTube, or any web application, complete with custom icons and app-like behavior.
 
 
 ## Repo finder
@@ -520,12 +496,19 @@ This script makes wallpaper management incredibly convenient - I can quickly bro
 
 ## Overview
 
-This is a modular NixOS configuration supporting multiple deployment methods:
+This is a modular Nix configuration supporting multiple deployment methods:
 
 - **NixOS + Home Manager**: Full system configuration (`desktop`, `nixvm`)
+- **nix-darwin + Home Manager**: macOS system configuration (see disclaimer below)
 - **Home Manager Only**: User-space configuration for non-NixOS systems (`nix-wsl`)
 
 All configurations share the same Home Manager modules, ensuring consistent application setups across all machines. The configuration uses **Nix Flakes** for reproducibility and a **feature-flag system** for enabling/disabling components.
+
+### nix-darwin Support
+
+> **DISCLAIMER**: nix-darwin support is experimental and has not been fully tested. The configuration exists in theory but may require adjustments for your specific setup.
+
+This configuration includes support for macOS via nix-darwin. The `modules/darwin/` directory contains macOS-specific settings (system defaults, Homebrew, firewall), while `modules/core/` contains cross-platform modules shared between NixOS and darwin.
 
 ## Configuration Files
 
@@ -591,7 +574,8 @@ Enable/disable applications and features:
        username = "yourname";
        homeDirectory = "/home/yourname";
        hostConfig = ./hosts/laptop;
-       isNixOS = true;  # or false for Home Manager only
+       system = "x86_64-linux";
+       type = "nixos";  # "nixos", "darwin", or "home-manager"
      };
    };
 ```
@@ -608,7 +592,9 @@ Enable/disable applications and features:
 ## Module Organization
 ```
 modules/
-├── core/          # System: bootloader, fonts, security
+├── core/          # Cross-platform: fonts, packages
+├── nixos/         # NixOS-specific: bootloader, security, pipewire, etc.
+├── darwin/        # macOS-specific: system defaults, homebrew, firewall
 ├── drivers/       # Hardware: nvidia, amd, intel
 └── home/
     ├── applications/  # GUI apps
