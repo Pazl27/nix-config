@@ -48,7 +48,7 @@
 
     # Drop terminal
     "float true, match:class ^(dropterm)$"
-    "workspace special:drop, match:class ^(dropterm)$"
+    # "workspace special:drop, match:class ^(dropterm)$"
     "size 1300 875, match:class (dropterm)"
     "center true, match:class ^(dropterm)$"
 

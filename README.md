@@ -115,7 +115,7 @@ My configuration has also integrated ai assistance, which can help you with quic
   Configured with [NixVim](https://github.com/nix-community/nixvim) - a Nix-based configuration framework that manages plugins, LSP, and keybindings declaratively. No Lua required, everything defined in Nix modules.
 
   **Features:**
-  - LSP with rust-analyzer, nil, pyright, and more
+  - LSP with rust-analyzer, nixd, golsp, and more
   - GitHub Copilot integration
   - Treesitter syntax highlighting
   - Telescope fuzzy finder
@@ -662,4 +662,3 @@ This layer adds:
 
 **Visual:**
 ![Layer 2 – Numbers & Symbols](assets/screenshots/keyboard/layer2.png)
-

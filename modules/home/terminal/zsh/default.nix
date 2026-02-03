@@ -43,11 +43,8 @@ with lib;
         gla = "${pkgs.serie}/bin/serie";
         glf = "$HOME/.config/scripts/git-logs.sh";
 
-        # Home Manager
-        hms = "home-manager switch --flake ~/nix-config#$(whoami)";
+        # Nix config editing
         hme = "nvim ~/nix-config/hosts/$(hostname)/default.nix";
-
-        nos = "sudo nixos-rebuild switch --flake ~/nix-config#$(hostname)";
 
         # Common shortcuts
         ".." = "cd ..";
@@ -86,6 +83,26 @@ with lib;
         zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
 
         # pokemon-icat
+
+        # Nix switch - detects OS and runs appropriate command
+        ns() {
+          case "$(uname)" in
+            Darwin)
+              darwin-rebuild switch --flake ~/nix-config#$(hostname -s)
+              ;;
+            Linux)
+              if [ -f /etc/NIXOS ]; then
+                sudo nixos-rebuild switch --flake ~/nix-config#$(hostname)
+              else
+                home-manager switch --flake ~/nix-config#$(whoami)
+              fi
+              ;;
+            *)
+              echo "Unsupported OS: $(uname)"
+              return 1
+              ;;
+          esac
+        }
       '';
 
       localVariables = {

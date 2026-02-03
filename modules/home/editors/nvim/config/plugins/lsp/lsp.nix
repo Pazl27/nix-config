@@ -58,10 +58,34 @@
         html = {
           enable = true;
         };
-        lua_ls = {
+        cssls = {
           enable = true;
         };
         ts_ls = {
+          enable = true;
+        };
+        eslint = {
+          enable = true;
+        };
+        emmet_ls = {
+          enable = true;
+          filetypes = [
+            "html"
+            "typescriptreact"
+            "javascriptreact"
+            "css"
+            "sass"
+            "scss"
+            "less"
+          ];
+        };
+        jsonls = {
+          enable = true;
+        };
+        angularls = {
+          enable = true;
+        };
+        lua_ls = {
           enable = true;
         };
         marksman = {
@@ -74,9 +98,6 @@
           enable = true;
         };
         gopls = {
-          enable = true;
-        };
-        jsonls = {
           enable = true;
         };
         yamlls = {
