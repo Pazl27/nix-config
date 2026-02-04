@@ -77,12 +77,6 @@
           desc = "Status";
         };
       };
-      "<leader>sC" = {
-        action = "commands";
-        options = {
-          desc = "Commands";
-        };
-      };
       "<leader>xD" = {
         action = "diagnostics";
         options = {

@@ -82,17 +82,6 @@
         desc = "Save File";
       };
     }
-
-    # Quit keymaps
-    {
-      mode = "n";
-      key = "<leader>qa";
-      action = "<cmd>qa<cr>";
-      options = {
-        desc = "Quit All";
-      };
-    }
-
     # Undo/Redo (your config)
     {
       mode = "n";

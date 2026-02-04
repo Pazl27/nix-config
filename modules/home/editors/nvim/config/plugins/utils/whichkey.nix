@@ -11,49 +11,35 @@
         }
         {
           __unkeyed-1 = "<leader>d";
-          mode = [
-            "n"
-          ];
+          mode = "n";
           group = "Debug";
           icon = "";
         }
         {
           __unkeyed-1 = "<leader>b";
-          mode = [
-            "n"
-          ];
+          mode = "n";
           group = "Buffer";
+          icon = "";
         }
         {
           __unkeyed-1 = "<leader>s";
-          mode = [
-            "n"
-          ];
-          group = "Split|Search";
+          mode = "n";
+          group = "Split";
+          icion = "";
         }
         {
           __unkeyed-1 = "<leader>x";
           mode = [
             "n"
           ];
-          group = "Trouble";
+          group = "Diagnostics";
+          icon = "";
         }
         {
           __unkeyed-1 = "<leader>g";
-          mode = [
-            "n"
-          ];
+          mode = "n";
           group = "Git";
-        }
-        {
-          __unkeyed-1 = "<leader>q";
-          mode = "n";
-          group = "+quit/session";
-        }
-        {
-          __unkeyed-1 = "<leader>t";
-          mode = "n";
-          group = "Test";
+          incon = "";
         }
         {
           __unkeyed-1 = "<leader>m";
@@ -65,6 +51,7 @@
           __unkeyed-1 = "<leader>r";
           mode = "n";
           group = "Rename";
+          icon = "󰑕";
         }
         {
           __unkeyed-1 = "<leader>c";
@@ -78,7 +65,18 @@
           group = "Go";
           icon = "󰟓";
         }
-
+        {
+          __unkeyed-1 = "<leader>t";
+          mode = "n";
+          group = "Test";
+          icon = "󰙨";
+        }
+        {
+          __unkeyed-1 = "<leader>:";
+          mode = "n";
+          group = "Command History";
+          icon = "";
+        }
       ];
     };
   };

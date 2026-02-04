@@ -44,7 +44,7 @@ with lib;
         glf = "$HOME/.config/scripts/git-logs.sh";
 
         # Nix config editing
-        hme = "nvim ~/nix-config/hosts/$(hostname)/default.nix";
+        ne = "cd ~/nix-config && nvim flake.nix";
 
         # Common shortcuts
         ".." = "cd ..";
@@ -54,6 +54,26 @@ with lib;
 
       # Color man pages function and other shell functions
       initContent = ''
+        # Nix switch - detects OS and runs appropriate command
+        ns() {
+          case "$(uname)" in
+            Darwin)
+              darwin-rebuild switch --flake ~/nix-config#$(hostname -s)
+              ;;
+            Linux)
+              if [ -f /etc/NIXOS ]; then
+                sudo nixos-rebuild switch --flake ~/nix-config#$(hostname)
+              else
+                home-manager switch --flake ~/nix-config#$(whoami)
+              fi
+              ;;
+            *)
+              echo "Unsupported OS: $(uname)"
+              return 1
+              ;;
+          esac
+        }
+
         # Color man pages
         man() {
           GROFF_NO_SGR=1 \
@@ -83,26 +103,6 @@ with lib;
         zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
 
         # pokemon-icat
-
-        # Nix switch - detects OS and runs appropriate command
-        ns() {
-          case "$(uname)" in
-            Darwin)
-              darwin-rebuild switch --flake ~/nix-config#$(hostname -s)
-              ;;
-            Linux)
-              if [ -f /etc/NIXOS ]; then
-                sudo nixos-rebuild switch --flake ~/nix-config#$(hostname)
-              else
-                home-manager switch --flake ~/nix-config#$(whoami)
-              fi
-              ;;
-            *)
-              echo "Unsupported OS: $(uname)"
-              return 1
-              ;;
-          esac
-        }
       '';
 
       localVariables = {

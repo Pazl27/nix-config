@@ -96,6 +96,22 @@
       },
       -- This is the key setting - disable subprocess for position parsing
       projects = {},
+      -- Configure borders for neotest windows
+      floating = {
+        border = "rounded",
+        max_height = 0.8,
+        max_width = 0.8,
+      },
+      output = {
+        border = "rounded",
+      },
+      output_panel = {
+        enabled = true,
+        open = "botright split | resize 15",
+      },
+      summary = {
+        open = "botright vsplit | vertical resize 50",
+      },
     })
 
     -- Monkey-patch to disable subprocess usage
@@ -157,6 +173,16 @@
     -- Close neotest output with escape
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "neotest-output",
+      callback = function(event)
+        vim.keymap.set("n", "<Esc>", function()
+          vim.api.nvim_win_close(0, true)
+        end, { buffer = event.buf, silent = true })
+      end,
+    })
+
+    -- Close neotest summary with escape
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "neotest-summary",
       callback = function(event)
         vim.keymap.set("n", "<Esc>", function()
           vim.api.nvim_win_close(0, true)
