@@ -59,5 +59,9 @@ _: {
     ./plugins/ai/copilot.nix
     ./plugins/ai/copilot-chat.nix
     # ./plugins/ai/sidekick.nix
+
+    # Language-specific
+    ./plugins/lang/go.nix
+    ./plugins/lang/rust.nix
   ];
 }

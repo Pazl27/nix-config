@@ -72,6 +72,12 @@
           group = "Copilot";
           icon = "";
         }
+        {
+          __unkeyed-1 = "<leader>go";
+          mode = "n";
+          group = "Go";
+          icon = "󰟓";
+        }
 
       ];
     };
