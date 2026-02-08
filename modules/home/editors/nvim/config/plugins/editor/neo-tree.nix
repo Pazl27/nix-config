@@ -72,7 +72,7 @@
   keymaps = [
     {
       mode = [ "n" ];
-      key = "<leader>e";
+      key = "<leader>E";
       action = "<cmd>Neotree toggle float<cr>";
       options = {
         desc = "Toggle Neotree (Floating)";
@@ -80,7 +80,7 @@
     }
     {
       mode = [ "n" ];
-      key = "<leader>E";
+      key = "<leader>e";
       action = "<cmd>Neotree toggle left<cr>";
       options = {
         desc = "Toggle Neotree (Sidebar)";

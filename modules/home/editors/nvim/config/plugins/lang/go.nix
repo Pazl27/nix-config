@@ -3,8 +3,6 @@
 {
   # Go tooling packages
   extraPackages = with pkgs; [
-    # Formatter - stricter than gofmt, sorts imports
-    goimports-reviser
     # Go tools
     gomodifytags # For struct tag generation
     iferr # For error handling boilerplate
@@ -15,19 +13,7 @@
       enable = true;
       settings = {
         formatters_by_ft = {
-          go = [ "goimports-reviser" ];
-        };
-        formatters = {
-          goimports-reviser = {
-            command = "${pkgs.goimports-reviser}/bin/goimports-reviser";
-            args = [
-              "-rm-unused"
-              "-set-alias"
-              "-format"
-              "$FILENAME"
-            ];
-            stdin = false;
-          };
+          go = [ "gofmt" ];
         };
         format_on_save = {
           timeout_ms = 3000;

@@ -34,7 +34,19 @@
           { name = "emoji"; }
           {
             name = "buffer";
-            option.get_bufnrs.__raw = "vim.api.nvim_list_bufs";
+            option.get_bufnrs.__raw = ''
+              function()
+                local bufs = {}
+                for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+                  local buftype = vim.api.nvim_get_option_value('buftype', { buf = buf })
+                  local filetype = vim.api.nvim_get_option_value('filetype', { buf = buf })
+                  if buftype == "" and not filetype:match('^neotest') then
+                    bufs[#bufs + 1] = buf
+                  end
+                end
+                return bufs
+              end
+            '';
             keywordLength = 3;
           }
           {
