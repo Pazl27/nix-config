@@ -69,7 +69,7 @@ with lib;
         "application/x-directory" = "thunar.desktop";
 
         # PDFs
-        "application/pdf" = "org.kde.okular.desktop";
+        "application/pdf" = "org.pwmt.zathura.desktop";
 
         # Images
         "image/png" = "nsxiv.desktop";
