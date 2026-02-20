@@ -9,6 +9,7 @@ let
   commonBinds = [
     # Applications
     "$mainMod, Return, exec, $terminal"
+    "$mainMod SHIFT, Return, exec, $terminal --class=dropterm"
     "$mainMod, Q, killactive"
     "$mainMod SHIFT, E, exec, $fileManager"
     "$mainMod, E, exec, $scriptDir/yazi.sh"
