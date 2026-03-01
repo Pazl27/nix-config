@@ -27,15 +27,15 @@ in
       Mod+Shift+Slash { show-hotkey-overlay; }
 
       // Suggested binds for running programs: terminal, app launcher, screen locker.
-      Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
       Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
       Mod+Space hotkey-overlay-title="Open Launcher" { spawn ${rofiArgs}; }
       Mod+Shift+E hotkey-overlay-title="Open Thunar" { spawn "thunar"; }
-      Mod+Shift+N hotkey-overlay-title="Open Obsidian" { spawn "obsidian"; }
       Mod+B hotkey-overlay-title="Open Browser" { spawn "firefox"; }
-      Mod+G hotkey-overlay-title="Wallpaper Selector" { spawn "sh" "-c" "$HOME/.config/scripts/rofi/wallpaper-switcher.sh"; }
       Mod+Shift+Return { spawn "kitty" "--class=floating-kitty"; }
-      Ctrl+Alt+Q hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+      Mod+G hotkey-overlay-title="Wallpaper Selector" { spawn "~/.config/scripts/rofi/wallpaper_switcher.sh"; }
+      Mod+R hotkey-overlay-title="Open Repository Menu" { spawn "~/.config/scripts/rofi/repo-rofi.sh"; }
+      Mod+P hotkey-overlay-title="Open Install Menu" { spawn "~/.config/scripts/rofi/list-installer.sh"; }
+      Mod+I hotkey-overlay-title="Open System Menu" { spawn "~/.config/scripts/wlogout.sh"; }
 
       // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
       // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -67,7 +67,6 @@ in
       // Open/close the Overview: a zoomed-out view of workspaces and windows.
       // You can also move the mouse into the top-left hot corner,
       // or do a four-finger swipe up on a touchpad.
-      Mod+X repeat=false { toggle-overview; }
 
       Mod+Q repeat=false { close-window; }
 

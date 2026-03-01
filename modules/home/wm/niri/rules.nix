@@ -56,4 +56,12 @@
       default-column-width { fixed 1000; }
       default-window-height { fixed 700; }
   }
+
+  layer-rule {
+      match namespace="^rofi$"
+      
+      shadow {
+          on
+      }
+  }
 ''

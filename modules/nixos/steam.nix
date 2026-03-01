@@ -39,14 +39,14 @@ in
               libdrm
 
               # Additional libraries for Marvel Rivals and modern games
-              xorg.libXcursor
-              xorg.libXi
-              xorg.libXinerama
-              xorg.libXScrnSaver
-              xorg.libXcomposite
-              xorg.libXdamage
-              xorg.libXrender
-              xorg.libXext
+              libxcursor
+              libxi
+              libxinerama
+              libxscrnsaver
+              libxcomposite
+              libxdamage
+              libxrender
+              libxext
 
               # Fix for Xwayland symbol errors
               libkrb5
