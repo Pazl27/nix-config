@@ -4,7 +4,7 @@
 SESSION_NAME=${PWD##*/}
 
 # ─── SWITCH TO DROP WORKSPACE ───────────────────────────────────────────
-hyprctl dispatch togglespecialworkspace drop
+# hyprctl dispatch togglespecialworkspace drop
 
 # ─── LAUNCH (OR ATTACH) IN KITTY ────────────────────────────────────────
 if ! pgrep -f "kitty.*tmux" >/dev/null; then

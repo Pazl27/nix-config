@@ -10,6 +10,15 @@ let
   zedSettings = import ./zed-settings.nix { inherit pkgs; };
   zedKeybindings = import ./zed-keybindings.nix;
   zedTasks = import ./zed-tasks.nix;
+
+  # Create wrapper scripts for language servers that need --stdio
+  yamlLanguageServerWrapper = pkgs.writeShellScript "yaml-language-server-wrapper" ''
+    exec ${pkgs.nodePackages.yaml-language-server}/bin/yaml-language-server --stdio "$@"
+  '';
+
+  dockerfileLanguageServerWrapper = pkgs.writeShellScript "dockerfile-language-server-wrapper" ''
+    exec ${pkgs.dockerfile-language-server}/bin/docker-langserver --stdio "$@"
+  '';
 in
 {
   options.features.editors.zed = {
@@ -34,7 +43,7 @@ in
 
       nodePackages.typescript-language-server # For general JS/TS
       nodePackages.vscode-langservers-extracted # HTML, CSS, JSON
-      yaml-language-server
+      nodePackages.yaml-language-server
       dockerfile-language-server
       docker-compose-language-service
     ];
@@ -93,12 +102,12 @@ in
           };
           yaml-language-server = {
             binary = {
-              path = "${pkgs.yaml-language-server}/bin/yaml-language-server";
+              path = "${yamlLanguageServerWrapper}";
             };
           };
           dockerfile-language-server = {
             binary = {
-              path = "${pkgs.dockerfile-language-server}/bin/docker-langserver";
+              path = "${dockerfileLanguageServerWrapper}";
             };
           };
         };

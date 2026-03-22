@@ -99,6 +99,77 @@
         selection = "#8d32503d";
       }
     ];
+    # --- Blured Theme ---
+    "background.appearance" = "blurred";
+
+    "border" = "#ebdbb225";
+    "border.variant" = "#ebdbb215";
+    "border.focused" = "#83a598";
+    "border.selected" = "#d3869b";
+    "border.transparent" = "#b8bb26";
+    "border.disabled" = "#928374";
+
+    "elevated_surface.background" = "#1d2021";
+    "surface.background" = "#2828288c";
+    "background" = "#28282899";
+
+    "element.background" = "#1d2021";
+    "element.hover" = "#3c3836";
+    "element.active" = "#00000000";
+    "element.selected" = "#3c38364d";
+    "element.disabled" = "#928374";
+    "drop_target.background" = "#d3869b90";
+
+    "ghost_element.background" = "#1d202160";
+    # "ghost_element.selected"= "#d3869b50";
+
+    "status_bar.background" = "#28282899";
+    "title_bar.background" = "#28282899";
+    "title_bar.inactive_background" = "#1d2021";
+    "toolbar.background" = "#00000000";
+    "tab_bar.background" = "#00000000";
+
+    "tab.inactive_background" = "#00000000";
+    "tab.active_background" = "#1d202190";
+
+    "search.match_background" = "#8ec07c4d";
+    "search.active_match_background" = "#fb49344d";
+
+    "panel.background" = "#00000000";
+    "panel.focused_border" = "#83a59860";
+    "panel.indent_guide" = "#3c383699";
+    "panel.indent_guide_active" = "#928374";
+    "panel.indent_guide_hover" = "#d3869b";
+    "panel.overlay_background" = "#282828";
+    "pane.focused_border" = "#83a59860";
+    "pane_group.border" = "#ebdbb225";
+
+    "scrollbar.thumb.background" = "#92837480";
+    "scrollbar.thumb.hover_background" = "#a89984";
+    "scrollbar.thumb.active_background" = null;
+    "scrollbar.thumb.border" = null;
+    "scrollbar.track.background" = "#00000000";
+    "scrollbar.track.border" = "#00000000";
+    "minimap.thumb.background" = "#d3869b33";
+    "minimap.thumb.hover_background" = "#d3869b66";
+    "minimap.thumb.active_background" = "#d3869b99";
+    "minimap.thumb.border" = null;
+
+    "editor.background" = "#00000000";
+    "editor.gutter.background" = "#00000000";
+    "editor.subheader.background" = "#1d2021";
+    "editor.active_line.background" = "#00000000";
+    "editor.highlighted_line.background" = "#ebdbb212";
+    "editor.line_number" = "#ffffff20";
+    "editor.active_line_number" = "#ebdbb290";
+    "editor.invisible" = "#92837466";
+    "editor.wrap_guide" = "#504945";
+    "editor.active_wrap_guide" = "#504945";
+    "editor.indent_guide" = "#3c383699";
+    "editor.indent_guide_active" = "#928374";
+
+    "terminal.background" = "#00000000";
+    "terminal.ansi.background" = "#282828";
   };
 
   # ============================================================================
@@ -140,8 +211,8 @@
   # ============================================================================
   # AI / COPILOT
   # ============================================================================
-  features = {
-    edit_prediction_provider = "copilot";
+  edit_predictions = {
+    provider = "copilot";
   };
 
   agent = {
@@ -157,7 +228,7 @@
   context_servers = {
     mcp-server-context7 = {
       enabled = true;
-      settings = {};
+      settings = { };
     };
   };
 
