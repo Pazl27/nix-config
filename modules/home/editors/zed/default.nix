@@ -13,7 +13,7 @@ let
 
   # Create wrapper scripts for language servers that need --stdio
   yamlLanguageServerWrapper = pkgs.writeShellScript "yaml-language-server-wrapper" ''
-    exec ${pkgs.nodePackages.yaml-language-server}/bin/yaml-language-server --stdio "$@"
+    exec ${pkgs.yaml-language-server}/bin/yaml-language-server --stdio "$@"
   '';
 
   dockerfileLanguageServerWrapper = pkgs.writeShellScript "dockerfile-language-server-wrapper" ''
@@ -41,9 +41,9 @@ in
       gopls
       pyright
 
-      nodePackages.typescript-language-server # For general JS/TS
-      nodePackages.vscode-langservers-extracted # HTML, CSS, JSON
-      nodePackages.yaml-language-server
+      typescript-language-server # For general JS/TS
+      vscode-langservers-extracted # HTML, CSS, JSON
+      yaml-language-server
       dockerfile-language-server
       docker-compose-language-service
     ];
@@ -97,7 +97,7 @@ in
           };
           typescript-language-server = {
             binary = {
-              path = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
+              path = "${pkgs.typescript-language-server}/bin/typescript-language-server";
             };
           };
           yaml-language-server = {

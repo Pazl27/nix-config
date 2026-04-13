@@ -53,7 +53,7 @@ in
 
     textfox = {
       enable = true;
-      profile = "default";
+      profiles = [ "default" ];
       config = {
         # Gruvbox Dark Hard background
         background = {

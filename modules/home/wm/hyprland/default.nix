@@ -72,7 +72,7 @@ in
       nwg-displays
 
       # Wallpaper
-      swww
+      awww
 
       # Screenshot
       grim

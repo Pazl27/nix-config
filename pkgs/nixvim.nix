@@ -10,7 +10,7 @@ let
     imports = [ ../modules/home/editors/nvim/config ];
   };
 in
-nixvim.legacyPackages.${pkgs.system}.makeNixvimWithModule {
+nixvim.legacyPackages.${pkgs.stdenv.hostPlatform.system}.makeNixvimWithModule {
   inherit pkgs;
   module = nixvimConfig;
 }

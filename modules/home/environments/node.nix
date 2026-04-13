@@ -9,12 +9,12 @@ with lib;
 
   config = mkIf config.features.environments.node.enable {
     home.packages = with pkgs; [
-      nodePackages.npm
-      nodePackages.pnpm
-      nodePackages.yarn
-      nodePackages.typescript
-      nodePackages.typescript-language-server
-      nodePackages.vscode-langservers-extracted  # HTML/CSS/JSON LSP
+      nodejs
+      pnpm
+      yarn
+      typescript
+      typescript-language-server
+      vscode-langservers-extracted  # HTML/CSS/JSON LSP
     ];
 
     home.sessionVariables = {

@@ -279,11 +279,9 @@
       return vim.lsp.handlers.hover(_, result, ctx, config)
     end
 
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-      vim.lsp.handlers.signature_help, {
-        border = _border
-      }
-    )
+    vim.lsp.handlers["textDocument/signatureHelp"] = function(err, result, ctx, config)
+      return vim.lsp.handlers.signature_help(err, result, ctx, vim.tbl_deep_extend("force", config or {}, { border = _border }))
+    end
 
     -- Configure diagnostics for inline display (VSCode Error Lens style)
     vim.diagnostic.config({

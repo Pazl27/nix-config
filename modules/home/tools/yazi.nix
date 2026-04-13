@@ -15,6 +15,7 @@ with lib;
       enable = true;
       enableZshIntegration = true;
       enableBashIntegration = true;
+      shellWrapperName = "yy";
 
       # ============================================
       # SETTINGS

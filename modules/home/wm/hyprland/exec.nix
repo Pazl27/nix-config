@@ -5,7 +5,7 @@
 {
   exec-once = [
     # "swaync"
-    "swww-daemon"
+    "awww-daemon"
     "waybar"
     "hypridle"
     "battery-notify"
