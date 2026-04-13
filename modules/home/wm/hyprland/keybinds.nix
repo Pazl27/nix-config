@@ -39,10 +39,10 @@ let
     "$mainMod SHIFT CTRL, L, movewindow, mon:r"
   ];
 
-  # Hyprscrolling specific keybinds
+  # Scrolling layout keybinds
   scrollingBinds = [
-    "$mainMod, comma, layoutmsg, movewindowto l"
-    "$mainMod, period, layoutmsg, movewindowto r"
+    "$mainMod, comma, exec, hyprctl --batch \"dispatch movewindow l ; dispatch movewindow d\""
+    "$mainMod, period, exec, hyprctl --batch \"dispatch movewindow u ; dispatch movewindow r\""
     "$mainMod SHIFT, L, layoutmsg, swapcol r"
     "$mainMod SHIFT, H, layoutmsg, swapcol l"
     "$mainMod SHIFT, j, movetoworkspace, +1"
@@ -51,9 +51,8 @@ let
     "$mainMod, down, movefocus, d"
     "$mainMod, j, workspace, +1"
     "$mainMod, k, workspace, -1"
-    "$mainMod, f, layoutmsg, colresize -conf"
+    "$mainMod, f, layoutmsg, colresize +conf"
     "$mainMod SHIFT, f, fullscreen"
-    "$mainMod, D, layoutmsg, orientationcycle left top"
   ];
 
   # Default (dwindle) keybinds

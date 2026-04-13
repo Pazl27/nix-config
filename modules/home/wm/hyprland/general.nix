@@ -69,6 +69,16 @@ in
   # Master layout
   master = {
     new_status = "master";
+    orientation = "top";
+  };
+
+  # Scrolling layout
+  scrolling = {
+    column_width = 0.5;
+    explicit_column_widths = "0.5, 0.75, 1.0";
+    fullscreen_on_one_column = true;
+    focus_fit_method = 1;
+    follow_focus = true;
   };
 
   # Misc settings
@@ -100,12 +110,4 @@ in
       sensitivity = -0.8;
     }
   ];
-
-  # Plugin settings
-  plugin = {
-    hyprscrolling = {
-      fullscreen_on_one_column = true;
-      explicit_column_widths = "0.5, 1";
-    };
-  };
 }

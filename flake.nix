@@ -22,11 +22,6 @@
     # Hyprland
     hyprland.url = "github:hyprwm/Hyprland";
 
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-
     # Spicetify
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
@@ -51,7 +46,6 @@
       nix-darwin,
       nixvim,
       hyprland,
-      hyprland-plugins,
       spicetify-nix,
       pokemon-icat,
       textfox,

@@ -112,4 +112,8 @@
     "ignore_alpha 0, match:namespace rofi"
     "animation slide top, match:namespace rofi"
   ];
+
+  workspace = [
+    "10, monitor:desc:Dell Inc. DELL U2412M 4RFMK55G1JVL, default:true, layout:master"
+  ];
 }
