@@ -261,25 +261,15 @@ _: {
             __unkeyed-1 = "filename";
             path = 1;
           }
-          {
-            __unkeyed-1.__raw = ''
-              function()
-                local icon = " "
-                local status = require("copilot.api").status.data
-                return icon .. (status.message or " ")
-              end
-            '';
-            cond.__raw = ''
-              function()
-               local ok, clients = pcall(vim.lsp.get_clients, { name = "copilot", bufnr = 0 })
-               return ok and #clients > 0
-              end
-            '';
-          }
         ];
         lualine_y = [
           {
-            __unkeyed-1 = "progress";
+            __unkeyed-1 = "tabs";
+            color = {
+              fg = "#282828";
+              bg = "#458588"; # gruvbox blue
+              gui = "bold";
+            };
           }
         ];
         lualine_z = [

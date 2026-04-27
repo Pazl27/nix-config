@@ -11,7 +11,6 @@ with lib;
     home.packages = with pkgs; [
       go
       gopls  # Go LSP
-      gotools
       go-tools  # staticcheck, etc.
     ];
 

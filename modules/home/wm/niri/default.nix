@@ -30,7 +30,7 @@ in
     # Packages
     home.packages = with pkgs; [
       rofi
-      swww
+      awww
 
       grim
       slurp

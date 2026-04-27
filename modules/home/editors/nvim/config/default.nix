@@ -54,10 +54,9 @@ _: {
     ./plugins/utils/web-devicons.nix
     ./plugins/utils/crates.nix
     ./plugins/utils/colorizer.nix
+    ./plugins/utils/dadbod.nix
 
     # Ai
-    ./plugins/ai/copilot.nix
-    ./plugins/ai/copilot-chat.nix
     # ./plugins/ai/sidekick.nix
 
     # Language-specific

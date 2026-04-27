@@ -26,7 +26,7 @@ in
       database = {
         enable = true;
         gui = true;
-        cli = false;
+        cli = true;
       };
       docker.enable = true;
       zig.enable = false;

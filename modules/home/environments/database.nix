@@ -39,10 +39,7 @@ in
         # CLI Tools
         (optionals cfg.cli [
           postgresql # psql client
-          mysql80 # mysql client
           sqlite # sqlite3
-          mongosh # MongoDB shell
-          redis # redis-cli
         ]);
   };
 }

@@ -54,12 +54,6 @@
           icon = "󰑕";
         }
         {
-          __unkeyed-1 = "<leader>c";
-          mode = "n";
-          group = "Copilot";
-          icon = "";
-        }
-        {
           __unkeyed-1 = "<leader>go";
           mode = "n";
           group = "Go";

@@ -3,7 +3,7 @@
   // Start up Commands
 
   spawn-at-startup "waybar"
-  spawn-at-startup "swww-daemon"
+  spawn-at-startup "awww-daemon"
   spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
   spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 
