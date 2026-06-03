@@ -6,11 +6,14 @@
 }:
 with lib;
 let
-  general = import ./general.nix { };
-  exec = import ./exec.nix { };
+  env = import ./env.nix { };
+  input = import ./input.nix { };
+  layout = import ./layout.nix { };
+  appearance = import ./appearance.nix { };
   keybinds = import ./keybinds.nix { };
+  startup = import ./startup.nix { };
   outputs = import ./outputs.nix { };
-  rules = import ./rules.nix { };
+  windowRules = import ./window-rules.nix { };
 in
 {
   options.features.wm.niri = {
@@ -22,31 +25,38 @@ in
 
     features.application = {
       rofi.enable = true;
-      waybar.enable = true;
+      noctalia.enable = true;
       wlogout.enable = true;
-      swaync.enable = true;
     };
 
-    # Packages
     home.packages = with pkgs; [
       rofi
-      awww
-
       grim
       slurp
       grimblast
-
       wl-clipboard
       cliphist
     ];
 
-    # Config files
     xdg.configFile = {
-      "niri/config.kdl".text = general;
-      "niri/startup.kdl".text = exec;
+      "niri/config.kdl".text = ''
+        include "env.kdl"
+        include "input.kdl"
+        include "layout.kdl"
+        include "appearance.kdl"
+        include "window-rules.kdl"
+        include "binds.kdl"
+        include "outputs.kdl"
+        include "startup.kdl"
+      '';
+      "niri/env.kdl".text = env;
+      "niri/input.kdl".text = input;
+      "niri/layout.kdl".text = layout;
+      "niri/appearance.kdl".text = appearance;
+      "niri/window-rules.kdl".text = windowRules;
       "niri/binds.kdl".text = keybinds;
       "niri/outputs.kdl".text = outputs;
-      "niri/windowrules.kdl".text = rules;
+      "niri/startup.kdl".text = startup;
     };
   };
 }

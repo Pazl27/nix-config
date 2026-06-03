@@ -1,4 +1,7 @@
-{ host ? "desktop", ... }:
+{
+  host ? "desktop",
+  ...
+}:
 let
   inherit (import ../../../../hosts/${host}/variables.nix) hyprland_layout;
   layout = if hyprland_layout == "scrolling" then "scrolling" else "dwindle";
@@ -62,7 +65,6 @@ in
 
   # Dwindle layout
   dwindle = {
-    pseudotile = true;
     preserve_split = true;
   };
 

@@ -1,8 +1,5 @@
 {
   plugins = {
-    cmp-emoji = {
-      enable = true;
-    };
     cmp = {
       enable = true;
       settings = {
@@ -31,7 +28,6 @@
         sources = [
           { name = "git"; }
           { name = "nvim_lsp"; }
-          { name = "emoji"; }
           {
             name = "buffer";
             option.get_bufnrs.__raw = ''

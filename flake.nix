@@ -37,6 +37,11 @@
       url = "github:adriankarlen/textfox";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -49,6 +54,7 @@
       spicetify-nix,
       pokemon-icat,
       textfox,
+      noctalia,
       ...
     }@inputs:
     let
@@ -172,6 +178,7 @@
                   hyprland.homeManagerModules.default
                   textfox.homeManagerModules.default
                   pokemon-icat.homeManagerModules.default
+                  noctalia.homeModules.default
                   {
                     home.file.".config/scripts".source = "${myScripts}/share/scripts";
                   }

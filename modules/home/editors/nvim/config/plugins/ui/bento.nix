@@ -3,7 +3,8 @@
 {
   extraPlugins = [
     (pkgs.vimUtils.buildVimPlugin {
-      name = "bento-nvim";
+      pname = "bento-nvim";
+      version = "unstable";
       src = pkgs.fetchFromGitHub {
         owner = "serhez";
         repo = "bento.nvim";

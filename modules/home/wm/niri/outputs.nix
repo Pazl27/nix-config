@@ -5,6 +5,7 @@
       mode "2560x1440@120.0"
       position x=3251 y=2483
       scale 1.0
+      focus-at-startup
   }
 
   // Dell U2412M - Second monitor with rotation

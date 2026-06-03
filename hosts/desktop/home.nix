@@ -78,6 +78,7 @@ in
         enable = true;
       };
       zathura.enable = true;
+      noctalia.enable = true;
       apps = {
         enable = true;
         apps = with pkgs; [

@@ -48,6 +48,7 @@
     ./modules/home/applications/firefox.nix
     ./modules/home/applications/minecraft.nix
     ./modules/home/applications/zathura.nix
+    ./modules/home/applications/noctalia-shell.nix
 
     # wm
     ./modules/home/wm
