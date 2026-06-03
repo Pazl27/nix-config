@@ -26,6 +26,7 @@ in
   config = mkIf config.features.application.firefox.enable {
     programs.firefox = {
       enable = true;
+      configPath = ".mozilla/firefox";
       profiles."default" = {
         id = 0;
         name = "default";

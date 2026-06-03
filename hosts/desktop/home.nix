@@ -74,6 +74,10 @@ in
         enable = true;
         default = true;
       };
+      zen = {
+        enable = true;
+        default = false;
+      };
       prismlauncher = {
         enable = true;
       };

@@ -25,7 +25,7 @@
           __unkeyed-1 = "<leader>s";
           mode = "n";
           group = "Split";
-          icion = "";
+          icon = "";
         }
         {
           __unkeyed-1 = "<leader>x";
@@ -39,7 +39,7 @@
           __unkeyed-1 = "<leader>g";
           mode = "n";
           group = "Git";
-          incon = "";
+          icon = "";
         }
         {
           __unkeyed-1 = "<leader>m";

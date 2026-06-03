@@ -19,34 +19,34 @@ with lib;
       enable = true;
       enableDefaultConfig = false;
 
-      # SSH config for different hosts
-      matchBlocks = {
+      # SSH config for different hosts (OpenSSH directive names)
+      settings = {
         # GitHub
         "github.com" = {
-          hostname = "github.com";
-          user = "git";
-          identityFile = "~/.ssh/github";
-          identitiesOnly = true;
+          HostName = "github.com";
+          User = "git";
+          IdentityFile = "~/.ssh/github";
+          IdentitiesOnly = true;
         };
         # GitLab
         "gitlab.com" = {
-          hostname = "gitlab.com";
-          user = "git";
-          identityFile = "~/.ssh/gitlab";
-          identitiesOnly = true;
+          HostName = "gitlab.com";
+          User = "git";
+          IdentityFile = "~/.ssh/gitlab";
+          IdentitiesOnly = true;
         };
         # Wildcard for all other hosts
         "*" = {
           # Global SSH config options
-          compression = true;
-          serverAliveInterval = 60;
-          serverAliveCountMax = 5;
+          Compression = true;
+          ServerAliveInterval = 60;
+          ServerAliveCountMax = 5;
           # Use SSH agent
-          addKeysToAgent = "yes";
+          AddKeysToAgent = "yes";
           # Reuse connections for speed
-          controlMaster = "auto";
-          controlPath = "~/.ssh/control-%r@%h:%p";
-          controlPersist = "10m";
+          ControlMaster = "auto";
+          ControlPath = "~/.ssh/control-%r@%h:%p";
+          ControlPersist = "10m";
         };
       };
     };
