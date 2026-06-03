@@ -8,6 +8,10 @@
 
 with lib;
 
+let
+  # Locally packaged TUI SQL client (see pkgs/vi-sql.nix)
+  vi-sql = pkgs.callPackage ../../../../pkgs/vi-sql.nix { };
+in
 {
   options.features.terminal.zsh = {
     enable = mkEnableOption "zsh shell configuration";
@@ -45,6 +49,9 @@ with lib;
 
         # Nix config editing
         ne = "cd ~/nix-config && nvim flake.nix";
+
+        # vi-sql TUI database client
+        sql = "${vi-sql}/bin/vi-sql";
 
         # Common shortcuts
         ".." = "cd ..";
@@ -138,6 +145,7 @@ with lib;
     home.packages = with pkgs; [
       fzf
       zoxide
+      vi-sql # TUI SQL client (also aliased to `sql`)
       # oh-my-posh
     ];
     # ++ lib.optionals (inputs ? pokemon-icat) [
