@@ -31,7 +31,7 @@ in
       Mod+Space hotkey-overlay-title="Open Launcher" { spawn ${rofiArgs}; }
       Mod+Shift+E hotkey-overlay-title="Open Thunar" { spawn "thunar"; }
       Mod+E hotkey-overlay-title="Open Yazi" { spawn "~/.config/scripts/yazi.sh"; }
-      Mod+B hotkey-overlay-title="Open Browser" { spawn "firefox"; }
+      Mod+B hotkey-overlay-title="Open Browser" { spawn "zen"; }
       Mod+Shift+Return { spawn "kitty" "--class=floating-kitty"; }
       Mod+G hotkey-overlay-title="Wallpaper Selector" { spawn "noctalia-shell" "ipc" "call" "wallpaper" "toggle"; }
       Mod+R hotkey-overlay-title="Open Repository Menu" { spawn "~/.config/scripts/rofi/repo-rofi.sh"; }

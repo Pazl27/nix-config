@@ -72,11 +72,11 @@ in
       obs.enable = true;
       firefox = {
         enable = true;
-        default = true;
+        default = false;
       };
       zen = {
         enable = true;
-        default = false;
+        default = true;
       };
       prismlauncher = {
         enable = true;

@@ -206,6 +206,12 @@
       shadow {
           on
       }
+      // Blur the desktop behind the (translucent) rofi launcher
+      background-effect {
+          blur true
+          xray false
+          noise 0.05
+      }
   }
 
   // Set the overview wallpaper on the backdrop.
