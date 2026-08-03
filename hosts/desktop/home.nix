@@ -59,6 +59,7 @@ in
       bat.enable = true;
       ssh.enable = true;
       yazi.enable = true;
+      tuicr.enable = true;
       pokemon.enable = false;
     };
     # === Applications ===

@@ -29,6 +29,7 @@
     ./modules/home/tools/bat.nix
     ./modules/home/tools/ssh.nix
     ./modules/home/tools/yazi.nix
+    ./modules/home/tools/tuicr.nix
     ./modules/home/tools/pokemon-icat.nix
 
     # applications
