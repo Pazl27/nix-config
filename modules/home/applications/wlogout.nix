@@ -12,6 +12,8 @@ let
       "niri msg action quit --skip-confirmation"
     else
       "hyprctl dispatch exit";
+
+  lockAction = if config.features.wm.niri.enable then "noctalia msg session lock" else "hyprlock";
 in
 {
   options.features.application.wlogout = {
@@ -47,7 +49,7 @@ in
         }
         {
           label = "lock";
-          action = "hyprlock";
+          action = lockAction;
           text = "Lock";
           keybind = "l";
         }

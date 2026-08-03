@@ -6,17 +6,22 @@ if pgrep -x "wlogout" > /dev/null; then
     exit 0
 fi
 
-# Detect monitor resolution and scaling factor
-resolution=$(hyprctl -j monitors | jq -r '.[] | select(.focused==true) | .height / .scale' | awk -F'.' '{print $1}')
-hypr_scale=$(hyprctl -j monitors | jq -r '.[] | select(.focused==true) | .scale')
+resolution=""
+if [ -n "$NIRI_SOCKET" ] && command -v niri > /dev/null; then
+    # niri: .logical.height is already logical (scale-adjusted)
+    resolution=$(niri msg --json focused-output | jq -r '.logical.height')
+elif [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ] && command -v hyprctl > /dev/null; then
+    # hyprland: divide physical height by scale to get the logical height
+    resolution=$(hyprctl -j monitors | jq -r '.[] | select(.focused==true) | .height / .scale' | awk -F'.' '{print $1}')
+fi
 
-# Calculate top and bottom margins as percentage of screen height
-# Adjust the 0.35 value (35%) to control how much space buttons take
-# Higher value = more margin = smaller buttons
+if [ -z "$resolution" ] || [ "$resolution" = "null" ]; then
+    resolution=1080
+fi
+
 margin_percentage=0.35
-
-top_margin=$(awk "BEGIN {printf \"%.0f\", $resolution * $margin_percentage * $hypr_scale}")
-bottom_margin=$(awk "BEGIN {printf \"%.0f\", $resolution * $margin_percentage * $hypr_scale}")
+top_margin=$(awk "BEGIN {printf \"%.0f\", $resolution * $margin_percentage}")
+bottom_margin=$top_margin
 
 wlogout -C $HOME/.config/wlogout/style.css \
     -l $HOME/.config/wlogout/layout \

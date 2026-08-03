@@ -214,6 +214,19 @@
       }
   }
 
+  // Blur the desktop behind the (translucent) wlogout power menu.
+  layer-rule {
+      match namespace="^logout_dialog$"
+      shadow {
+          on
+      }
+      background-effect {
+          blur true
+          xray false
+          noise 0.05
+      }
+  }
+
   // Set the overview wallpaper on the backdrop.
   layer-rule {
       match namespace="^noctalia-overview*"
