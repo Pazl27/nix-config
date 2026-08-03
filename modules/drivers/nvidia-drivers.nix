@@ -15,13 +15,26 @@ in
 
   # more information can be found here https://nixos.wiki/wiki/Nvidia
   config = mkIf cfg.enable {
-    # Enable OpenGL
     hardware.graphics = {
       enable = true;
+      enable32Bit = true;
     };
 
     # Load nvidia driver for Xorg and Wayland
     services.xserver.videoDrivers = [ "nvidia" ];
+
+    environment.sessionVariables = {
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      GBM_BACKEND = "nvidia-drm";
+      LIBVA_DRIVER_NAME = "nvidia";
+      VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.json";
+      VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.json";
+    };
+
+    environment.systemPackages = with pkgs; [
+      vulkan-loader
+      vulkan-tools
+    ];
 
     hardware.nvidia = {
 

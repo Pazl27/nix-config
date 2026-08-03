@@ -22,7 +22,7 @@ with lib;
       # ============================================
       settings = {
         mgr = {
-          layout = [
+          ratio = [
             1
             4
             3
@@ -46,37 +46,37 @@ with lib;
         opener = {
           edit = [
             {
-              run = ''nvim "$@"'';
+              run = "nvim %*";
               block = true;
             }
           ];
           open = [
             {
-              run = ''xdg-open "$@"'';
+              run = "xdg-open %s1";
               desc = "Open";
             }
           ];
           image = [
             {
-              run = ''nsxiv "$1"'';
+              run = "nsxiv %s1";
               desc = "Open";
             }
           ];
           reveal = [
             {
-              run = ''${pkgs.xdg-utils}/bin/xdg-open "$(dirname "$0")"'';
+              run = "${pkgs.xdg-utils}/bin/xdg-open %d1";
               desc = "Reveal";
             }
           ];
           extract = [
             {
-              run = ''unar "$@"'';
+              run = "unar %*";
               desc = "Extract here";
             }
           ];
           play = [
             {
-              run = ''mpv "$@"'';
+              run = "mpv %*";
               orphan = true;
               desc = "Play";
             }
@@ -126,15 +126,6 @@ with lib;
             fg = "#fb4934";
           }; # Bright red
 
-          # Hovered
-          hovered = {
-            fg = "#1d2021";
-            bg = "#fb4934";
-          };
-          preview_hovered = {
-            underline = true;
-          };
-
           # Find
           find_keyword = {
             fg = "#fabd2f";
@@ -143,6 +134,11 @@ with lib;
           find_position = {
             fg = "#fe8019";
             bg = "reset";
+            italic = true;
+          };
+
+          # Symlink target
+          symlink_target = {
             italic = true;
           };
 
@@ -159,17 +155,25 @@ with lib;
             fg = "#fb4934";
             bg = "#fb4934";
           };
+          marker_marked = {
+            fg = "#8ec07c";
+            bg = "#8ec07c";
+          };
+          marker_symbol = "│";
 
-          # Tab
-          tab_active = {
+          # Count badges
+          count_copied = {
+            fg = "#1d2021";
+            bg = "#fabd2f";
+          };
+          count_cut = {
             fg = "#1d2021";
             bg = "#fb4934";
           };
-          tab_inactive = {
-            fg = "#a89984";
-            bg = "#3c3836";
+          count_selected = {
+            fg = "#1d2021";
+            bg = "#b8bb26";
           };
-          tab_width = 1;
 
           # Border
           border_symbol = "│";
@@ -181,29 +185,66 @@ with lib;
           syntect_theme = "";
         };
 
-        status = {
-          separator_open = "";
-          separator_close = "";
-          separator_style = {
-            fg = "#3c3836";
+        tabs = {
+          active = {
+            fg = "#1d2021";
+            bg = "#fb4934";
+            bold = true;
+          };
+          inactive = {
+            fg = "#a89984";
             bg = "#3c3836";
           };
+        };
 
-          # Mode
-          mode_normal = {
+        mode = {
+          normal_main = {
             fg = "#1d2021";
             bg = "#83a598";
             bold = true;
           };
-          mode_select = {
+          normal_alt = {
+            fg = "#83a598";
+            bg = "#3c3836";
+          };
+          select_main = {
             fg = "#1d2021";
             bg = "#b8bb26";
             bold = true;
           };
-          mode_unset = {
+          select_alt = {
+            fg = "#b8bb26";
+            bg = "#3c3836";
+          };
+          unset_main = {
             fg = "#1d2021";
             bg = "#d3869b";
             bold = true;
+          };
+          unset_alt = {
+            fg = "#d3869b";
+            bg = "#3c3836";
+          };
+        };
+
+        indicator = {
+          current = {
+            fg = "#1d2021";
+            bg = "#fb4934";
+          };
+          preview = {
+            underline = true;
+          };
+        };
+
+        status = {
+          sep_left = {
+            open = "";
+            close = "";
+          };
+          sep_right = {
+            open = "";
+            close = "";
           };
 
           # Progress
@@ -220,20 +261,19 @@ with lib;
             bg = "#3c3836";
           };
 
-          # Permissions
-          permissions_t = {
+          perm_type = {
             fg = "#b8bb26";
           };
-          permissions_r = {
+          perm_read = {
             fg = "#fabd2f";
           };
-          permissions_w = {
+          perm_write = {
             fg = "#fb4934";
           };
-          permissions_x = {
+          perm_exec = {
             fg = "#8ec07c";
           };
-          permissions_s = {
+          perm_sep = {
             fg = "#665c54";
           };
         };
@@ -249,12 +289,14 @@ with lib;
           };
         };
 
-        select = {
+        # [select] was renamed to [pick].
+        pick = {
           border = {
             fg = "#83a598";
           };
           active = {
             fg = "#fe8019";
+            bold = true;
           };
           inactive = { };
         };
@@ -265,6 +307,7 @@ with lib;
           };
           title = { };
           hovered = {
+            fg = "#fe8019";
             underline = true;
           };
         };
@@ -290,22 +333,18 @@ with lib;
         };
 
         help = {
-          on = {
+          border = {
+            fg = "#83a598";
+          };
+          chord = {
             fg = "#fe8019";
           };
-          exec = {
+          action = {
             fg = "#8ec07c";
-          };
-          desc = {
-            fg = "#928374";
           };
           hovered = {
             bg = "#504945";
             bold = true;
-          };
-          footer = {
-            fg = "#3c3836";
-            bg = "#ebdbb2";
           };
         };
 
@@ -357,13 +396,24 @@ with lib;
               fg = "#fe8019";
             }
 
-            # Fallback
+            # Orphan / executable / directory
             {
-              name = "*";
+              url = "*";
+              is = "orphan";
+              bg = "#fb4934";
+            }
+            {
+              url = "*";
+              is = "exec";
+              fg = "#b8bb26";
+            }
+
+            {
+              url = "*";
               fg = "#ebdbb2";
             }
             {
-              name = "*/";
+              url = "*/";
               fg = "#83a598";
             }
           ];
