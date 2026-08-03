@@ -32,16 +32,13 @@ in
       Mod+Shift+E hotkey-overlay-title="Open Thunar" { spawn "thunar"; }
       Mod+E hotkey-overlay-title="Open Yazi" { spawn "~/.config/scripts/yazi.sh"; }
       Mod+B hotkey-overlay-title="Open Browser" { spawn "zen"; }
+      Mod+G hotkey-overlay-title="Wallpaper Selector" { spawn "~/.config/scripts/rofi/wallpaper_switcher.sh"; }
+      Mod+I hotkey-overlay-title="Boot Options" { spawn "~/.config/scripts/wlogout.sh"; }
       Mod+Shift+Return { spawn "kitty" "--class=floating-kitty"; }
-      Mod+G hotkey-overlay-title="Wallpaper Selector" { spawn "noctalia-shell" "ipc" "call" "wallpaper" "toggle"; }
       Mod+R hotkey-overlay-title="Open Repository Menu" { spawn "~/.config/scripts/rofi/repo-rofi.sh"; }
       Mod+P hotkey-overlay-title="Open Install Menu" { spawn "~/.config/scripts/rofi/list-installer.sh"; }
-      Mod+I hotkey-overlay-title="Session Menu" { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
-      Mod+N hotkey-overlay-title="Notification History" { spawn "noctalia-shell" "ipc" "call" "notifications" "toggleHistory"; }
-      Mod+W hotkey-overlay-title="Wifi Menu" { spawn "~/.config/scripts/rofi/wifi.sh"; }
       Mod+A hotkey-overlay-title="Ask AI" { spawn "~/.config/scripts/rofi/ai/askai.sh"; }
       Mod+Y hotkey-overlay-title="Clipboard" { spawn "~/.config/scripts/rofi/clipboard.sh"; }
-      Alt+Ctrl+Q hotkey-overlay-title="Lock Screen" { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
 
       // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
       // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.

@@ -5,6 +5,14 @@
   ...
 }:
 with lib;
+let
+  # Pick the compositor-specific "quit" command based on the active WM.
+  logoutAction =
+    if config.features.wm.niri.enable then
+      "niri msg action quit --skip-confirmation"
+    else
+      "hyprctl dispatch exit";
+in
 {
   options.features.application.wlogout = {
     enable = mkEnableOption "Wlogout power menu configuration";
@@ -33,7 +41,7 @@ with lib;
         }
         {
           label = "logout";
-          action = "loginctl kill-session $XDG_SESSION_ID";
+          action = logoutAction;
           text = "Logout";
           keybind = "e";
         }

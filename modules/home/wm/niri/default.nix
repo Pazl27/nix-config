@@ -30,12 +30,14 @@ in
     };
 
     home.packages = with pkgs; [
-      rofi
       grim
       slurp
       grimblast
       wl-clipboard
       cliphist
+      awww
+
+      xwayland-satellite
     ];
 
     xdg.configFile = {
