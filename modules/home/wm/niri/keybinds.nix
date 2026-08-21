@@ -241,9 +241,9 @@ in
       // Mod+Space       { switch-layout "next"; }
       // Mod+Shift+Space { switch-layout "prev"; }
 
-      Mod+Shift+S { spawn "sh" "-c" "$HOME/.config/scripts/snapshot.sh";  }
-      // Ctrl+Print { screenshot-screen; }
-      // Alt+Print { screenshot-window; }
+      Mod+Shift+S hotkey-overlay-title="Screenshot Region" { spawn "noctalia" "msg" "screenshot-region"; }
+      // Ctrl+Print { spawn "noctalia" "msg" "screenshot-fullscreen"; }
+      // Alt+Print { spawn "noctalia" "msg" "screenshot-fullscreen" "pick"; }
 
       // Applications such as remote-desktop clients and software KVM switches may
       // request that niri stops processing the keyboard shortcuts defined here

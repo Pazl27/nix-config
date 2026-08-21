@@ -18,6 +18,10 @@ in
         shell = {
           corner_radius_scale = 0.5;
           shared_gl_context = false;
+
+          screenshot = {
+            directory = "/home/desktop/Pictures/Screenshots";
+          };
         };
 
         theme = {
