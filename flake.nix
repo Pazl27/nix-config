@@ -53,6 +53,9 @@
       url = "github:agavra/tuicr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Gruvbox wallpaper collection
+    gruvbox-wallpapers.url = "github:AngelJumbo/gruvbox-wallpapers";
   };
 
   outputs =

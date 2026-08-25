@@ -51,6 +51,7 @@
     ./modules/home/applications/minecraft.nix
     ./modules/home/applications/zathura.nix
     ./modules/home/applications/noctalia-shell.nix
+    ./modules/home/applications/wallpapers.nix
 
     # wm
     ./modules/home/wm
