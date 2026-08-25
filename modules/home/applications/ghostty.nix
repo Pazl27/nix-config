@@ -73,7 +73,7 @@ with lib;
       # ============================================
 
       font-family = JetBrainsMonoNL
-      font-size = 15
+      font-size = 13
       font-feature = -calt
       font-feature = -liga
 

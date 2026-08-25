@@ -1,8 +1,8 @@
 { ... }:
 ''
-  // Global: rounded corners for all windows
+  // Global: sharp corners for all windows
   window-rule {
-      geometry-corner-radius 20
+      geometry-corner-radius 0
       clip-to-geometry true
   }
 
@@ -33,6 +33,23 @@
       open-floating true
       default-column-width { fixed 1000; }
       default-window-height { fixed 700; }
+      background-effect {
+          blur true
+          xray false
+          noise 0.05
+      }
+  }
+
+  window-rule {
+      match app-id=r#"^askai$"#
+      open-floating true
+      default-column-width { fixed 900; }
+      default-window-height { fixed 700; }
+      background-effect {
+          blur true
+          xray false
+          noise 0.05
+      }
   }
 
   window-rule {
@@ -40,6 +57,11 @@
       open-floating true
       default-column-width { fixed 1300; }
       default-window-height { fixed 875; }
+      background-effect {
+          blur true
+          xray false
+          noise 0.05
+      }
   }
 
   // ── File managers ────────────────────────────────────────────────────
@@ -50,7 +72,7 @@
       open-floating true
       default-column-width { fixed 1000; }
       default-window-height { fixed 800; }
-      opacity 0.88
+      opacity 0.80
       background-effect {
           blur true
           xray false
@@ -82,6 +104,17 @@
       open-floating true
       default-column-width { fixed 1000; }
       default-window-height { fixed 800; }
+  }
+
+  // Zathura: opacity makes the blur visible (opaque theme background).
+  window-rule {
+      match app-id=r#"^org\.pwmt\.zathura$"#
+      opacity 0.80
+      background-effect {
+          blur true
+          xray false
+          noise 0.05
+      }
   }
 
   layer-rule {
@@ -233,7 +266,17 @@
       place-within-backdrop true
   }
 
+  layer-rule {
+      match namespace="^noctalia-backdrop"
+      place-within-backdrop true
+  }
+
   debug {
       honor-xdg-activation-with-invalid-serial
+
+      // Force software cursor rendering. The hardware cursor plane can vanish
+      // when idle (repainting only on movement), especially with a rotated
+      // output like the 90°-transformed Dell. This keeps the cursor drawn.
+      disable-cursor-plane
   }
 ''

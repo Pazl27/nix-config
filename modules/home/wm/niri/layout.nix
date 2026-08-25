@@ -20,9 +20,9 @@
 
       border {
           on
-          width 3
-          active-gradient from="#fb4934" to="#fe8019" angle=45
-          inactive-gradient from="#3c3836" to="#504945" angle=45
+          width 2
+          active-color "#fb4934"
+          inactive-color "#3c3836"
       }
 
       shadow {

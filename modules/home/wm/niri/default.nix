@@ -35,7 +35,6 @@ in
       grimblast
       wl-clipboard
       cliphist
-      awww
 
       xwayland-satellite
     ];

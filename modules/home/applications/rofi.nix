@@ -719,6 +719,112 @@ with lib;
       }
     '';
 
+    # ============================================
+    # UNIFIED THEME (Omarchy-style, Gruvbox)
+    # Minimal boxy popup with a Gruvbox-red outline.
+    # Used by: repo-rofi.sh, list-installer.sh, clipboard.sh, ai/askai.sh
+    # ============================================
+    xdg.configFile."rofi/unified.rasi".text = ''
+      * {
+          bg:        #282828;
+          bg-alt:    #3c3836;
+          fg:        #ebdbb2;
+          fg-dim:    #a89984;
+          red:       #fb4934;
+
+          border:            0;
+          margin:            0;
+          padding:           0;
+          spacing:           0;
+          background-color:  @bg;
+          text-color:        @fg;
+      }
+
+      configuration {
+          show-icons:        false;
+          kb-row-up:         "Up,Control+k";
+          kb-row-down:       "Down,Control+j";
+          kb-accept-entry:   "Control+m,Return,KP_Enter";
+          kb-mode-next:      "";
+          kb-mode-previous:  "";
+      }
+
+      window {
+          transparency:      "real";
+          location:          center;
+          anchor:            center;
+          width:             640px;
+          border:            2px;
+          border-color:      @red;
+          border-radius:     0px;
+          background-color:  @bg;
+          padding:           0px;
+      }
+
+      mainbox {
+          children:          [ "inputbar", "listview" ];
+          background-color:  transparent;
+          padding:           0px;
+      }
+
+      inputbar {
+          children:          [ "prompt", "entry" ];
+          background-color:  @bg;
+          text-color:        @fg;
+          padding:           12px 16px;
+          spacing:           8px;
+          border:            0px 0px 2px 0px;
+          border-color:      @red;
+      }
+
+      prompt {
+          background-color:  transparent;
+          text-color:        @red;
+      }
+
+      entry {
+          background-color:  transparent;
+          text-color:        @fg;
+          cursor:            text;
+          placeholder:       "Search...";
+          placeholder-color: @fg-dim;
+      }
+
+      listview {
+          background-color:  transparent;
+          columns:           1;
+          lines:             8;
+          fixed-height:      false;
+          dynamic:           true;
+          scrollbar:         false;
+          padding:           6px;
+          spacing:           2px;
+      }
+
+      element {
+          background-color:  transparent;
+          text-color:        @fg;
+          padding:           8px 12px;
+          border-radius:     0px;
+      }
+
+      element normal normal {
+          background-color:  transparent;
+          text-color:        @fg;
+      }
+
+      element selected normal {
+          background-color:  #504945;
+          text-color:        @fg;
+      }
+
+      element-text {
+          background-color:  transparent;
+          text-color:        inherit;
+          vertical-align:    0.5;
+      }
+    '';
+
     home.file.".config/rofi" = {
       source = ../../../assets/rofi;
       recursive = true;

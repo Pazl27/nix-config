@@ -37,8 +37,9 @@ in
       Mod+Shift+Return { spawn "kitty" "--class=floating-kitty"; }
       Mod+R hotkey-overlay-title="Open Repository Menu" { spawn "~/.config/scripts/rofi/repo-rofi.sh"; }
       Mod+P hotkey-overlay-title="Open Install Menu" { spawn "~/.config/scripts/rofi/list-installer.sh"; }
-      Mod+A hotkey-overlay-title="Ask AI" { spawn "~/.config/scripts/rofi/ai/askai.sh"; }
       Mod+Y hotkey-overlay-title="Clipboard" { spawn "~/.config/scripts/rofi/clipboard.sh"; }
+      Mod+A hotkey-overlay-title="Ask AI" { spawn "~/.config/scripts/rofi/ai/askai.sh"; }
+      Mod+O hotkey-overlay-title="Search Obsidian Notes" { spawn "~/.config/scripts/rofi/obsidian.sh"; }
 
       // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
       // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.

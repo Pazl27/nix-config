@@ -7,7 +7,7 @@ if ! command -v cliphist &> /dev/null; then
 fi
 
 # Rofi theme
-ROFI_THEME="$HOME/.config/rofi/list.rasi"
+ROFI_THEME="$HOME/.config/rofi/unified.rasi"
 
 # Get clipboard history and format it
 # cliphist list returns: [timestamp] content

@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# source the environment variables
-source "$HOME/.askai-env"
-
 # Get user input from rofi
-content=$(echo "" | rofi -dmenu -config ~/.config/rofi/ai.rasi -p ">" -theme-str 'window { width: 40em; } listview { lines: 0; } entry { placeholder: "Ask AI..."; }')
+content=$(echo "" | rofi -dmenu -theme ~/.config/rofi/unified.rasi -p "AI" -theme-str 'listview { enabled: false; } entry { placeholder: "Ask AI..."; }')
 
 # Make sure content is not empty
 if [ -z "$content" ]; then
@@ -14,29 +11,14 @@ fi
 
 
 # Start Response Display
-rm /tmp/askai-resp.md
+rm -f /tmp/askai-resp.md
 kitty --detach --class "askai" --override="font_size 14" ~/.config/scripts/rofi/ai/display-resp.sh
 
-# Send request to Gemini API
-response=$(curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent" \
-  -H 'Content-Type: application/json' \
-  -H "X-goog-api-key: $GEMINI_API_KEY" \
-  -X POST \
-  -d "{
-    \"contents\": [
-      {
-        \"parts\": [
-          {
-            \"text\": \"$content\"
-          }
-        ]
-      }
-    ]
-  }")
-
-# Extract the AI response from the JSON output (assuming the response structure is something like "choices[0].message.content")
-echo "$response"
-ai_response=$(echo "$response" | jq -r '.candidates[0].content.parts[0].text')
+# Send request to Claude via the Claude Code CLI (-p = print mode).
+# This uses the local Claude Code subscription auth, not a per-token API key.
+# - </dev/null: don't let claude block waiting on stdin when spawned by niri
+# - 2>&1: capture any error (e.g. auth/PATH) into the response so it's visible
+ai_response=$(claude -p "$content" </dev/null 2>&1)
 
 # Display the result in rofi
 echo "$ai_response" > /tmp/askai-resp.md

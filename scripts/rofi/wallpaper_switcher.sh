@@ -4,18 +4,6 @@
 wallpaperDir="$HOME/Pictures/wallpaper"
 themesDir="$HOME/.config/rofi"
 
-# Transition config
-FPS=60
-TYPE="none"
-DURATION=1
-BEZIER="0.4,0.2,0.4,1.0"
-SWWW_PARAMS="--transition-fps ${FPS} --transition-type ${TYPE} --transition-duration ${DURATION} --transition-bezier ${BEZIER}"
-
-# Check if swaybg is running
-if pidof swaybg > /dev/null; then
-  pkill swaybg
-fi
-
 # Retrieve image files as a list
 PICS=($(find -L "${wallpaperDir}" -type f \( -iname \*.jpg -o -iname \*.jpeg -o -iname \*.png -o -iname \*.gif \) | shuf ))
 
@@ -27,17 +15,25 @@ randomChoice="[${#PICS[@]}] Random"
 # Rofi command
 rofiCommand="rofi -show -dmenu -theme ${themesDir}/wallpaper.rasi --class 'wallpaper'"
 
-# Execute command according the wallpaper manager
+# awww transition config
+FPS=60
+TYPE="none"
+DURATION=1
+BEZIER="0.4,0.2,0.4,1.0"
+SWWW_PARAMS="--transition-fps ${FPS} --transition-type ${TYPE} --transition-duration ${DURATION} --transition-bezier ${BEZIER}"
+
+# niri  -> Noctalia 
+# Hyprland -> awww
 executeCommand() {
 
-  if command -v awww &>/dev/null; then
+  if [[ "$XDG_CURRENT_DESKTOP" == *niri* ]] || pgrep -x niri >/dev/null; then
+    noctalia msg wallpaper-set "$1"
+  elif command -v awww &>/dev/null; then
     awww img "$1" ${SWWW_PARAMS}
-
   elif command -v swaybg &>/dev/null; then
     swaybg -i "$1" &
-   
   else
-    echo "Neither awww nor swaybg are installed."
+    echo "No supported wallpaper manager found."
     exit 1
   fi
 
@@ -46,7 +42,6 @@ executeCommand() {
 
 # Show the images
 menu() {
-  # Der Random-Knopf wird ZUERST ausgegeben, bleibt also oben
   printf "%s\n" "$randomChoice"
 
   for i in "${!PICS[@]}"; do
@@ -61,12 +56,6 @@ menu() {
   done
 }
 
-# Check if awww daemon is running
-if command -v awww &>/dev/null; then
-  awww query
-fi
-
-# Execution
 main() {
   choice=$(menu | ${rofiCommand})
 

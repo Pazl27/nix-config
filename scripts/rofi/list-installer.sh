@@ -26,9 +26,9 @@ done
 menu=$(echo -e "$menu" | head -c -1)
 
 # Show rofi menu
-selected=$(echo -e "$menu" | rofi -dmenu -i -p ">" \
-    -theme "$HOME/.config/rofi/list.rasi" \
-    -theme-str 'window { height: 350px; }')
+selected=$(echo -e "$menu" | rofi -dmenu -i -p "Install" \
+    -theme "$HOME/.config/rofi/unified.rasi" \
+    -theme-str 'listview { lines: 4; }')
 
 # Execute the corresponding script if something was selected
 if [[ -n "$selected" ]]; then

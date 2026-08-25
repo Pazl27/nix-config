@@ -26,18 +26,23 @@ in
 
         theme = {
           mode = "dark";
-          source = "builtin";
-          builtin = "Gruvbox";
+          source = "custom";
+          custom_palette = "GruvboxRed";
         };
 
-        # Wallpaper handled externally by awww-daemon (see niri startup),
-        # so disable Noctalia's own wallpaper surface.
         wallpaper = {
-          enabled = false;
+          enabled = true;
           directory = "/home/desktop/Pictures/wallpaper";
           default = {
             path = "/home/desktop/Pictures/wallpaper/anime/watercolor.png";
           };
+        };
+
+        # Blurred/tinted copy of the wallpaper rendered into niri's overview backdrop.
+        backdrop = {
+          enabled = true;
+          blur_intensity = 0.5;
+          tint_intensity = 0.3;
         };
 
         # Disable all desktop-layer widgets.
@@ -162,6 +167,104 @@ in
           bluetooth.scale = 1.2;
           notifications.scale = 1.2;
           "control-center".scale = 1.2;
+        };
+      };
+
+      # Gruvbox palette with a red primary accent to match the niri
+      # border and the unified rofi outline. Written to
+      # ~/.config/noctalia/palettes/GruvboxRed.json and selected above.
+      customPalettes.GruvboxRed = {
+        dark = {
+          mPrimary = "#fb4934";
+          mOnPrimary = "#282828";
+          mSecondary = "#fe8019";
+          mOnSecondary = "#282828";
+          mTertiary = "#d3869b";
+          mOnTertiary = "#282828";
+          mError = "#fb4934";
+          mOnError = "#282828";
+          mSurface = "#282828";
+          mOnSurface = "#ebdbb2";
+          mSurfaceVariant = "#3c3836";
+          mOnSurfaceVariant = "#ebdbb2";
+          mOutline = "#504945";
+          mShadow = "#1d2021";
+          mHover = "#3c3836";
+          mOnHover = "#ebdbb2";
+          terminal = {
+            background = "#282828";
+            foreground = "#ebdbb2";
+            cursor = "#ebdbb2";
+            cursorText = "#282828";
+            selectionBg = "#ebdbb2";
+            selectionFg = "#282828";
+            normal = {
+              black = "#282828";
+              red = "#cc241d";
+              green = "#98971a";
+              yellow = "#d79921";
+              blue = "#458588";
+              magenta = "#b16286";
+              cyan = "#689d6a";
+              white = "#a89984";
+            };
+            bright = {
+              black = "#928374";
+              red = "#fb4934";
+              green = "#b8bb26";
+              yellow = "#fabd2f";
+              blue = "#83a598";
+              magenta = "#d3869b";
+              cyan = "#8ec07c";
+              white = "#ebdbb2";
+            };
+          };
+        };
+        light = {
+          mPrimary = "#cc241d";
+          mOnPrimary = "#fbf1c7";
+          mSecondary = "#d65d0e";
+          mOnSecondary = "#fbf1c7";
+          mTertiary = "#b16286";
+          mOnTertiary = "#fbf1c7";
+          mError = "#cc241d";
+          mOnError = "#fbf1c7";
+          mSurface = "#fbf1c7";
+          mOnSurface = "#3c3836";
+          mSurfaceVariant = "#ebdbb2";
+          mOnSurfaceVariant = "#3c3836";
+          mOutline = "#a89984";
+          mShadow = "#d5c4a1";
+          mHover = "#ebdbb2";
+          mOnHover = "#3c3836";
+          terminal = {
+            background = "#fbf1c7";
+            foreground = "#3c3836";
+            cursor = "#3c3836";
+            cursorText = "#fbf1c7";
+            selectionBg = "#3c3836";
+            selectionFg = "#fbf1c7";
+            normal = {
+              black = "#fbf1c7";
+              red = "#cc241d";
+              green = "#98971a";
+              yellow = "#d79921";
+              blue = "#458588";
+              magenta = "#b16286";
+              cyan = "#689d6a";
+              white = "#7c6f64";
+            };
+            bright = {
+              black = "#928374";
+              red = "#9d0006";
+              green = "#79740e";
+              yellow = "#b57614";
+              blue = "#076678";
+              magenta = "#8f3f71";
+              cyan = "#427b58";
+              white = "#3c3836";
+            };
+          };
         };
       };
     };

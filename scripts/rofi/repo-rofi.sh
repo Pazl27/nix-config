@@ -9,7 +9,7 @@ configs="$(find "$HOME/dev" -mindepth 2 -maxdepth 2 -type d -printf '%P\n' 2>/de
 [ -n "$configs" ] || exit 0
 
 # Pick project
-chosen="$(printf '%s\n' "$configs" | rofi -dmenu -theme "$HOME/.config/rofi/ai.rasi" -p 'Projects:')"
+chosen="$(printf '%s\n' "$configs" | rofi -dmenu -theme "$HOME/.config/rofi/unified.rasi" -p 'Projects')"
 [ -n "$chosen" ] || exit 0
 dir="$HOME/dev/$chosen"
 
