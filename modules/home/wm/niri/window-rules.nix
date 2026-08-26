@@ -131,8 +131,20 @@
       default-column-width { proportion 0.7; }
   }
 
+  // KeePass2 runs under XWayland and sets each window's app-id to its title,
+  // so dialogs (Edit Entry, Add Entry, ...) don't contain "KeePass". Match the
+  // main window plus the known dialog titles so every KeePass window floats.
   window-rule {
       match app-id=r#"[Kk]ee[Pp]ass"#
+      match app-id=r#"^(Edit|Add|View) Entry$"#
+      match app-id=r#"^(Add|Edit) Group$"#
+      match app-id=r#"^Generate Password$"#
+      match app-id=r#"^Enter (Composite )?Master Key$"#
+      match app-id=r#"^Create (Composite )?Master Key$"#
+      match app-id=r#"^Open Database"#
+      match app-id=r#"^Database Settings$"#
+      match app-id=r#"^Find$"#
+      match app-id=r#"^Icon Picker$"#
       open-floating true
       default-column-width { fixed 1000; }
       default-window-height { fixed 600; }

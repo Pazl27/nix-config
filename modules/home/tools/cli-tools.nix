@@ -37,6 +37,7 @@ with lib;
 
       # Misc
       tldr # Simplified man pages
+      glow
     ];
   };
 }

@@ -11,6 +11,6 @@ while [ ! -f "/tmp/askai-resp.md" ]; do
 done
 
 clear
-glow -w 100 -s "$HOME/.config/glow/gruvbox-dark.json" -t /tmp/askai-resp.md
+glow -w 100 -t /tmp/askai-resp.md
 
 exit

@@ -95,6 +95,7 @@ in
           vial
           postman
           obsidian
+          proton-vpn
 
           ferdium
           localsend
