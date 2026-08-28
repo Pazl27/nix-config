@@ -54,6 +54,7 @@ _: {
     ./plugins/utils/web-devicons.nix
     ./plugins/utils/crates.nix
     ./plugins/utils/colorizer.nix
+    ./plugins/utils/image.nix
 
     # Ai
     # ./plugins/ai/sidekick.nix
@@ -61,5 +62,6 @@ _: {
     # Language-specific
     ./plugins/lang/go.nix
     ./plugins/lang/rust.nix
+    ./plugins/lang/leetcode.nix
   ];
 }
