@@ -13,7 +13,7 @@
       }
 
       mouse {
-          accel-speed -0.5
+          accel-speed -0.7
       }
 
       trackpoint {
