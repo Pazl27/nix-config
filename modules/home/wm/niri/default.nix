@@ -4,29 +4,61 @@
   pkgs,
   ...
 }:
-with lib;
 let
-  env = import ./env.nix { };
-  input = import ./input.nix { };
-  layout = import ./layout.nix { };
-  appearance = import ./appearance.nix { };
-  keybinds = import ./keybinds.nix { };
-  startup = import ./startup.nix { };
-  outputs = import ./outputs.nix { };
-  windowRules = import ./window-rules.nix { };
+  inherit (lib) mkDefault mkEnableOption mkIf;
+  cfg = config.features.wm.niri;
+
+  # Each section file returns KDL text and receives `config.host`.
+  # The order is the include order in config.kdl.
+  sections = [
+    {
+      name = "env";
+      file = ./env.nix;
+    }
+    {
+      name = "input";
+      file = ./input.nix;
+    }
+    {
+      name = "layout";
+      file = ./layout.nix;
+    }
+    {
+      name = "appearance";
+      file = ./appearance.nix;
+    }
+    {
+      name = "window-rules";
+      file = ./window-rules.nix;
+    }
+    {
+      name = "binds";
+      file = ./keybinds.nix;
+    }
+    {
+      name = "outputs";
+      file = ./outputs.nix;
+    }
+    {
+      name = "startup";
+      file = ./startup.nix;
+    }
+  ];
 in
 {
   options.features.wm.niri = {
-    enable = mkEnableOption "Enable niri Wayland compositor and configuration";
+    enable = mkEnableOption "niri Wayland compositor and its desktop components";
   };
 
-  config = mkIf config.features.wm.niri.enable {
+  config = mkIf cfg.enable {
     wayland.systemd.target = "graphical-session.target";
 
-    features.application = {
-      rofi.enable = true;
-      noctalia.enable = true;
-      wlogout.enable = true;
+    features.applications = {
+      kitty.enable = mkDefault true; # terminal used by binds and rofi
+      noctalia.enable = mkDefault true;
+      rofi.enable = mkDefault true;
+      wallpapers.enable = mkDefault true;
+      wlogout.enable = mkDefault true;
     };
 
     home.packages = with pkgs; [
@@ -40,24 +72,10 @@ in
     ];
 
     xdg.configFile = {
-      "niri/config.kdl".text = ''
-        include "env.kdl"
-        include "input.kdl"
-        include "layout.kdl"
-        include "appearance.kdl"
-        include "window-rules.kdl"
-        include "binds.kdl"
-        include "outputs.kdl"
-        include "startup.kdl"
-      '';
-      "niri/env.kdl".text = env;
-      "niri/input.kdl".text = input;
-      "niri/layout.kdl".text = layout;
-      "niri/appearance.kdl".text = appearance;
-      "niri/window-rules.kdl".text = windowRules;
-      "niri/binds.kdl".text = keybinds;
-      "niri/outputs.kdl".text = outputs;
-      "niri/startup.kdl".text = startup;
-    };
+      "niri/config.kdl".text = lib.concatMapStrings (s: "include \"${s.name}.kdl\"\n") sections;
+    }
+    // lib.listToAttrs (
+      map (s: lib.nameValuePair "niri/${s.name}.kdl" { text = import s.file config.host; }) sections
+    );
   };
 }

@@ -5,9 +5,14 @@
   ...
 }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    optionals
+    types
+    ;
   cfg = config.features.environments.database;
 in
 {

@@ -12,10 +12,11 @@ let
     mkOption
     types
     ;
+  cfg = config.features.applications.firefox;
 in
 {
-  options.features.application.firefox = {
-    enable = mkEnableOption "Enable Firefox with Textfox customization";
+  options.features.applications.firefox = {
+    enable = mkEnableOption "Firefox with Textfox customization";
     default = mkOption {
       type = types.bool;
       default = false;
@@ -23,7 +24,7 @@ in
     };
   };
 
-  config = mkIf config.features.application.firefox.enable {
+  config = mkIf cfg.enable {
     programs.firefox = {
       enable = true;
       configPath = ".mozilla/firefox";
@@ -84,7 +85,7 @@ in
     };
 
     # Set as default browser
-    xdg.mimeApps = mkIf config.features.application.firefox.default {
+    xdg.mimeApps = mkIf cfg.default {
       enable = true;
       defaultApplications = {
         "text/html" = "firefox.desktop";
@@ -96,7 +97,7 @@ in
     };
 
     # Set environment variable
-    home.sessionVariables = mkIf config.features.application.firefox.default {
+    home.sessionVariables = mkIf cfg.default {
       BROWSER = "firefox";
     };
   };

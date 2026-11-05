@@ -5,8 +5,8 @@
   inputs,
   ...
 }:
-with lib;
 let
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.features.tools.tuicr;
   tomlFormat = pkgs.formats.toml { };
 in
@@ -17,7 +17,7 @@ in
 
   config = mkIf cfg.enable {
     home.packages = [
-      inputs.tuicr.packages.${pkgs.system}.default
+      inputs.tuicr.packages.${pkgs.stdenv.hostPlatform.system}.default
       pkgs.gh
     ];
 

@@ -1,24 +1,15 @@
-{
-  config,
-  lib,
-  pkgs,
-  host,
-  ...
-}:
-let
-  inherit (import ../../hosts/${host}/variables.nix) useUEFI bootDevice;
-in
+{ config, pkgs, ... }:
 {
   boot.loader = {
     timeout = null;
     efi = {
-      canTouchEfiVariables = true;
+      canTouchEfiVariables = config.host.boot.efi;
       efiSysMountPoint = "/boot";
     };
     grub = {
       enable = true;
-      device = bootDevice;
-      efiSupport = useUEFI;
+      device = config.host.boot.device;
+      efiSupport = config.host.boot.efi;
       useOSProber = true;
 
       theme = pkgs.stdenv.mkDerivation {
@@ -29,7 +20,7 @@ in
           owner = "AllJavi";
           repo = "tartarus-grub";
           rev = "b116360a2a0991062a4d728cb005dfd309fbb82a";
-          sha256 = "sha256-/Pzr0R3zzOXUi2pAl8Lvg6aHTiwXTIrxQ1vscbEK/kU="; # Updated hash
+          sha256 = "sha256-/Pzr0R3zzOXUi2pAl8Lvg6aHTiwXTIrxQ1vscbEK/kU=";
         };
 
         installPhase = ''

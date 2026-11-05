@@ -1,4 +1,11 @@
 { pkgs, ... }:
+let
+  # nixd evaluates these expressions itself, so they are written as Nix
+  # source. The flake is looked up in ~/nix-config at runtime, which keeps
+  # this module free of host-specific paths.
+  flake = ''(builtins.getFlake (builtins.getEnv "HOME" + "/nix-config"))'';
+  nixosOptions = "${flake}.nixosConfigurations.desktop.options";
+in
 {
   extraPackages = with pkgs; [
     nixfmt
@@ -20,7 +27,7 @@
           settings = {
             nixpkgs = {
               # Point to your nixpkgs input
-              expr = "import <nixpkgs> { }";
+              expr = "import ${flake}.inputs.nixpkgs { }";
             };
             formatting = {
               command = [ "nixfmt" ]; # or "alejandra" or "nixpkgs-fmt"
@@ -28,11 +35,11 @@
             options = {
               # NixOS options
               nixos = {
-                expr = ''(builtins.getFlake "/home/desktop/nix-config").nixosConfigurations.desktop.options'';
+                expr = nixosOptions;
               };
               # Home Manager options
               home_manager = {
-                expr = ''(builtins.getFlake "/home/desktop/nix-config").homeConfigurations.desktop.options'';
+                expr = "${nixosOptions}.home-manager.users.type.getSubOptions [ ]";
               };
             };
           };

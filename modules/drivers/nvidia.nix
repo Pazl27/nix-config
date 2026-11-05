@@ -1,16 +1,18 @@
 {
+  config,
   lib,
   pkgs,
-  config,
   ...
 }:
-with lib;
 let
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.drivers.nvidia;
 in
 {
   options.drivers.nvidia = {
-    enable = mkEnableOption "Enable Nvidia Drivers";
+    enable = mkEnableOption "proprietary NVIDIA drivers" // {
+      default = config.host.gpu == "nvidia";
+    };
   };
 
   # more information can be found here https://nixos.wiki/wiki/Nvidia
@@ -29,6 +31,11 @@ in
       LIBVA_DRIVER_NAME = "nvidia";
       VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.json";
       VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.json";
+
+      # Persistent shader cache (survives driver cache cleanup)
+      __GL_SHADER_DISK_CACHE = "1";
+      __GL_SHADER_DISK_CACHE_PATH = "$HOME/.cache/nvidia";
+      __GL_SHADER_DISK_CACHE_SKIP_CLEANUP = "1";
     };
 
     environment.systemPackages = with pkgs; [

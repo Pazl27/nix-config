@@ -1,14 +1,14 @@
-{
-  host ? "desktop",
-  ...
-}:
+{ appLauncher, gpu, ... }:
 let
-  inherit (import ../../../../hosts/${host}/variables.nix) app_launcher;
-  rofiCommand = if app_launcher == "launchpad" then "rofi -show drun -theme ~/.config/rofi/launchpad.rasi" else "rofi -show drun";
+  rofiCommand =
+    if appLauncher == "launchpad" then
+      "rofi -show drun -theme ~/.config/rofi/launchpad.rasi"
+    else
+      "rofi -show drun";
 in
 {
-  env = [
-    "WLR_NO_HARDWARE_CURSORS,1"
+  # Hardware cursors are broken on the proprietary NVIDIA driver
+  env = (if gpu == "nvidia" then [ "WLR_NO_HARDWARE_CURSORS,1" ] else [ ]) ++ [
     "XCURSOR_SIZE,24"
 
     "XDG_CURRENT_DESKTOP,Hyprland"

@@ -1,4 +1,3 @@
-# pkgs/vi-sql.nix
 {
   lib,
   buildGoModule,

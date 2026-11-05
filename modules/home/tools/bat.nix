@@ -1,13 +1,20 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-with lib;
-
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.tools.bat;
+in
 {
   options.features.tools.bat = {
     enable = mkEnableOption "bat syntax highlighting cat replacement";
   };
 
-  config = mkIf config.features.tools.bat.enable {
+  config = mkIf cfg.enable {
     programs.bat = {
       enable = true;
       config = {

@@ -7,11 +7,14 @@
 }:
 let
   inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.applications.noctalia;
 in
 {
-  options.features.application.noctalia.enable = mkEnableOption "Noctalia shell with Gruvbox theme";
+  options.features.applications.noctalia = {
+    enable = mkEnableOption "Noctalia shell with Gruvbox theme";
+  };
 
-  config = mkIf config.features.application.noctalia.enable {
+  config = mkIf cfg.enable {
     programs.noctalia = {
       enable = true;
       settings = {
@@ -20,7 +23,7 @@ in
           shared_gl_context = false;
 
           screenshot = {
-            directory = "/home/desktop/Pictures/Screenshots";
+            directory = "${config.home.homeDirectory}/Pictures/Screenshots";
           };
         };
 
@@ -32,9 +35,9 @@ in
 
         wallpaper = {
           enabled = true;
-          directory = "/home/desktop/Pictures/wallpaper";
+          directory = "${config.home.homeDirectory}/Pictures/wallpaper";
           default = {
-            path = "/home/desktop/Pictures/wallpaper/anime/watercolor.png";
+            path = "${config.home.homeDirectory}/Pictures/wallpaper/anime/watercolor.png";
           };
         };
 

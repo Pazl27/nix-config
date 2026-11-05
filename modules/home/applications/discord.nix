@@ -4,12 +4,15 @@
   pkgs,
   ...
 }:
-with lib;
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.applications.discord;
+in
 {
-  options.features.application.discord = {
+  options.features.applications.discord = {
     enable = mkEnableOption "Discord Configuration with Vencord and system24 Gruvbox theme";
   };
-  config = mkIf config.features.application.discord.enable {
+  config = mkIf cfg.enable {
     # Install Discord with Vencord
     home.packages = [
       (pkgs.discord.override {

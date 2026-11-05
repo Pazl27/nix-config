@@ -1,16 +1,16 @@
 {
+  config,
   lib,
   pkgs,
-  config,
   ...
 }:
-with lib;
 let
-  cfg = config.core.steam;
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.steam;
 in
 {
-  options.core.steam = {
-    enable = mkEnableOption "Enable Steam";
+  options.features.steam = {
+    enable = mkEnableOption "Steam with Proton-GE, gamemode and mangohud";
   };
   config = mkIf cfg.enable {
     programs = {
@@ -62,18 +62,7 @@ in
       mangohud
     ];
 
-    # Shader cache optimization for NVIDIA
-    environment.sessionVariables = {
-      # NVIDIA shader disk cache
-      __GL_SHADER_DISK_CACHE = "1";
-      __GL_SHADER_DISK_CACHE_PATH = "$HOME/.cache/nvidia";
-      __GL_SHADER_DISK_CACHE_SKIP_CLEANUP = "1";
-
-      # DXVK optimizations
-      DXVK_STATE_CACHE_PATH = "$HOME/.cache/dxvk";
-
-      # Enable RADV optimizations (also helps with general Vulkan)
-      RADV_PERFTEST = "gpl";
-    };
+    # Keep the DXVK pipeline cache across game updates
+    environment.sessionVariables.DXVK_STATE_CACHE_PATH = "$HOME/.cache/dxvk";
   };
 }

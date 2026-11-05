@@ -4,8 +4,9 @@
   pkgs,
   ...
 }:
-with lib;
 let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.editors.zed;
   # Import settings and keybindings
   zedSettings = import ./zed-settings.nix { inherit pkgs; };
   zedKeybindings = import ./zed-keybindings.nix;
@@ -24,10 +25,8 @@ in
   options.features.editors.zed = {
     enable = mkEnableOption "Zed editor";
   };
-  config = mkIf config.features.editors.zed.enable {
+  config = mkIf cfg.enable {
     # Install Zed and dependencies
-    # NOTE: GPU/Vulkan env + loader now live in modules/drivers/nvidia-drivers.nix
-    # (system-wide) rather than here, so every app gets a consistent setup.
     home.packages = with pkgs; [
       # LSP servers
       rust-analyzer
@@ -129,7 +128,7 @@ in
       ];
     };
 
-    programs.zsh.shellAliases = mkIf config.features.editors.zed.enable {
+    programs.zsh.shellAliases = mkIf cfg.enable {
       zed = "zeditor";
     };
   };

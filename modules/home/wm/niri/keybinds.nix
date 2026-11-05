@@ -1,11 +1,7 @@
-{
-  host ? "desktop",
-  ...
-}:
+{ appLauncher, ... }:
 let
-  inherit (import ../../../../hosts/${host}/variables.nix) app_launcher;
   rofiArgs =
-    if app_launcher == "launchpad" then
+    if appLauncher == "launchpad" then
       ''"rofi" "-show" "drun" "-theme" "~/.config/rofi/launchpad.rasi"''
     else
       ''"rofi" "-show" "drun"'';

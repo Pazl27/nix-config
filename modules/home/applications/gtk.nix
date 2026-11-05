@@ -4,13 +4,16 @@
   pkgs,
   ...
 }:
-with lib;
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.applications.gtk;
+in
 {
-  options.features.application.gtk = {
+  options.features.applications.gtk = {
     enable = mkEnableOption "GTK theme configuration";
   };
 
-  config = mkIf config.features.application.gtk.enable {
+  config = mkIf cfg.enable {
     gtk = {
       enable = true;
 

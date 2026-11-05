@@ -7,11 +7,14 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.editors.neovim;
 in
 {
-  options.features.editors.neovim.enable = mkEnableOption "Enable Neovim with NixVim configuration";
+  options.features.editors.neovim = {
+    enable = mkEnableOption "Neovim with NixVim configuration";
+  };
 
-  config = mkIf config.features.editors.neovim.enable {
+  config = mkIf cfg.enable {
     programs.nixvim = {
       enable = true;
       defaultEditor = true;

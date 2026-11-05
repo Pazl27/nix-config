@@ -3,13 +3,16 @@
   lib,
   ...
 }:
-with lib;
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.tools.superfile;
+in
 {
   options.features.tools.superfile = {
     enable = mkEnableOption "Superfile file manager with Gruvbox theme";
   };
 
-  config = mkIf config.features.tools.superfile.enable {
+  config = mkIf cfg.enable {
     programs.superfile = {
       enable = true;
 

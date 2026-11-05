@@ -1,22 +1,24 @@
+{ config, lib, ... }:
+let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
+  cfg = config.features.applications.apps;
+in
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-with lib;
-{
-  options.features.application.apps = {
-    enable = mkEnableOption "Simple applications without configuration";
-
-    apps = mkOption {
+  options.features.applications.apps = {
+    enable = mkEnableOption "applications that need no further configuration";
+    packages = mkOption {
       type = types.listOf types.package;
       default = [ ];
-      description = "List of simple applications to install";
+      description = "Applications to install as-is.";
     };
   };
 
-  config = mkIf config.features.application.apps.enable {
-    home.packages = config.features.application.apps.apps;
+  config = mkIf cfg.enable {
+    home.packages = cfg.packages;
   };
 }

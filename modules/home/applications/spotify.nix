@@ -7,13 +7,15 @@
 }:
 let
   inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.applications.spotify;
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
-  options.features.application.spotify.enable =
-    mkEnableOption "Enable Spicetify for Spotify customization";
+  options.features.applications.spotify = {
+    enable = mkEnableOption "Spicetify for Spotify customization";
+  };
 
-  config = mkIf config.features.application.spotify.enable {
+  config = mkIf cfg.enable {
     programs.spicetify = {
       enable = true;
       wayland = true;

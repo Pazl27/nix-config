@@ -2,19 +2,18 @@
   config,
   lib,
   pkgs,
-  host,
   ...
 }:
-with lib;
 let
-  inherit (import ../../../hosts/${host}/variables.nix) gitUsername gitEmail;
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.tools.git;
 in
 {
   options.features.tools.git = {
     enable = mkEnableOption "git version control";
   };
 
-  config = mkIf config.features.tools.git.enable {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       serie
     ];
@@ -25,8 +24,8 @@ in
 
       settings = {
         user = {
-          name = "${gitUsername}";
-          email = "${gitEmail}";
+          inherit (config.host.git) email;
+          name = config.host.git.username;
         };
 
         alias = {

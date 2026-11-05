@@ -12,10 +12,11 @@ let
     mkOption
     types
     ;
+  cfg = config.features.applications.zen;
 in
 {
-  options.features.application.zen = {
-    enable = mkEnableOption "Enable Zen browser";
+  options.features.applications.zen = {
+    enable = mkEnableOption "Zen browser";
 
     default = mkOption {
       type = types.bool;
@@ -24,13 +25,13 @@ in
     };
   };
 
-  config = mkIf config.features.application.zen.enable {
+  config = mkIf cfg.enable {
     home.packages = [
       inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 
     # Set as default browser
-    xdg.mimeApps = mkIf config.features.application.zen.default {
+    xdg.mimeApps = mkIf cfg.default {
       enable = true;
       defaultApplications = {
         "text/html" = "zen.desktop";
@@ -42,7 +43,7 @@ in
     };
 
     # Set environment variable
-    home.sessionVariables = mkIf config.features.application.zen.default {
+    home.sessionVariables = mkIf cfg.default {
       BROWSER = "zen";
     };
   };

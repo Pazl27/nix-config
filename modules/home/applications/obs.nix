@@ -4,22 +4,22 @@
   pkgs,
   ...
 }:
-with lib;
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.applications.obs;
+  nvidia = config.host.gpu == "nvidia";
+in
 {
-  options.features.application.obs = {
-    enable = mkEnableOption "Enable OBS";
+  options.features.applications.obs = {
+    enable = mkEnableOption "OBS";
   };
 
-  config = mkIf config.features.application.obs.enable {
+  config = mkIf cfg.enable {
     programs.obs-studio = {
       enable = true;
 
-      # optional Nvidia hardware acceleration
-      package = (
-        pkgs.obs-studio.override {
-          cudaSupport = true;
-        }
-      );
+      # NVENC hardware encoding needs CUDA
+      package = pkgs.obs-studio.override { cudaSupport = nvidia; };
 
       plugins = with pkgs.obs-studio-plugins; [
         wlrobs

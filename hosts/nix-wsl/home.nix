@@ -1,40 +1,28 @@
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+  home.stateVersion = "24.05";
 
-{
-  # ============================================
-  # WSL Configuration - Enable/Disable Features
-  # ============================================
+  features = {
+    scripts.enable = true;
 
-  "features" = {
-    # === Environments ===
+    # === Development Environments ===
     environments = {
       node.enable = true;
-      python.enable = false;
       rust.enable = true;
-      go.enable = false;
-      java.enable = false;
       c.enable = true;
       cpp.enable = true;
     };
 
     # === Editors ===
-    editors = {
-      neovim.enable = true;
-    };
+    editors.neovim.enable = true;
 
-    # === Terminal ===
+    # === Terminal Setup ===
     terminal = {
       zsh.enable = true;
       tmux.enable = true;
       starship.enable = true;
     };
 
-    # === Tools ===
+    # === Development Tools ===
     tools = {
       git.enable = true;
       cliTools.enable = true;

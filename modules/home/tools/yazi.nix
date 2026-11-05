@@ -4,13 +4,16 @@
   pkgs,
   ...
 }:
-with lib;
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.tools.yazi;
+in
 {
   options.features.tools.yazi = {
     enable = mkEnableOption "Yazi file manager with Gruvbox theme";
   };
 
-  config = mkIf config.features.tools.yazi.enable {
+  config = mkIf cfg.enable {
     programs.yazi = {
       enable = true;
       enableZshIntegration = true;

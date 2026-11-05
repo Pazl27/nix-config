@@ -1,9 +1,5 @@
-{
-  host ? "desktop",
-  ...
-}:
+{ hyprlandLayout, ... }:
 let
-  inherit (import ../../../../hosts/${host}/variables.nix) hyprland_layout;
 
   # Common keybindings (always included)
   commonBinds = [
@@ -66,8 +62,8 @@ let
     "$mainMod, f, fullscreen"
   ];
 
-  # Choose layout-specific binds based on hyprland_layout variable
-  layoutBinds = if hyprland_layout == "scrolling" then scrollingBinds else defaultBinds;
+  # Choose layout-specific binds based on host.hyprlandLayout
+  layoutBinds = if hyprlandLayout == "scrolling" then scrollingBinds else defaultBinds;
 in
 {
   # Keybindings

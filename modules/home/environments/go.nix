@@ -1,17 +1,24 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-with lib;
-
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.environments.go;
+in
 {
   options.features.environments.go = {
     enable = mkEnableOption "Go development environment";
   };
 
-  config = mkIf config.features.environments.go.enable {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       go
-      gopls  # Go LSP
-      go-tools  # staticcheck, etc.
+      gopls # Go LSP
+      go-tools # staticcheck, etc.
     ];
 
     home.sessionVariables = {

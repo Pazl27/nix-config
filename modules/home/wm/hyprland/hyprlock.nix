@@ -6,12 +6,14 @@
 }:
 let
   inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.wm.hyprland.hyprlock;
 in
 {
-  options.features.wm.hyprland.hyprlock.enable =
-    mkEnableOption "Enable Hyprlock screen locker with Gruvbox theme";
+  options.features.wm.hyprland.hyprlock = {
+    enable = mkEnableOption "Hyprlock screen locker and hypridle with Gruvbox theme";
+  };
 
-  config = mkIf config.features.wm.hyprland.hyprlock.enable {
+  config = mkIf cfg.enable {
     # Install hyprlock and hypridle
     home.packages = with pkgs; [
       hyprlock

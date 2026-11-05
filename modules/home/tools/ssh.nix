@@ -4,12 +4,15 @@
   pkgs,
   ...
 }:
-with lib;
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.tools.ssh;
+in
 {
   options.features.tools.ssh = {
     enable = mkEnableOption "SSH configuration and key management";
   };
-  config = mkIf config.features.tools.ssh.enable {
+  config = mkIf cfg.enable {
     # Add openssh package for ssh-keygen and other SSH tools
     home.packages = with pkgs; [
       openssh

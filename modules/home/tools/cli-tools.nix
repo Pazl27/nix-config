@@ -5,14 +5,16 @@
   ...
 }:
 
-with lib;
-
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.tools.cliTools;
+in
 {
   options.features.tools.cliTools = {
     enable = mkEnableOption "modern CLI tools collection";
   };
 
-  config = mkIf config.features.tools.cliTools.enable {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       # Modern replacements
       eza # Better ls

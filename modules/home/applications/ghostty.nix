@@ -5,14 +5,16 @@
   ...
 }:
 
-with lib;
-
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.applications.ghostty;
+in
 {
-  options.features.application.ghostty = {
+  options.features.applications.ghostty = {
     enable = mkEnableOption "Ghostty terminal with Gruvbox theme";
   };
 
-  config = mkIf config.features.application.ghostty.enable {
+  config = mkIf cfg.enable {
     # Ghostty package
     home.packages = with pkgs; [
       ghostty

@@ -2,33 +2,27 @@
   config,
   lib,
   pkgs,
-  host,
   ...
 }:
-with lib;
 let
-  inherit (import ../../../hosts/${host}/variables.nix) window_manager;
-  useNiri = window_manager == "niri";
-  useHyprland = window_manager == "hyprland" || window_manager == "";
+  inherit (lib) mkEnableOption mkIf optional;
+  cfg = config.features.applications.waybar;
+  useNiri = config.host.windowManager == "niri";
+  useHyprland = config.host.windowManager == "hyprland";
+  nvidia = config.host.gpu == "nvidia";
 in
 {
-  options.features.application.waybar = {
+  options.features.applications.waybar = {
     enable = mkEnableOption "Waybar status bar configuration";
   };
 
-  config = mkIf config.features.application.waybar.enable {
-    # Waybar package
+  config = mkIf cfg.enable {
+    # Tools the bar modules call (swaync and wlogout come from their own modules)
     home.packages = with pkgs; [
-      waybar
-
       pavucontrol
       playerctl
       blueman
       networkmanagerapplet
-      swaynotificationcenter
-      wlogout
-      hyprpicker
-      wl-clipboard
       curl
       bc
     ];
@@ -68,36 +62,46 @@ in
 
           # ─── Workspaces ────────────────────────────────────────
         }
-        // (if useHyprland then {
-          "hyprland/workspaces" = {
-            format = "{icon}";
-            format-icons = {
-              active = "";
-              default = "";
-              empty = "";
-            };
-            persistent-workspaces = {
-              "*" = [
-                1
-                2
-                3
-                4
-                5
-                6
-                7
-              ];
-            };
-          };
-        } else {})
-        // (if useNiri then {
-          "niri/workspaces" = {
-            format = "{icon}";
-            format-icons = {
-              "active" = "";
-              "default" = "";
-            };
-          };
-        } else {})
+        // (
+          if useHyprland then
+            {
+              "hyprland/workspaces" = {
+                format = "{icon}";
+                format-icons = {
+                  active = "";
+                  default = "";
+                  empty = "";
+                };
+                persistent-workspaces = {
+                  "*" = [
+                    1
+                    2
+                    3
+                    4
+                    5
+                    6
+                    7
+                  ];
+                };
+              };
+            }
+          else
+            { }
+        )
+        // (
+          if useNiri then
+            {
+              "niri/workspaces" = {
+                format = "{icon}";
+                format-icons = {
+                  "active" = "";
+                  "default" = "";
+                };
+              };
+            }
+          else
+            { }
+        )
         // {
 
           # ─── System Modules ────────────────────────────────────
@@ -146,7 +150,8 @@ in
             tooltip-format = "Temperature: {temperatureC}°C";
           };
 
-          "custom/gpu" = {
+          # Reads stats via nvidia-smi
+          "custom/gpu" = mkIf nvidia {
             exec = ''
               bash -c '
               usage=$(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits)
@@ -306,7 +311,9 @@ in
               "cpu"
               "disk"
               "temperature"
-              "custom/gpu"
+            ]
+            ++ optional nvidia "custom/gpu"
+            ++ [
               "custom/endpoint"
             ];
             orientation = "horizontal";

@@ -5,9 +5,8 @@
   ...
 }:
 
-with lib;
-
 let
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.features.environments.docker;
 in
 {
@@ -31,7 +30,11 @@ in
       icon = "docker";
       terminal = false;
       type = "Application";
-      categories = [ "Development" "System" "Utility" ];
+      categories = [
+        "Development"
+        "System"
+        "Utility"
+      ];
     };
   };
 }

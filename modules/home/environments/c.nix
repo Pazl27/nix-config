@@ -5,14 +5,16 @@
   ...
 }:
 
-with lib;
-
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.environments.c;
+in
 {
   options.features.environments.c = {
     enable = mkEnableOption "C development environment";
   };
 
-  config = mkIf config.features.environments.c.enable {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       # Compiler and core tools
       gcc

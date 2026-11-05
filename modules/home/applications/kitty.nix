@@ -5,14 +5,16 @@
   ...
 }:
 
-with lib;
-
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.applications.kitty;
+in
 {
-  options.features.application.kitty = {
+  options.features.applications.kitty = {
     enable = mkEnableOption "Kitty terminal emulator";
   };
 
-  config = mkIf config.features.application.kitty.enable {
+  config = mkIf cfg.enable {
     programs.kitty = {
       enable = true;
       package = pkgs.kitty;

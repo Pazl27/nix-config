@@ -1,13 +1,20 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-with lib;
-
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.tools.direnv;
+in
 {
   options.features.tools.direnv = {
     enable = mkEnableOption "direnv for per-directory environments";
   };
 
-  config = mkIf config.features.tools.direnv.enable {
+  config = mkIf cfg.enable {
     programs.direnv = {
       enable = true;
       enableZshIntegration = true;

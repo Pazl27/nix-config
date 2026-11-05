@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 {
   # ============================================
   # FIREWALL CONFIGURATION
@@ -63,10 +58,6 @@
   # KERNEL HARDENING
   # ============================================
   boot.kernel.sysctl = {
-    # === IPv6 DISABLE (broken connectivity) ===
-    "net.ipv6.conf.all.disable_ipv6" = 1;
-    "net.ipv6.conf.default.disable_ipv6" = 1;
-
     # === NETWORK SECURITY ===
     "net.ipv4.ip_forward" = 0;
 
@@ -141,25 +132,10 @@
   ];
 
   # ============================================
-  # SYSTEM MAINTENANCE
-  # ============================================
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
-
-  nix.optimise.automatic = true;
-
-  # ============================================
   # NETWORK
   # ============================================
   # Avahi disabled to prevent network broadcast interference during gaming
-  services.avahi = {
-    enable = false;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
+  services.avahi.enable = false;
 
   # ============================================
   # ADDITIONAL HARDENING

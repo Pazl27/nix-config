@@ -5,14 +5,16 @@
   ...
 }:
 
-with lib;
-
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.applications.zathura;
+in
 {
-  options.features.application.zathura = {
+  options.features.applications.zathura = {
     enable = mkEnableOption "Zathura PDF viewer with Gruvbox light theme";
   };
 
-  config = mkIf config.features.application.zathura.enable {
+  config = mkIf cfg.enable {
     programs.zathura = {
       enable = true;
 

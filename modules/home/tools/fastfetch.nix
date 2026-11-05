@@ -5,14 +5,16 @@
   ...
 }:
 
-with lib;
-
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.tools.fastfetch;
+in
 {
   options.features.tools.fastfetch = {
     enable = mkEnableOption "fastfetch system information tool";
   };
 
-  config = mkIf config.features.tools.fastfetch.enable {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       fastfetch
     ];

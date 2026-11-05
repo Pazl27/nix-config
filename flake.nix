@@ -60,174 +60,126 @@
       ...
     }@inputs:
     let
-      # Helper to get pkgs for a system
-      pkgsFor = system: nixpkgs.legacyPackages.${system};
+      inherit (nixpkgs) lib;
 
-      # Helper to get scripts for a system
-      scriptsFor = system: (pkgsFor system).callPackage ./pkgs/scripts.nix { };
+      # Packages defined in ./pkgs (my-scripts, vi-sql)
+      overlay = import ./pkgs;
 
-      # Helper to get nixvim for a system
-      nixvimFor = system: (pkgsFor system).callPackage ./pkgs/nixvim.nix { inherit nixvim; };
-
-      # Define your hosts
-      # type can be: "nixos" or "home-manager"
-      hosts = {
-        nix-wsl = {
-          username = "nix-wsl";
-          homeDirectory = "/home/nix-wsl";
-          hostConfig = ./hosts/wsl;
-          system = "x86_64-linux";
-          type = "home-manager";
+      pkgsFor =
+        system:
+        import nixpkgs {
+          inherit system;
+          overlays = [ overlay ];
+          config.allowUnfree = true;
         };
+
+      # type: "nixos" (NixOS + Home Manager) or "home-manager" (standalone)
+      hosts = {
         desktop = {
           username = "desktop";
-          homeDirectory = "/home/desktop";
-          hostConfig = ./hosts/desktop;
           system = "x86_64-linux";
           type = "nixos";
         };
+        nix-wsl = {
+          username = "nix-wsl";
+          system = "x86_64-linux";
+          type = "home-manager";
+        };
       };
 
-      # Home Manager only (standalone, for non-NixOS Linux like WSL)
-      mkHome =
-        name:
+      hostDir = name: ./hosts + "/${name}";
+
+      # Settings shared by both module trees: the typed `host` options,
+      # the host's values for them and its identity from the table above.
+      hostModules = name: host: [
+        ./modules/shared/host.nix
+        (hostDir name + "/variables.nix")
         {
-          username,
-          homeDirectory,
-          hostConfig,
-          system,
-          ...
-        }:
-        let
-          pkgs = pkgsFor system;
-          myScripts = scriptsFor system;
-        in
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = {
-            inherit inputs;
-            host = name;
+          host = {
+            inherit name;
+            inherit (host) username;
           };
-          modules = [
-            ./home.nix
-            (hostConfig + "/home.nix")
-            ./modules/core
-            nixvim.homeModules.nixvim
-            spicetify-nix.homeManagerModules.default
-            hyprland.homeManagerModules.default
-            textfox.homeManagerModules.default
-            {
-              home.file.".config/scripts".source = "${myScripts}/share/scripts";
-            }
-            { config._module.args.host = name; }
-            {
-              home.username = username;
-              home.homeDirectory = homeDirectory;
-            }
-          ];
+        }
+      ];
+
+      # Home Manager configuration of a host's primary user.
+      homeModule = name: host: {
+        imports = [
+          ./modules/home
+          (hostDir name + "/home.nix")
+          nixvim.homeModules.nixvim
+          spicetify-nix.homeManagerModules.default
+          hyprland.homeManagerModules.default
+          textfox.homeManagerModules.default
+          noctalia.homeModules.default
+        ]
+        ++ hostModules name host;
+
+        home.username = host.username;
+        home.homeDirectory = "/home/${host.username}";
+      };
+
+      mkHome =
+        name: host:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsFor host.system;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [ (homeModule name host) ];
         };
 
-      # NixOS systems (with integrated Home Manager)
       mkNixOS =
-        name:
-        {
-          username,
-          homeDirectory,
-          hostConfig,
-          system,
-          ...
-        }:
-        let
-          myScripts = scriptsFor system;
-        in
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit inputs;
-            host = name;
-          };
+        name: host:
+        lib.nixosSystem {
+          specialArgs = { inherit inputs; };
           modules = [
-            hostConfig
-            # Import NixOS modules
-            ./modules/drivers
-            ./modules/core
+            (hostDir name)
             ./modules/nixos
-            # Add Hyprland NixOS module
+            ./modules/drivers
             hyprland.nixosModules.default
-            # Integrate Home Manager
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                inherit inputs;
-                host = name;
-              };
-              home-manager.users.${username} = {
-                imports = [
-                  ./home.nix
-                  (hostConfig + "/home.nix")
-                  nixvim.homeModules.nixvim
-                  spicetify-nix.homeManagerModules.default
-                  hyprland.homeManagerModules.default
-                  textfox.homeManagerModules.default
-                  noctalia.homeModules.default
-                  {
-                    home.file.".config/scripts".source = "${myScripts}/share/scripts";
-                  }
-                  { config._module.args.host = name; }
-                ];
-                home.username = username;
-                home.homeDirectory = homeDirectory;
+              nixpkgs.hostPlatform = host.system;
+              nixpkgs.overlays = [ overlay ];
+
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = { inherit inputs; };
+                users.${host.username} = homeModule name host;
               };
             }
-          ];
+          ]
+          ++ hostModules name host;
         };
 
-      # Filter hosts by type
-      hostsByType = type: nixpkgs.lib.filterAttrs (name: host: host.type == type) hosts;
+      hostsOfType = type: lib.filterAttrs (_: host: host.type == type) hosts;
 
-      standaloneHosts = hostsByType "home-manager";
-      nixosHosts = hostsByType "nixos";
-
-      # For packages/apps, support multiple systems
-      forAllSystems = nixpkgs.lib.genAttrs [
+      forAllSystems = lib.genAttrs [
         "x86_64-linux"
         "aarch64-linux"
         "x86_64-darwin"
         "aarch64-darwin"
       ];
+
+      nixvimFor = system: (pkgsFor system).callPackage ./pkgs/nixvim.nix { inherit nixvim; };
     in
     {
-      # Build Home Manager configurations (for standalone home-manager)
-      homeConfigurations = builtins.mapAttrs mkHome standaloneHosts;
+      nixosConfigurations = lib.mapAttrs mkNixOS (hostsOfType "nixos");
+      homeConfigurations = lib.mapAttrs mkHome (hostsOfType "home-manager");
 
-      # Build NixOS configurations
-      nixosConfigurations = builtins.mapAttrs mkNixOS nixosHosts;
+      overlays.default = overlay;
 
-      packages = forAllSystems (
-        system:
-        let
-          myScripts = scriptsFor system;
-          myNixvim = nixvimFor system;
-        in
-        {
-          my-scripts = myScripts;
-          nixvim = myNixvim;
-        }
-      );
+      packages = forAllSystems (system: {
+        inherit (pkgsFor system) my-scripts vi-sql;
+        nixvim = nixvimFor system;
+      });
 
-      apps = forAllSystems (
-        system:
-        let
-          myNixvim = nixvimFor system;
-        in
-        {
-          nixvim = {
-            type = "app";
-            program = "${myNixvim}/bin/nvim";
-          };
-        }
-      );
+      apps = forAllSystems (system: {
+        nixvim = {
+          type = "app";
+          program = "${nixvimFor system}/bin/nvim";
+          meta.description = "Neovim with this repository's NixVim configuration";
+        };
+      });
     };
 }

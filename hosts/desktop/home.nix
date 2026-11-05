@@ -1,27 +1,18 @@
+{ pkgs, ... }:
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  inherit (import ./variables.nix) window_manager;
+  home.stateVersion = "24.05";
 
-  # Determine which window managers to enable
-  enableHyprland = window_manager == "hyprland" || window_manager == "";
-  enableNiri = window_manager == "niri";
-in
-{
-  # Features für Home Manager
+  # The window manager (and its bar, launcher, lock screen, ...) follows
+  # `host.windowManager` from ./variables.nix.
   features = {
+    scripts.enable = true;
+
     # === Development Environments ===
     environments = {
       node.enable = true;
       python.enable = true;
-      rust.enable = false;
       go.enable = true;
       java.enable = true;
-      c.enable = false;
       cpp.enable = true;
       database = {
         enable = true;
@@ -30,24 +21,20 @@ in
       };
       docker.enable = true;
     };
-    wm = {
-      niri.enable = enableNiri;
-      hyprland = {
-        enable = enableHyprland;
-        hyprlock.enable = enableHyprland;
-      };
-    };
+
     # === Editors ===
     editors = {
       neovim.enable = true;
       zed.enable = true;
     };
+
     # === Terminal Setup ===
     terminal = {
       zsh.enable = true;
       tmux.enable = true;
       starship.enable = true;
     };
+
     # === Development Tools ===
     tools = {
       git.enable = true;
@@ -60,8 +47,9 @@ in
       superfile.enable = true;
       tuicr.enable = true;
     };
+
     # === Applications ===
-    application = {
+    applications = {
       kitty.enable = true;
       ghostty.enable = true;
       thunar.enable = true;
@@ -69,22 +57,16 @@ in
       discord.enable = true;
       spotify.enable = true;
       obs.enable = true;
-      firefox = {
-        enable = true;
-        default = false;
-      };
+      firefox.enable = true;
       zen = {
         enable = true;
         default = true;
       };
-      prismlauncher = {
-        enable = true;
-      };
+      prismlauncher.enable = true;
       zathura.enable = true;
-      noctalia.enable = true;
       apps = {
         enable = true;
-        apps = with pkgs; [
+        packages = with pkgs; [
           gimp
           kdePackages.kolourpaint
           drawio

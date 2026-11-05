@@ -4,13 +4,16 @@
   pkgs,
   ...
 }:
-with lib;
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.applications.thunar;
+in
 {
-  options.features.application.thunar = {
+  options.features.applications.thunar = {
     enable = mkEnableOption "Thunar file manager with plugins";
   };
 
-  config = mkIf config.features.application.thunar.enable {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       thunar
       thunar-volman

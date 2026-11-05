@@ -2,22 +2,18 @@
   config,
   lib,
   pkgs,
-  inputs ? { },
   ...
 }:
-
-with lib;
-
 let
-  # Locally packaged TUI SQL client (see pkgs/vi-sql.nix)
-  vi-sql = pkgs.callPackage ../../../../pkgs/vi-sql.nix { };
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.terminal.zsh;
 in
 {
   options.features.terminal.zsh = {
     enable = mkEnableOption "zsh shell configuration";
   };
 
-  config = mkIf config.features.terminal.zsh.enable {
+  config = mkIf cfg.enable {
     programs.zsh = {
       enable = true;
 
@@ -51,7 +47,7 @@ in
         ne = "cd ~/nix-config && nvim flake.nix";
 
         # vi-sql TUI database client
-        sql = "${vi-sql}/bin/vi-sql";
+        sql = "${pkgs.vi-sql}/bin/vi-sql";
 
         # Common shortcuts
         ".." = "cd ..";
@@ -140,7 +136,7 @@ in
     home.packages = with pkgs; [
       fzf
       zoxide
-      vi-sql # TUI SQL client (also aliased to `sql`)
+      vi-sql # TUI SQL client from ./pkgs (also aliased to `sql`)
     ];
 
     # FZF integration

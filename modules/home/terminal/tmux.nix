@@ -4,12 +4,15 @@
   pkgs,
   ...
 }:
-with lib;
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.terminal.tmux;
+in
 {
   options.features.terminal.tmux = {
     enable = mkEnableOption "tmux terminal multiplexer";
   };
-  config = mkIf config.features.terminal.tmux.enable {
+  config = mkIf cfg.enable {
     programs.tmux = {
       enable = true;
       terminal = "screen-256color";

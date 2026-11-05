@@ -1,13 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  host,
-  ...
-}:
-let
-  inherit (import ../../hosts/${host}/variables.nix) virtualCamera;
-in
+{ config, lib, ... }:
 {
   # ============================================
   # LOCALE & TIMEZONE
@@ -124,8 +115,9 @@ in
   # Kernel parameters
   boot.kernelParams = [
     "processor.max_cstate=1"
-    "ipv6.disable=1"
+    "ipv6.disable=1" # IPv6 is broken on the home network
   ];
+  networking.enableIPv6 = false;
 
   # ============================================
   # IRQ BALANCING FOR GAMING
@@ -148,6 +140,12 @@ in
     auto-optimise-store = true;
   };
 
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
   # ============================================
   # ADDITIONAL USEFUL SETTINGS
   # ============================================
@@ -158,5 +156,5 @@ in
   # ============================================
   # OBS VIRTUAL CAMERA
   # ============================================
-  programs.obs-studio.enableVirtualCamera = virtualCamera;
+  programs.obs-studio.enableVirtualCamera = config.host.virtualCamera;
 }

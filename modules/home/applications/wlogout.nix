@@ -4,8 +4,9 @@
   pkgs,
   ...
 }:
-with lib;
 let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.applications.wlogout;
   # Pick the compositor-specific "quit" command based on the active WM.
   logoutAction =
     if config.features.wm.niri.enable then
@@ -16,11 +17,11 @@ let
   lockAction = if config.features.wm.niri.enable then "noctalia msg session lock" else "hyprlock";
 in
 {
-  options.features.application.wlogout = {
+  options.features.applications.wlogout = {
     enable = mkEnableOption "Wlogout power menu configuration";
   };
 
-  config = mkIf config.features.application.wlogout.enable {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       hyprlock
     ];

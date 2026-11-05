@@ -505,41 +505,58 @@ All configurations share the same Home Manager modules, ensuring consistent appl
 
 ## Configuration Files
 
+Each host lives in `hosts/<name>/` and is registered in the `hosts` table of `flake.nix`.
+
 ### `variables.nix`
-Host-specific values like git credentials, boot settings, and hardware preferences:
+Typed host settings, shared by NixOS and Home Manager modules (all options are declared in `modules/shared/host.nix`). Modules read them as `config.host.*`:
 ```nix
 {
-  # Boot
-  bootDevice = "nodev";
-  useUEFI = true;
-  
-  # Git
-  gitUsername = "YourName";
-  gitEmail = "your@email.com";
-  
-  # Hardware (optional)
-  nvidiaVibrance = 512;
+  host = {
+    git = {
+      username = "YourName";
+      email = "your@email.com";
+    };
+
+    windowManager = "niri"; # "hyprland", "niri" or null (headless)
+    appLauncher = "launchpad"; # "default" or "launchpad"
+    hyprlandLayout = "scrolling"; # "dwindle" or "scrolling"
+    gpu = "nvidia"; # "nvidia" or null; drives the driver and GPU-specific app settings
+
+    boot = {
+      device = "nodev";
+      efi = true;
+    };
+    sddmTheme = "japanese_aesthetic";
+    virtualCamera = true;
+    sshAuthorizedKeys = [ "ssh-ed25519 ..." ];
+  };
 }
 ```
 
+`host.name` and `host.username` are filled in from `flake.nix`.
+
 ### `home.nix`
-Enable/disable applications and features:
+Enables Home Manager features. The window manager and its components (bar, launcher, lock screen, wallpapers) follow `host.windowManager` automatically:
 ```nix
+{ pkgs, ... }:
 {
+  home.stateVersion = "24.05";
+
   features = {
-    wm.hyprland.enable = true;
-    
     editors = {
-      nvim.enable = true;
+      neovim.enable = true;
       zed.enable = true;
     };
-    
-    application = {
+
+    applications = {
       firefox.enable = true;
       spotify.enable = true;
-      discord.enable = true;
+      apps = {
+        enable = true;
+        packages = with pkgs; [ obsidian vlc ];
+      };
     };
-    
+
     tools = {
       git.enable = true;
       yazi.enable = true;
@@ -548,27 +565,38 @@ Enable/disable applications and features:
 }
 ```
 
+### `configuration.nix` (NixOS hosts)
+Hardware and system services:
+```nix
+{
+  drivers.finalmouse.enable = true;
+  features = {
+    bluetooth.enable = true;
+    openssh.enable = true;
+    steam.enable = true;
+  };
+}
+```
+
 ## Adding a New Host
 
-1. **Create host directory:**
+1. **Create the host directory** (named like the flake attribute):
 ```
    hosts/laptop/
-   ├── configuration.nix  # System config
-   ├── default.nix        # Imports
-   ├── hardware-configuration.nix  # Auto-generated
-   ├── home.nix          # User config
-   └── variables.nix     # Host-specific values
+   ├── default.nix                 # Imports + system.stateVersion (NixOS only)
+   ├── configuration.nix           # System config (NixOS only)
+   ├── hardware-configuration.nix  # Auto-generated (NixOS only)
+   ├── home.nix                    # Home Manager features
+   └── variables.nix               # host.* settings
 ```
 
-2. **Add to `flake.nix`:**
+2. **Add it to `flake.nix`:**
 ```nix
    hosts = {
      laptop = {
        username = "yourname";
-       homeDirectory = "/home/yourname";
-       hostConfig = ./hosts/laptop;
        system = "x86_64-linux";
-       type = "nixos";  # "nixos" or "home-manager"
+       type = "nixos"; # "nixos" or "home-manager"
      };
    };
 ```
@@ -577,7 +605,7 @@ Enable/disable applications and features:
 ```bash
    # NixOS
    sudo nixos-rebuild switch --flake .#laptop
-   
+
    # Home Manager only
    home-manager switch --flake .#laptop
 ```
@@ -585,18 +613,21 @@ Enable/disable applications and features:
 ## Module Organization
 ```
 modules/
-├── core/          # Shared: fonts, packages
-├── nixos/         # NixOS-specific: bootloader, security, pipewire, etc.
-├── drivers/       # Hardware: nvidia, peripherals, hardware clock
-└── home/
+├── shared/        # host.* options used by both module trees
+├── nixos/         # NixOS: boot, locale, audio, security, fonts, services
+├── drivers/       # Hardware: nvidia, finalmouse
+└── home/          # Home Manager (entry: default.nix)
     ├── applications/  # GUI apps
     ├── editors/       # Neovim, Zed
     ├── environments/  # Dev languages
+    ├── terminal/      # zsh, tmux, starship
     ├── tools/         # CLI utilities
-    └── wm/            # Window managers
+    ├── wm/            # Window managers
+    └── scripts.nix    # ~/.config/scripts
+pkgs/              # Local packages, exposed as overlays.default
 ```
 
-Enable what you need in `home.nix`, everything is opt-in.
+Every module is opt-in through `features.*` (or `drivers.*`); nothing in `modules/home` is active until a host enables it.
 
 ## Running Nixvim Remotely
 

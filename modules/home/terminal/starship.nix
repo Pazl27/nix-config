@@ -4,12 +4,15 @@
   pkgs,
   ...
 }:
-with lib;
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.terminal.starship;
+in
 {
   options.features.terminal.starship = {
     enable = mkEnableOption "starship prompt";
   };
-  config = mkIf config.features.terminal.starship.enable {
+  config = mkIf cfg.enable {
     programs.starship = {
       enable = true;
       enableZshIntegration = true;

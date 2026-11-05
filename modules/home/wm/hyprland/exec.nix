@@ -1,7 +1,4 @@
-{
-  host ? "desktop",
-  ...
-}:
+{ ... }:
 {
   exec-once = [
     # "swaync"

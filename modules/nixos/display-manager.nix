@@ -1,37 +1,28 @@
 {
-  pkgs,
-  lib,
   config,
-  host,
+  lib,
+  pkgs,
   ...
 }:
 let
-  inherit (import ../../hosts/${host}/variables.nix) sddmTheme window_manager;
-  
-  # Determine default session based on window manager
-  defaultSession = if window_manager == "niri" then "niri" else "hyprland";
+  inherit (lib) mkIf;
+  inherit (config.host) windowManager sddmTheme;
 
   sddm-astronaut = pkgs.sddm-astronaut.override {
     embeddedTheme = sddmTheme;
   };
 in
 {
-  environment.systemPackages = [
-    sddm-astronaut
-  ];
+  config = mkIf (windowManager != null) {
+    environment.systemPackages = [ sddm-astronaut ];
 
-  services = {
-    xserver.enable = true;
-
-    displayManager = {
-      defaultSession = defaultSession;
+    services.displayManager = {
+      defaultSession = windowManager;
       sddm = {
         enable = true;
         wayland.enable = true;
         package = pkgs.kdePackages.sddm;
-
         theme = "sddm-astronaut-theme";
-
         extraPackages = [ sddm-astronaut ];
       };
     };

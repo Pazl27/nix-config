@@ -1,13 +1,20 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-with lib;
-
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.environments.java;
+in
 {
   options.features.environments.java = {
     enable = mkEnableOption "Java development environment";
   };
 
-  config = mkIf config.features.environments.java.enable {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       # Java Development Kit
       jdk21
@@ -17,8 +24,8 @@ with lib;
       gradle
 
       # Additional tools
-      jdt-language-server  # For LSP support
-      google-java-format   # Code formatter
+      jdt-language-server # For LSP support
+      google-java-format # Code formatter
     ];
 
     home.sessionVariables = {

@@ -1,0 +1,22 @@
+{
+  imports = [
+    ./apps.nix
+    ./discord.nix
+    ./firefox.nix
+    ./ghostty.nix
+    ./gtk.nix
+    ./kitty.nix
+    ./noctalia.nix
+    ./obs.nix
+    ./prismlauncher.nix
+    ./rofi.nix
+    ./spotify.nix
+    ./swaync.nix
+    ./thunar.nix
+    ./wallpapers.nix
+    ./waybar.nix
+    ./wlogout.nix
+    ./zathura.nix
+    ./zen.nix
+  ];
+}

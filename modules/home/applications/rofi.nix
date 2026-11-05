@@ -4,17 +4,20 @@
   pkgs,
   ...
 }:
-with lib;
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.features.applications.rofi;
+in
 {
-  options.features.application.rofi = {
+  options.features.applications.rofi = {
     enable = mkEnableOption "Rofi launcher with multiple themes";
   };
 
-  config = mkIf config.features.application.rofi.enable {
+  config = mkIf cfg.enable {
     programs.rofi = {
       enable = true;
       package = pkgs.rofi;
-      settings.terminal = "${pkgs.kitty}/bin/kitty";
+      settings.terminal = "kitty";
     };
 
     # ============================================

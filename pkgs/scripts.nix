@@ -1,10 +1,9 @@
-# pkgs/scripts.nix
 { stdenv, lib }:
 
 stdenv.mkDerivation {
   pname = "scripts";
   version = "1.0";
-  src = ./../scripts;
+  src = ../scripts;
 
   installPhase = ''
     mkdir -p $out/share/scripts
