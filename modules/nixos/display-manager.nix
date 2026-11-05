@@ -34,10 +34,6 @@ in
 
         extraPackages = [ sddm-astronaut ];
       };
-      autoLogin = {
-        enable = false;
-        user = "nix-vm";
-      };
     };
   };
 }

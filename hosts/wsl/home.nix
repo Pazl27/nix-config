@@ -30,10 +30,8 @@
     # === Terminal ===
     terminal = {
       zsh.enable = true;
-      bash.enable = false;
       tmux.enable = true;
       starship.enable = true;
-      oh-my-posh.enable = false;
     };
 
     # === Tools ===

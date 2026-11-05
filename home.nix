@@ -16,10 +16,8 @@
 
     # Terminal
     ./modules/home/terminal/zsh
-    ./modules/home/terminal/bash
     ./modules/home/terminal/tmux.nix
     ./modules/home/terminal/starship.nix
-    ./modules/home/terminal/oh-my-posh.nix
 
     # Tools
     ./modules/home/tools/git.nix
@@ -31,7 +29,6 @@
     ./modules/home/tools/yazi.nix
     ./modules/home/tools/superfile.nix
     ./modules/home/tools/tuicr.nix
-    ./modules/home/tools/pokemon-icat.nix
 
     # applications
     ./modules/home/applications/apps.nix
@@ -46,7 +43,6 @@
     ./modules/home/applications/wlogout.nix
     ./modules/home/applications/discord.nix
     ./modules/home/applications/spotify.nix
-    ./modules/home/applications/brave.nix
     ./modules/home/applications/firefox.nix
     ./modules/home/applications/zen.nix
     ./modules/home/applications/minecraft.nix

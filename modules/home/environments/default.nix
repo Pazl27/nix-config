@@ -16,6 +16,5 @@
     ./rust.nix
     ./database.nix
     ./docker.nix
-    ./zig.nix
   ];
 }

@@ -498,17 +498,10 @@ This script makes wallpaper management incredibly convenient - I can quickly bro
 
 This is a modular Nix configuration supporting multiple deployment methods:
 
-- **NixOS + Home Manager**: Full system configuration (`desktop`, `nixvm`)
-- **nix-darwin + Home Manager**: macOS system configuration (see disclaimer below)
+- **NixOS + Home Manager**: Full system configuration (`desktop`)
 - **Home Manager Only**: User-space configuration for non-NixOS systems (`nix-wsl`)
 
 All configurations share the same Home Manager modules, ensuring consistent application setups across all machines. The configuration uses **Nix Flakes** for reproducibility and a **feature-flag system** for enabling/disabling components.
-
-### nix-darwin Support
-
-> **DISCLAIMER**: nix-darwin support is experimental and has not been fully tested. The configuration exists in theory but may require adjustments for your specific setup.
-
-This configuration includes support for macOS via nix-darwin. The `modules/darwin/` directory contains macOS-specific settings (system defaults, Homebrew, firewall), while `modules/core/` contains cross-platform modules shared between NixOS and darwin.
 
 ## Configuration Files
 
@@ -575,7 +568,7 @@ Enable/disable applications and features:
        homeDirectory = "/home/yourname";
        hostConfig = ./hosts/laptop;
        system = "x86_64-linux";
-       type = "nixos";  # "nixos", "darwin", or "home-manager"
+       type = "nixos";  # "nixos" or "home-manager"
      };
    };
 ```
@@ -592,13 +585,12 @@ Enable/disable applications and features:
 ## Module Organization
 ```
 modules/
-├── core/          # Cross-platform: fonts, packages
+├── core/          # Shared: fonts, packages
 ├── nixos/         # NixOS-specific: bootloader, security, pipewire, etc.
-├── darwin/        # macOS-specific: system defaults, homebrew, firewall
-├── drivers/       # Hardware: nvidia, amd, intel
+├── drivers/       # Hardware: nvidia, peripherals, hardware clock
 └── home/
     ├── applications/  # GUI apps
-    ├── editors/       # Neovim, Zed, VS Code
+    ├── editors/       # Neovim, Zed
     ├── environments/  # Dev languages
     ├── tools/         # CLI utilities
     └── wm/            # Window managers

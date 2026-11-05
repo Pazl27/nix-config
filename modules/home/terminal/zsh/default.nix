@@ -64,9 +64,6 @@ in
         # Nix switch - detects OS and runs appropriate command
         ns() {
           case "$(uname)" in
-            Darwin)
-              darwin-rebuild switch --flake ~/nix-config#$(hostname -s)
-              ;;
             Linux)
               if [ -f /etc/NIXOS ]; then
                 sudo nixos-rebuild switch --flake ~/nix-config#$(hostname)
@@ -108,8 +105,6 @@ in
         zstyle ':completion:*' menu select
         zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
         zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
-
-        # pokemon-icat
       '';
 
       localVariables = {
@@ -146,11 +141,7 @@ in
       fzf
       zoxide
       vi-sql # TUI SQL client (also aliased to `sql`)
-      # oh-my-posh
     ];
-    # ++ lib.optionals (inputs ? pokemon-icat) [
-    #   inputs.pokemon-icat.packages.${pkgs.system}.default
-    # ];
 
     # FZF integration
     programs.fzf = {

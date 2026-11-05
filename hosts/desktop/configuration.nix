@@ -1,12 +1,7 @@
 { config, pkgs, ... }:
 {
 
-  drivers = {
-    nvidia.enable = true;
-    amdgpu.enable = false;
-    intel.enable = false;
-    nvidia-prime.enable = false;
-  };
+  drivers.nvidia.enable = true;
 
   hardware = {
     hardware-clock.enable = true;

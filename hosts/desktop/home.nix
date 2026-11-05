@@ -29,7 +29,6 @@ in
         cli = true;
       };
       docker.enable = true;
-      zig.enable = false;
     };
     wm = {
       niri.enable = enableNiri;
@@ -46,7 +45,6 @@ in
     # === Terminal Setup ===
     terminal = {
       zsh.enable = true;
-      bash.enable = false;
       tmux.enable = true;
       starship.enable = true;
     };
@@ -61,7 +59,6 @@ in
       yazi.enable = true;
       superfile.enable = true;
       tuicr.enable = true;
-      pokemon.enable = false;
     };
     # === Applications ===
     application = {
