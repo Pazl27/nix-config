@@ -59,6 +59,7 @@ in
       bat.enable = true;
       ssh.enable = true;
       yazi.enable = true;
+      superfile.enable = true;
       tuicr.enable = true;
       pokemon.enable = false;
     };
@@ -104,7 +105,7 @@ in
           vlc
           abiword
           kdePackages.okular
-          libreoffice-fresh
+          libreoffice
         ];
       };
     };

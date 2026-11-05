@@ -10,6 +10,7 @@ let
 in
 {
   boot.loader = {
+    timeout = null;
     efi = {
       canTouchEfiVariables = true;
       efiSysMountPoint = "/boot";

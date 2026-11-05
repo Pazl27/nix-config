@@ -14,7 +14,7 @@ with lib;
     programs.rofi = {
       enable = true;
       package = pkgs.rofi;
-      terminal = "${pkgs.kitty}/bin/kitty";
+      settings.terminal = "${pkgs.kitty}/bin/kitty";
     };
 
     # ============================================

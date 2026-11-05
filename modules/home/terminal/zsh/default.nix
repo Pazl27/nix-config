@@ -157,7 +157,7 @@ in
       enable = true;
       enableZshIntegration = true;
       defaultCommand = "${pkgs.fd}/bin/fd --type f";
-      fileWidgetCommand = "${pkgs.fd}/bin/fd --type f";
+      fileWidget.command = "${pkgs.fd}/bin/fd --type f";
     };
 
     # Zoxide integration
