@@ -5,7 +5,5 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
-    chromium
-    gnome-calculator
   ];
 }

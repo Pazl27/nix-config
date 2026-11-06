@@ -44,6 +44,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Secrets (optional, see modules/nixos/homelab.nix)
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Declarative disk layouts for nixos-anywhere installs
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Homelab apps, each repo exports packages.<system>.default and is only
+    # fetched when the homelab is built (see hosts/homelab/services.nix):
+    # my-app = {
+    #   url = "github:Pazl27/my-app"; # private repo: "git+ssh://git@github.com/Pazl27/my-app"
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
     # Gruvbox wallpaper collection
     gruvbox-wallpapers.url = "github:AngelJumbo/gruvbox-wallpapers";
   };
@@ -57,6 +76,8 @@
       spicetify-nix,
       textfox,
       noctalia,
+      sops-nix,
+      disko,
       ...
     }@inputs:
     let
@@ -77,6 +98,11 @@
       hosts = {
         desktop = {
           username = "desktop";
+          system = "x86_64-linux";
+          type = "nixos";
+        };
+        homelab = {
+          username = "homelab";
           system = "x86_64-linux";
           type = "nixos";
         };
@@ -136,6 +162,8 @@
             ./modules/nixos
             ./modules/drivers
             hyprland.nixosModules.default
+            sops-nix.nixosModules.sops
+            disko.nixosModules.disko
             home-manager.nixosModules.home-manager
             {
               nixpkgs.hostPlatform = host.system;

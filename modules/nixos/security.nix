@@ -1,17 +1,10 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   # ============================================
   # FIREWALL CONFIGURATION
   # ============================================
   networking.firewall = {
     enable = true;
-
-    #  localsend
-    allowedTCPPorts = [ 53317 ];
-    allowedUDPPorts = [
-      53317
-      5353
-    ];
 
     # Allow ping
     allowPing = true;
@@ -59,7 +52,7 @@
   # ============================================
   boot.kernel.sysctl = {
     # === NETWORK SECURITY ===
-    "net.ipv4.ip_forward" = 0;
+    "net.ipv4.ip_forward" = lib.mkDefault 0; # containers need 1, see homelab.nix
 
     "net.ipv4.tcp_syncookies" = 1;
     "net.ipv4.tcp_syn_retries" = 4;
@@ -87,14 +80,6 @@
     "net.ipv4.tcp_sack" = 1;
     "net.ipv4.tcp_window_scaling" = 1;
     "net.ipv4.tcp_rfc1337" = 1;
-
-    # === GAMING NETWORK OPTIMIZATIONS ===
-    "net.core.rmem_max" = 16777216;
-    "net.core.wmem_max" = 16777216;
-    "net.core.netdev_max_backlog" = 5000;
-    "net.ipv4.tcp_fastopen" = 3;
-    "net.ipv4.tcp_mtu_probing" = 1;
-    "net.ipv4.tcp_fin_timeout" = 15;
 
     # === KERNEL SECURITY ===
     "kernel.kptr_restrict" = 2;

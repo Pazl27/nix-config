@@ -498,7 +498,7 @@ This script makes wallpaper management incredibly convenient - I can quickly bro
 
 This is a modular Nix configuration supporting multiple deployment methods:
 
-- **NixOS + Home Manager**: Full system configuration (`desktop`)
+- **NixOS + Home Manager**: Full system configuration (`desktop`), headless server (`homelab`)
 - **Home Manager Only**: User-space configuration for non-NixOS systems (`nix-wsl`)
 
 All configurations share the same Home Manager modules, ensuring consistent application setups across all machines. The configuration uses **Nix Flakes** for reproducibility and a **feature-flag system** for enabling/disabling components.
@@ -614,7 +614,7 @@ Hardware and system services:
 ```
 modules/
 ├── shared/        # host.* options used by both module trees
-├── nixos/         # NixOS: boot, locale, audio, security, fonts, services
+├── nixos/         # NixOS: boot, locale, security, desktop base, services, homelab containers
 ├── drivers/       # Hardware: nvidia, finalmouse
 └── home/          # Home Manager (entry: default.nix)
     ├── applications/  # GUI apps
@@ -628,6 +628,130 @@ pkgs/              # Local packages, exposed as overlays.default
 ```
 
 Every module is opt-in through `features.*` (or `drivers.*`); nothing in `modules/home` is active until a host enables it.
+
+## Homelab
+
+`homelab` is a headless host (`windowManager = null`, so audio, fonts and the other
+`features.desktop` parts stay off). Containers are declared in
+`hosts/homelab/services.nix`; all options live in `modules/nixos/homelab.nix`:
+
+```nix
+services.homelab.apps.my-app = {
+  enable = true;
+  package = app "my-app";             # Nix-built image, or `image = "registry/...@sha256:..."`
+
+  network.ports = {                   # published on 127.0.0.1 (network.address)
+    http = 3000;
+    metrics = 3565;
+  };
+
+  secrets.sops.file = ../../secrets/my-app.env;   # optional, encrypted dotenv (see below)
+
+  environmentVariables.PORT = "3000";
+
+  volumes = [ "/var/lib/my-app:/data:U" ];        # host dir is created automatically
+
+  resources = {                       # systemd names, enforced by podman
+    memoryMax = "256M";
+    cpuQuota = "50%";
+    tasksMax = 128;
+  };
+
+  sandbox = true;                     # read-only rootfs, no caps, user namespace
+};
+```
+
+### Apps from their own repo
+
+The app repo only has to export a package (set `meta.mainProgram` so the
+container knows what to run):
+
+```nix
+# flake.nix in the app repo
+{
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  outputs = { nixpkgs, ... }:
+    let pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    in {
+      packages.x86_64-linux.default = pkgs.buildGoModule {
+        pname = "my-app";
+        version = "0.1.0";
+        src = ./.;
+        vendorHash = null; # or the hash nix reports
+        meta.mainProgram = "my-app";
+      };
+    };
+}
+```
+
+Add it as an input here (`my-app = { url = "github:Pazl27/my-app"; inputs.nixpkgs.follows = "nixpkgs"; };`)
+and enable it in `hosts/homelab/services.nix` with `package = app "my-app";`. Inputs are fetched
+lazily, so only the homelab build pulls and builds the app. To ship a new version:
+
+```bash
+nix flake update my-app
+nixos-rebuild switch --flake .#homelab --target-host homelab@<ip> --sudo
+```
+
+The new package gives a new image tag, so the switch restarts exactly that container.
+
+### Stacks and third-party services
+
+`hosts/homelab/services.nix` lists everything the homelab runs, not only apps:
+
+- **Stacks** (several services, own reverse-proxy rules, e.g. prism): the repo's flake exports
+  `nixosModules.default`; add the repo as an input, then
+  `imports = [ inputs.prism.nixosModules.default ];` and `services.prism.enable = true;`.
+  A stack that needs a reverse proxy brings it in its module (`services.caddy.enable` plus its
+  own `services.caddy.virtualHosts` entry); several stacks merge into one Caddy.
+- **Third-party** (anything with a NixOS module), natively as systemd units:
+```nix
+services.jellyfin.enable = true;
+systemd.services.jellyfin.serviceConfig = { MemoryMax = "2G"; CPUQuota = "200%"; };
+```
+
+### Install (once)
+
+1. Set the disk in `hosts/homelab/disko.nix` (`lsblk` on the machine).
+2. Boot the machine from the NixOS minimal ISO, set a root password (`passwd`).
+3. From a Linux machine with Nix (the desktop):
+```bash
+nix run github:nix-community/nixos-anywhere -- --flake .#homelab \
+  --generate-hardware-config nixos-generate-config ./hosts/homelab/hardware-configuration.nix \
+  root@<ip>
+git add hosts/homelab/hardware-configuration.nix
+```
+
+### Deploy
+
+```bash
+nixos-rebuild switch --flake .#homelab --target-host homelab@<ip> --sudo
+```
+
+### Secrets (optional, sops-nix)
+
+Nothing depends on sops until an app sets `secrets.sops.file`. To start using it:
+
+```bash
+nix shell nixpkgs#age nixpkgs#ssh-to-age nixpkgs#sops
+age-keygen -o ~/.config/sops/age/keys.txt                         # your key, back it up
+ssh homelab@<ip> cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age   # the server's key
+```
+
+`.sops.yaml` in the repo root:
+```yaml
+keys:
+  - &me age1...       # age-keygen -y ~/.config/sops/age/keys.txt
+  - &homelab age1...  # ssh-to-age output
+creation_rules:
+  - path_regex: secrets/.*
+    key_groups: [{ age: [*me, *homelab] }]
+```
+
+Then `sops secrets/my-app.env` opens an editor for plain `KEY=value` lines; the saved
+file has encrypted values and is safe to commit. On the server the file is decrypted
+into `/run/secrets` at activation (never into the Nix store), handed to the container
+as environment variables, and the container restarts when the file changes.
 
 ## Running Nixvim Remotely
 

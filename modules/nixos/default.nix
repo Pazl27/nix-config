@@ -1,12 +1,15 @@
 # Entry point of the NixOS module tree. The base system (boot, locale,
-# audio, nix, hardening, fonts) is always on; everything else is toggled
-# through `features.*` or derived from `config.host`.
+# nix, hardening) is always on; everything else is toggled through
+# `features.*` or derived from `config.host`. The desktop base (audio,
+# fonts, ...) follows `host.windowManager`.
 {
   imports = [
     ./bluetooth.nix
     ./bootloader.nix
+    ./desktop.nix
     ./display-manager.nix
     ./fonts.nix
+    ./homelab.nix
     ./openssh.nix
     ./packages.nix
     ./security.nix
