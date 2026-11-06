@@ -8,6 +8,7 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/share/scripts
     cp -r $src/* $out/share/scripts/
+    find $out/share/scripts -type f -name '*.sh' -exec chmod +x {} +
   '';
 
   meta = with lib; {
